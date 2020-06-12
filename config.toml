@@ -1,4 +1,4 @@
-baseURL = "http://example.com/"
+baseURL = "/"
 languageCode = "en-us"
 title = "Data Science Garage"
 theme = "minimal"
