@@ -12,21 +12,12 @@
     
     
     <item>
-      <title>0.0 R Bootcamp intro</title>
-      <link>/bootcamp/0.0-bootcamp-intro/</link>
+      <title>0.1 R Bootcamp intro</title>
+      <link>/bootcamp/0.1-bootcamp-intro/</link>
       <pubDate>Wed, 10 Jun 2020 21:13:14 -0500</pubDate>
       
-      <guid>/bootcamp/0.0-bootcamp-intro/</guid>
+      <guid>/bootcamp/0.1-bootcamp-intro/</guid>
       <description>Bootcamp overviewThe purpose of this self-guided, online Bootcamp is to help get beginners in R started as quickly as possible or to help people with experience refresh their knowledge. There are 3 modules introducing data science skills, including R Programming, traditional statistical analysis, and open science tools. We use R here because it is specifically designed for people with little or no formal programming training, and because it is so good at doing all the things we aim to do.</description>
-    </item>
-    
-    <item>
-      <title>0.0 R Bootcamp intro</title>
-      <link>/bootcamp/0.0-bootcamp-intro.utf8/</link>
-      <pubDate>Wed, 10 Jun 2020 21:13:14 -0500</pubDate>
-      
-      <guid>/bootcamp/0.0-bootcamp-intro.utf8/</guid>
-      <description>Bootcamp overview The purpose of this self-guided, online Bootcamp is to help get beginners in R started as quickly as possible or to help people with experience refresh their knowledge. There are 3 modules introducing data science skills, including R Programming, traditional statistical analysis, and open science tools. We use R here because it is specifically designed for people with little or no formal programming training, and because it is so good at doing all the things we aim to do.</description>
     </item>
     
     <item>

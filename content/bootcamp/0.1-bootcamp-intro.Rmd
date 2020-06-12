@@ -1,0 +1,174 @@
+---
+title: "0.1 R Bootcamp intro"
+author: "Ed Harris"
+date: 2020-06-10T21:13:14-05:00
+categories: ["R"]
+tags: ["Bootcamp"]
+--- 
+
+```{r setup, include=FALSE}
+library(png)
+library(grid)
+library(gridExtra)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+![](/img/pop_fisher_sm.png)  
+  
+  
+## Bootcamp overview  
+  
+The purpose of this self-guided, online **Bootcamp** is to help get beginners in R started as quickly as possible or to help people with experience refresh their knowledge.  There are 3 modules introducing data science skills, including **R Programming**, traditional **statistical analysis**, and **open science** tools.  We use R here because it is specifically designed for people with little or no formal programming training, and because it is so good at doing all the things we aim to do.  
+  
+This **Bootcamp intro** page will help orient you if you are a beginner, but will also cover our design approach for the materials and the tools you will need to get started right away.  If you are already an RStudio user and comfortable managing and storing script files and scripts in R, you may  jump straight into the Bootcamp modules.  
+  
+<br/><br/>
+
+## 0.1 Bootcamp intro (Your first day with R)  
+  
+  
+**Contents**  
+0.1.1 How Data Science Garage works  
+0.1.2 R motivation  
+0.1.3 Install R and RStudio **or** set up RStudio Cloud  
+0.1.4 RStudio components and setup  
+0.1.5 Workflow for scripts in R  
+  
+<br/><br/>
+
+### 0.1.1 How Data Science Garage works  
+  
+Data Science Garage aims to provide practical, open instructional materials.  The content is a blend of practical, referenced material with videos and self-assessment.  We also a have a [friendly community Slack channel](https://join.slack.com/t/hadatascience/shared_invite/zt-ekigo1t3-0ADgafsF6zTDwJ9SxIws9w) - go over and introduce yourself and say hi!  
+  
+<br/><br/>
+
+### 0.1.2 R motivation  
+  
+The motivation for using R is that it is designed to help people with no programming experience to perform sophisticated statistical analysis with minimum effort.  R has grown in popularity over the past few decades and is used extensively by universities, companies and researchers everywhere.  R is free and open source.  R is easy to learn and works the same for folks with fast and slow computers, no matter what kind of computer they like to use, and it is easy to use via the web on any device.  
+  
+<br/><br/>
+
+### 0.1.3 Install R and RStudio **or** set up RStudio Cloud  
+  
+You have two options for following along with these materials as they are intended.  
+
+<br/>
+
+**Option 1** [Download and install R from CRAN](https://cloud.r-project.org/) and then [download and install RStudio desktop](https://rstudio.com/products/rstudio/download/#download).  Install R first, then RStudio.  It is probably a idea to go ahead and install the latest version of each if you have older versions installed.  If you have a PC or laptop you regularly use, this option is probably best and will work for almost all hardware and operating systems.  
+  
+[Help for Windows](https://www.google.com/search?q=how+do+I+install+R+for+mac&oq=how+do+I+install+R+for+windows)  
+  
+  
+[Help for Macs](https://www.google.com/search?q=how+do+I+install+R+for+mac&oq=how+do+I+install+R+for+mac)  
+  
+  
+[Help for Linux](https://www.google.com/search?q=how+do+I+install+R+for+linux&oq=how+do+I+install+R+for+linux)  
+  
+<br/>
+  
+**Option 2** If you can't install R or do not wish to, or if you prefer to work in "the cloud", you may wish to start a [free account at RStudio Cloud](https://rstudio.cloud) and follow along that way.  
+  
+<br/>
+
+### 0.1.4 RStudio components and setup   
+
+RStudio desktop is an environment to write R code, organize a big project with multiple files, and view and organize outputs.  There are many features of RStudio, but we are only going to point out a few.  One of the most useful features is *syntax highlighting*, that gives visual cues to help you write computer code.
+
+<br/>  
+
+Be aware (beware?) of:  
+  
+**The Script window**  
+
+The script window is located in the upper right of the RSTUDIO console by default.  You may need to open a script or start a new one: File > New File > R Script (hotkey **Ctrl+Shift+N**).  The script window is where you are likely to spend most of your time building scripts and executing commands you write. You can have many scripts open at the same time (in "tabs"), and you can have different kinds of scripts, e.g., for different programming languages.
+  
+<br/>  
+
+**The Console window**  
+
+The Console window is in the lower right by default.  Notice there are several other tabs visible, but we will only mention the Console for now.  The Console is the place where text outputs will be printed (e.g. the results of statistical tests), and also is a place where R will print Warning and Error messages.
+  
+<br/>  
+ 
+**The Global Environment**  
+  
+The Global Environment is in the Environment tab in the upper right of RStudio by default.  This pane is useful in displaying data objects that you have loaded and available.
+
+<br/>  
+
+**The Plots window**  
+  
+The Plots window is a tab in the lower right by default.  This is the place where graphics output is displayed and where plots can be named, resized, copied and saved.  There are some other important tabs here as well, which you can also explore.  When a new plot is produced, the Plots tab will become active.
+  
+<br/><br/>  
+
+### 0.1.5 Workflow for R scripts  
+  
+**Script setup**  
+  
+An R script is a plain text file that ends in ".R" by default.  An R script serves several purposes.  First, it **documents your analysis** allowing it to be reproduced exactly by yourself (your future self!) or by others like *collaborators*, *friends*, *colleagues*, *your professor*, *your student*, etc.  Second, it is the **interface between your commands and R software**.  
+  
+A goal is that your R scripts should contain only important R commands and information, in an organized and logical way that has meaning for other people, maybe for people you have never spoken to.  A typical way to achieve this is to organize every script according to the same plan.  For example, start every script with a **Header**, that contains your name, the date of the most recent edit, and a short description of the PURPOSE of the script.  
+
+```{r, echo=T}
+# A typical script Header
+
+## HEADER ####
+## Who: <your name>
+## What: My first script
+## Last edited: yyyy-mm-dd (ISO 8601 date format... Google it!)
+####
+```
+
+<br/>  
+
+A **Contents** section should also be present near the top, to provide a road map for the analysis. 
+```{r, echo=T}
+# A typical script Contents section
+
+## CONTENTS ####
+## 00 Setup
+## 01 Graphs
+## 02 Analysis
+## 03 Etc
+```
+
+<br/>  
+
+Finally, **code chunk** breaks should be used to aid the readability of the script and to provide a clickable table of contents in RStudio for your script.  A code chunk is just a section of code set off from other sections.
+
+
+```{r, echo=T}
+# A typical Code chunk in RStudio
+
+# The line must start with (at least) one hash sign "#", 
+# have a title of code chunk contents, 
+# and end with (at least) four hash signs "####" 
+
+## This here is MY CODE CHUNK ####
+```
+
+
+We will practice each of these components.
+
+<br/><br/>
+
+**Comments**  
+  
+Comments are messages that explain code in your script, and they should be used throughout every script.  You can think of comments like the methods section of a scientific paper - there should be enough detail to exactly replicate and understand the script, but it should also be concise.
+
+```{r, echo=T}
+# Make a vector of numbers
+my_variable <- c(2,5,3,6,3,4,7)
+
+# Calculate the mean of my_variable
+mean(my_variable)
+``` 
+  
+<br/>  
+
+**Submitting commands**  
+  
+A final thing that must be mentioned here is how to actually submit commands in your R script for R to execute. There are a few ways to do this. The easiest way to **run the line of code your cursor is on** (or code you have selected with your cursor), is with the hotkey **Ctrl+Enter** (Cmd+Return in Macs).  You can also use the "Run" key along the top of the Script window, or from the menu Code > Run Selected Line(s).
+
+Have a look at this [example script](/scripts/script-0.1.5.R) (download it, open it in RStudio, and run through the commands).
