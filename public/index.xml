@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Science Garage</title>
+    <link>/</link>
+    <description>Recent content on Data Science Garage</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 10 Jun 2020 21:13:14 -0500</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>0.0 R Bootcamp intro</title>
+      <link>/bootcamp/0.0-bootcamp-intro/</link>
+      <pubDate>Wed, 10 Jun 2020 21:13:14 -0500</pubDate>
+      
+      <guid>/bootcamp/0.0-bootcamp-intro/</guid>
+      <description>Bootcamp overviewThe purpose of this self-guided, online Bootcamp is to help get beginners in R started as quickly as possible or to help people with experience refresh their knowledge. There are 3 modules introducing data science skills, including R Programming, traditional statistical analysis, and open science tools. We use R here because it is specifically designed for people with little or no formal programming training, and because it is so good at doing all the things we aim to do.</description>
+    </item>
+    
+    <item>
+      <title>0.0 R Bootcamp intro</title>
+      <link>/bootcamp/0.0-bootcamp-intro.utf8/</link>
+      <pubDate>Wed, 10 Jun 2020 21:13:14 -0500</pubDate>
+      
+      <guid>/bootcamp/0.0-bootcamp-intro.utf8/</guid>
+      <description>Bootcamp overview The purpose of this self-guided, online Bootcamp is to help get beginners in R started as quickly as possible or to help people with experience refresh their knowledge. There are 3 modules introducing data science skills, including R Programming, traditional statistical analysis, and open science tools. We use R here because it is specifically designed for people with little or no formal programming training, and because it is so good at doing all the things we aim to do.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>Data Science Garage is a repository created to help people do data science: to explore, visualize and analyze data, and to share and communicate results with others. The goal is to use a practical approach to scientific question formulation and evidence, through curating a range of high quality and open resources. The philosophy is practical with more emphasis on asking meaningful questions and statistical reasoning (and less on programming and engineering).</description>
+    </item>
+    
+  </channel>
+</rss>

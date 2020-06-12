@@ -1,0 +1,60 @@
+baseURL = "http://example.com/"
+languageCode = "en-us"
+title = "Data Science Garage"
+theme = "minimal"
+# disqusShortname = "username" # delete this to disable disqus comments
+googleAnalytics = ""
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+[params]
+    author = "Ed Harris"
+    description = "A collection of practical resources for people interested in learning from data"
+    githubUsername = "weharris"
+    accent = "green" 
+    showBorder = true
+    backgroundColor = "white"
+    font = "Raleway" # should match the name on Google Fonts!
+    highlight = true
+    highlightStyle = "default"
+    highlightLanguages = ["go", "haskell", "kotlin", "scala", "swift"]
+    
+
+[[menu.main]]
+    url = "/"
+    name = "Home"
+    weight = 1
+
+[[menu.main]]
+    url = "/about/"
+    name = "About"
+    weight = 2
+
+[[menu.main]]
+    url = "/bootcamp/"
+    name = "Bootcamp"
+    weight = 3
+
+# [[menu.main]]
+#     url = "/project/"
+#     name = "Projects"
+#     weight = 4
+
+# Social icons to be shown on the right-hand side of the navigation bar.
+# The "name" field should match the name of the icon in Font Awesome.
+# The list of available icons can be found at http://fontawesome.io/icons.
+
+[[menu.icon]]
+    url = "https://join.slack.com/t/hadatascience/shared_invite/zt-ekigo1t3-0ADgafsF6zTDwJ9SxIws9w"
+    name = "slack"
+    weight = 1
+
+[[menu.icon]]
+    url = "https://twitter.com/adams_data/"
+    name = "twitter"
+    weight = 2
+    
+[[menu.icon]]
+    url = "https://www.youtube.com/channel/UCOEuOH6cY8yisodud25hb7w"
+    name = "youtube"
+    weight = 3
+    
