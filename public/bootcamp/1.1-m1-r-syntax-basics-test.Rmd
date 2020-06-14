@@ -1,0 +1,37 @@
+---
+title: "1.1 R Syntax Basics test"
+author: "Ed Harris"
+date: "2020-06-14"
+categories: ["R"]
+tags: ["Bootcamp", "R", "Programming"]
+--- 
+
+## R Syntax basics, The passive-aggressive butler
+VIDEO 1.1
+SCRIPT
+**Contents**
+1.1.1 Example script, comments, help, pseudocode
+1.1.2 Math operators
+1.1.3 Logical Boolean operators
+1.1.4 Regarding base R and the Tidyverse
+1.1.5 Practice exercises
+
+### 1.1.1 Example script, comments, help, pseudocode
+.
+
+
+### 1.1.2 Math operators
+.
+
+
+### 1.1.3 Logical Boolean operators
+.
+
+
+### 1.1.4 Regarding base R and the Tidyverse
+.
+
+
+### 1.1.5 Practice exercises
+.
+

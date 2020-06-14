@@ -1,0 +1,44 @@
+---
+title: "1.2 Functions and Packages"
+author: "Ed Harris"
+date: "2020-06-14"
+categories: ["R"]
+tags: ["Bootcamp", "R", "Programming"]
+--- 
+
+![ ](/img/hex-sm.png)  
+
+## Functions and Packages Toolboxes R is like a garage 
+
+VIDEO 1.2 
+
+SCRIPT 
+
+
+**Contents**  
+1.2.1 Function tour  
+1.2.2 Using functions and getting help  
+1.2.3 R packages  
+1.2.4 Finding, downloading and using packages  
+1.2.5 Practice exercises  
+
+### 1.2.1 Function tour 
+
+
+
+### 1.2.2 Using functions and getting help 
+
+
+
+### 1.2.3 R packages 
+
+
+
+### 1.2.4 Finding, downloading and using packages 
+
+
+
+### 1.2.5 Practice exercises 
+
+
+
