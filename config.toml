@@ -17,8 +17,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     highlight = true
     highlightStyle = "default"
     highlightLanguages = ["go", "haskell", "kotlin", "scala", "swift"]
+    dateFormat = "2006-01-02"
+    paginate = 10
     
-
 [[menu.main]]
     url = "/"
     name = "Home"

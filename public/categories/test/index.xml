@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>test on Data Science Garage</title>
+    <link>/categories/test/</link>
+    <description>Recent content in test on Data Science Garage</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/test/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>0.0 R Bootcamp Overview</title>
+      <link>/bootcamp/0.0-bootcamp-overview/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/0.0-bootcamp-overview/</guid>
+      <description>Bootcamp overview The purpose of this self-guided, online Bootcamp is to help get beginners in R started as quickly as possible or to help people with experience refresh their knowledge. There are 3 modules introducing data science skills, including R Programming, traditional statistical analysis, and open science tools. We use R here because it is specifically designed for people with little or no formal programming training, and because it is so good at doing all the things we aim to do.</description>
+    </item>
+    
+  </channel>
+</rss>
