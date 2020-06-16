@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>3.1 Best Practices for Reproducibility</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: white;
+    }
+
+    :root {
+        --accent: green;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/haskell.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/swift.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.72.0" />
+        
+
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+
+    </head>
+
+    <body>
+        
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">3.1 Best Practices for Reproducibility</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/bootcamp/">Bootcamp</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="https://join.slack.com/t/hadatascience/shared_invite/zt-ekigo1t3-0ADgafsF6zTDwJ9SxIws9w"><i class="fa fa-slack"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://twitter.com/adams_data/"><i class="fa fa-twitter"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.youtube.com/channel/UCOEuOH6cY8yisodud25hb7w"><i class="fa fa-youtube"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+<main>
+
+    <div>
+        <h2>3.1 Best Practices for Reproducibility</h2>
+        <h5></h5>
+        
+<a href="/tags/bootcamp"><kbd class="item-tag">Bootcamp</kbd></a>
+
+<a href="/tags/r"><kbd class="item-tag">R</kbd></a>
+
+<a href="/tags/reproducibility"><kbd class="item-tag">Reproducibility</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p> </p>
+<p>Analysing data using R can generate complex scripts that might make sense to you while you&rsquo;re actively working on them, but they won&rsquo;t to future you or collaborators. This module offers guidance on best practices for making your code easy to read and understand, both for yourself and others. Consistently following a set of “rules” will improve your R workflow and reduce occurrence of errors.</p>
+<p> </p>
+<p><a href="/scripts/script-3.1.R">SCRIPT</a> Use this for the Practice exercises below</p>
+<p> </p>
+<p><strong>Contents</strong></p>
+<p>3.1.1 Styling Your Code<br>
+3.1.2 RStudio Addins<br>
+3.1.3 Project Organisation<br>
+3.1.4 RStudio Projects<br>
+3.1.5 Practice Exercises</p>
+<p> </p>
+<h3 id="311-styling-your-code">3.1.1 Styling Your Code</h3>
+<blockquote>
+<p>&ldquo;Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread.&rdquo; - Hadley Wickham</p>
+</blockquote>
+<p>As we saw in <a href="/bootcamp/1.1-m1-r-syntax-basics/index.html">module 1.1</a> of the bootcamp, it is important to give your R scripts structure to facilitate reproducibility and make them human-readable. We can take this one step further by also styling our code to meet a set of &ldquo;rules&rdquo;. There are lots of different styles but we will focus on the Hadley Wickham&rsquo;s guide, which is comprehensively documented <a href="http://adv-r.had.co.nz/Style.html">here</a>.</p>
+<p> </p>
+<h4 id="naming-files-and-objects">Naming files and objects</h4>
+<p>Selecting an good names for files and objects may seem easy, but isn&rsquo;t! Whatever you do, avoid the obvious - e.g. naming plots <code>plot1</code>, <code>plot2</code>, etc.</p>
+<p> </p>
+<p><strong>File names</strong></p>
+<ul>
+<li>Make them meaningful</li>
+<li>Avoid spaces and unusual characters</li>
+<li>Use all lowercase letters</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+aphid_mortality_analysis_2019.R
+
+<span style="color:#75715e"># Bad</span>
+Script <span style="color:#ae81ff">+2</span>.R  
+</code></pre></div><p> </p>
+<p><strong>Object names</strong></p>
+<ul>
+<li>Use underscores to separate words in object names</li>
+<li>Use informative but short object names</li>
+<li>Do not reuse object names within an analysis</li>
+<li>Avoid reusing names of common functions</li>
+<li>Variable names == nouns while function names == verbs</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+mean_aphid_mortality
+
+<span style="color:#75715e"># Bad</span>
+mean.aphid.mortality
+MeanAphidMortality
+mam
+aphid_Subset
+</code></pre></div><p> </p>
+<h4 id="spacing">Spacing</h4>
+<p><strong>Commas</strong></p>
+<ul>
+<li>Always put a space after a comma, never before, just like in regular English:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+x[, <span style="color:#ae81ff">1</span>]
+
+<span style="color:#75715e"># Bad</span>
+x[,<span style="color:#ae81ff">1</span>]
+x[ ,<span style="color:#ae81ff">1</span>]
+x[ , <span style="color:#ae81ff">1</span>]
+</code></pre></div><p> </p>
+<p><strong>Parentheses</strong></p>
+<ul>
+<li>Do not put spaces inside or outside <code>()</code> for regular function calls:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+<span style="color:#a6e22e">mean</span>(x, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+
+<span style="color:#75715e"># Bad</span>
+<span style="color:#a6e22e">mean </span>(x, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+<span style="color:#a6e22e">mean</span>( x, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span> )
+</code></pre></div><p> </p>
+<ul>
+<li>Place a space before and after <code>()</code> when used with <code>if</code>, <code>for</code>, or <code>while</code>:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+<span style="color:#a6e22e">if </span>(debug) {
+  <span style="color:#a6e22e">show</span>(x)
+}
+
+<span style="color:#75715e"># Bad</span>
+<span style="color:#a6e22e">if</span>(debug){
+  <span style="color:#a6e22e">show</span>(x)
+}
+</code></pre></div><p> </p>
+<ul>
+<li>Place a space after <code>()</code> used for function arguments:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+<span style="color:#a6e22e">function</span>(x) {}
+
+<span style="color:#75715e"># Bad</span>
+<span style="color:#a6e22e">function </span>(x) {}
+<span style="color:#a6e22e">function</span>(x){}
+</code></pre></div><p> </p>
+<p><strong>Infix operators</strong></p>
+<ul>
+<li>Most infix operators (<code>==</code>, <code>+</code>, <code>-</code>, <code>&lt;-</code>, etc.) should always be surrounded by spaces:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+height <span style="color:#f92672">&lt;-</span> (feet <span style="color:#f92672">*</span> <span style="color:#ae81ff">12</span>) <span style="color:#f92672">+</span> inches
+<span style="color:#a6e22e">mean</span>(x, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+
+<span style="color:#75715e"># Bad</span>
+height<span style="color:#f92672">&lt;-</span>feet<span style="color:#f92672">*</span><span style="color:#ae81ff">12</span><span style="color:#f92672">+</span>inches
+<span style="color:#a6e22e">mean</span>(x, na.rm<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
+</code></pre></div><p> </p>
+<ul>
+<li>Operators with high precedence: <code>::</code>, <code>:::</code>, <code>$</code>, <code>[</code>, <code>^</code>, <code>:</code> etc. should <strong>NOT</strong> have spaces:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+<span style="color:#a6e22e">sqrt</span>(x^2 <span style="color:#f92672">+</span> y^2)
+df<span style="color:#f92672">$</span>z
+x <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>
+
+<span style="color:#75715e"># Bad</span>
+<span style="color:#a6e22e">sqrt</span>(x ^ <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> y ^ <span style="color:#ae81ff">2</span>)
+df <span style="color:#f92672">$</span> z
+x <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>
+</code></pre></div><p> </p>
+<h4 id="assignment">Assignment</h4>
+<ul>
+<li>Use <code>&lt;-</code> not <code>=</code>:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+x <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>
+
+<span style="color:#75715e"># Bad</span>
+x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>
+</code></pre></div><p> </p>
+<ul>
+<li>Avoid assignment in function calls:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">complicated_function</span>()
+<span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">nzchar</span>(x) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span>) {
+  <span style="color:#75715e"># do something</span>
+}
+
+<span style="color:#75715e"># Bad</span>
+<span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">nzchar</span>(x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">complicated_function</span>()) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span>) {
+  <span style="color:#75715e"># do something</span>
+}
+</code></pre></div><p> </p>
+<h4 id="long-lines">Long lines</h4>
+<p>Strive to limit your code to 80 characters per line. This fits comfortably on a printed page with a reasonably sized font. If you find yourself running out of room, this is a good indication that you should encapsulate some of the work in a separate function.</p>
+<p>If a function call is too long to fit on a single line, use one line each for the function name, each argument, and the closing ). This makes the code easier to read and to change later.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+<span style="color:#a6e22e">do_something_very_complicated</span>(
+  something <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;that&#34;</span>,
+  requires <span style="color:#f92672">=</span> many,
+  arguments <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;some of which may be long&#34;</span>
+)
+
+<span style="color:#75715e"># Bad</span>
+<span style="color:#a6e22e">do_something_very_complicated</span>(<span style="color:#e6db74">&#34;that&#34;</span>, requires, many, arguments,
+                              <span style="color:#e6db74">&#34;some of which may be long&#34;</span>
+                              )
+</code></pre></div><p> </p>
+<h3 id="312-styling-your-code-with-rstudio-addins">3.1.2 Styling Your Code With RStudio Addins</h3>
+<p>RStudio addins are available for the newest version of RStudio and add some functionality to RStudio using point and click menus. Install addins by running the following code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;addinslist&#39;</span>)
+</code></pre></div><p> </p>
+<p>After you have installed certain addins, you can access them by clicking on Addins:</p>
+<p><img src="/img/3.1-addin-menu.png" alt=" "></p>
+<p> </p>
+<p>Before you can style using RStudio addins your code you will need to install the <code>styler</code> package:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">install.package</span>(<span style="color:#e6db74">&#39;styler&#39;</span>)
+</code></pre></div><p> </p>
+<p>Further information on using <code>styler</code> can be found <a href="https://styler.r-lib.org/">here</a>. You can now highlight your code and style according to <code>tidyverse</code> formatting by selecting <code>style selection</code> in the <code>styler</code> section of the addins menu:</p>
+<p><img src="/img/3.1-addin-menu-styler.png" alt=" "></p>
+<p> </p>
+<h3 id="313-project-organisation">3.1.3 Project Organisation</h3>
+<p>Science is a naturally incremental process so most projects begin as a seemingly random collection of files. Many people end up organising their projects like this:</p>
+<p><img src="/img/3.1-untidy-project.png" alt=" "></p>
+<p>This is not a well organised project as it is confusing, mixes up many file types and modifies the original data file. Why organise your projects better?</p>
+<ul>
+<li>Helps ensure the integrity of your data</li>
+<li>Makes it simpler to share your code</li>
+<li>Easier to pick the project back up after a break.</li>
+</ul>
+<p>Truly reproducible research requires self-contained projects. Everything that goes in to, and comes out of, the project should be contained within a single folder. I recommend that you create a folder called repos/ that your project folders live in, e.g. <code>C:/User/owner/Documents/repos/proj/</code>. This way your project folders are neatly separated from other files.</p>
+<p> </p>
+<p>Once you have a <code>repos/</code> folder, you can create the project folder. This is the structure that I find works for me. You may want to find a variation of it that works for you, but the basic premise of keeping repositories self-contained should remain.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">C<span style="color:#f92672">:/</span>
+└── Documents<span style="color:#f92672">/</span>
+    └── repos<span style="color:#f92672">/</span>
+        └── proj<span style="color:#f92672">/</span>
+            ├── data<span style="color:#f92672">/</span>
+            ├── docs<span style="color:#f92672">/</span>
+            ├── figs<span style="color:#f92672">/</span>
+            ├── funs<span style="color:#f92672">/</span>
+            ├── out<span style="color:#f92672">/</span>
+            ├── cleaning.R
+            └── analysis.R
+</code></pre></div><p>The project repository contains separate directories that can be used to store different file types. Importantly, the analysis and cleaning files are stored in the project root, allowing easy use of relative paths over explicit paths e.g. <code>read.csv(here('data', 'data_file.csv'))</code> rather than <code>read.csv('C:/Users/owner/Documents/repos/my_project/data/data_file.csv')</code>. Relative paths are preferable because they allow projects to be used by multiple people without the need to re-write code. If you use explicit paths and change computer, or the project is opened by another person, the code will break as they will not have the same directory structure as the computer that the code was created on.</p>
+<p><strong>Note:</strong> the example above used an R package called <code>here_here</code>, calling the function <code>here()</code>.</p>
+<p> </p>
+<h4 id="data"><code>data/</code></h4>
+<p>Treat your data as read-only! This is probably the most important goal of setting up a project. Data is typically time consuming and/or expensive to collect. Working with them interactively (e.g. in Excel) where they can be modified means you are never sure of where the data came from, or how it has been modified since collection.</p>
+<ul>
+<li><code>docs/</code>: contains the output documents</li>
+<li><code>funs/</code>: contains custom functions you write</li>
+<li><code>out/</code>: contains files that are produced from the original data e.g. cleaned data files</li>
+<li><code>figs/</code>: contains figures generated from your scripts</li>
+</ul>
+<p>All output can be treated as disposable as it could be easily regenerated by running the code.</p>
+<p> </p>
+<h3 id="314-rstudio-projects">3.1.4 RStudio Projects</h3>
+<p>There are tools and packages which can help you manage your work effectively. One of the most powerful and useful aspects of RStudio is its project management functionality. All your data, plots and scripts are relative to the project directory created when setting up a project. Detailed guidance on using RStudio projects can be found <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">here</a>.</p>
+<p> </p>
+<h3 id="315-practice-exercises">3.1.5 Practice Exercises</h3>
+<p><strong>1</strong> Install RSudio Addins and the styler package by running:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;addinslist&#39;</span>)
+<span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;styler&#39;</span>)
+</code></pre></div><p>Download the script above and open it with RStudio. Now convert it to the <code>tidyverse</code> style using <code>styler</code>.</p>
+<p> </p>
+<p><strong>2</strong> Create an RStudio project following these instructions:</p>
+<ol>
+<li>Click the <code>File</code> menu button, then <code>New Project</code></li>
+<li>Click <code>New Directory</code></li>
+<li>Click <code>New Project</code></li>
+<li>Type in the name of the directory to store your project e.g. my_project</li>
+<li>Click the <code>Create Project</code> button</li>
+</ol>
+</div>
+
+</main>
+
+        <footer>
+            <p class="copyright text-muted">© All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a>.</p>
+        </footer>
+
+        
+
+        
+    </body>
+
+</html>
+

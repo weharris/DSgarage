@@ -38,6 +38,11 @@
   </url>
   
   <url>
+    <loc>/bootcamp/3.1-m3-reproducible-research/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/bootcamp/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
@@ -69,6 +74,16 @@
   
   <url>
     <loc>/tags/r/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/reproducibility/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
   
