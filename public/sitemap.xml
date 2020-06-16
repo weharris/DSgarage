@@ -43,6 +43,11 @@
   </url>
   
   <url>
+    <loc>/categories/bootcamp/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/bootcamp/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
@@ -68,17 +73,7 @@
   </url>
   
   <url>
-    <loc>/categories/r/</loc>
-    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/</loc>
-    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/test/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
   

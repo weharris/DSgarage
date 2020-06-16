@@ -12,48 +12,15 @@
     
     
     <item>
-      <title>0.0 R Bootcamp Overview</title>
-      <link>/bootcamp/0.0-bootcamp-overview/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/0.0-bootcamp-overview/</guid>
-      <description>Bootcamp overview The purpose of this self-guided, online Bootcamp is to help get beginners in R started as quickly as possible or to help people with experience refresh their knowledge. There are 3 modules introducing data science skills, including R Programming, traditional statistical analysis, and open science tools. We use R here because it is specifically designed for people with little or no formal programming training, and because it is so good at doing all the things we aim to do.</description>
-    </item>
-    
-    <item>
-      <title>0.1 R Bootcamp Intro</title>
-      <link>/bootcamp/0.1-bootcamp-intro/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/0.1-bootcamp-intro/</guid>
-      <description>0.1 Bootcamp Intro (Your first day with R) VIDEO 0.1 Bootcamp Intro
-SCRIPT Use this for the Practice exercises below
-
-Contents
-0.1.1 How Data Science Garage works
-0.1.2 R motivation
-0.1.3 Install R and RStudio or set up RStudio Cloud
-0.1.4 RStudio components and setup
-0.1.5 Workflow for scripts in R
-0.1.6 Practice exercises
- 0.1.1 How Data Science Garage works Data Science Garage aims to provide practical, open instructional materials.</description>
-    </item>
-    
-    <item>
       <title>1.1 R Syntax Basics</title>
       <link>/bootcamp/1.1-m1-r-syntax-basics/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.1-m1-r-syntax-basics/</guid>
-      <description>R Syntax basics (The passive-aggressive butler) VIDEO 1.1
-SCRIPT
-Contents
-1.1.1 Example script, comments, help, pseudocode
-1.1.2 Math operators
-1.1.3 Logical Boolean operators
-1.1.4 Regarding base R and the Tidyverse
-1.1.5 Practice exercises
-1.1.1 Example script, comments, help, pseudocode 1.1.2 Math operators 1.1.3 Logical Boolean operators 1.1.4 Regarding base R and the Tidyverse 1.1.5 Practice exercises </description>
+      <description>R Syntax basics (R as a passive-aggressive butler) VIDEO 1.1
+SCRIPT 1.1 Use this to follow along on this page and for the Practice exercises below.
+ Overview
+R is a programming language and popular open source software design to help non-programmers perform statistical analyses and to make graphs. This page is intended to guide people through some of the basics of the R programming language, just enough to get started.</description>
     </item>
     
     <item>
@@ -62,7 +29,7 @@ Contents
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.2-m1-function-and-packages/</guid>
-      <description>Functions and Packages Toolboxes R is like a garage VIDEO 1.2
+      <description>Functions and Packages Toolboxes (R as a garage full of tools) VIDEO 1.2
 SCRIPT
 Contents
 1.2.1 Function tour
@@ -79,7 +46,7 @@ Contents
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.3-m1-data-objects/</guid>
-      <description>Data Objects R space VIDEO 1.3
+      <description>Data Objects (R space as &amp;ldquo;a thing&amp;rdquo;) VIDEO 1.3
 SCRIPT
 Contents
 1.3.1 Basic data types, str
@@ -96,7 +63,7 @@ Contents
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.4-m1-data-frames/</guid>
-      <description>Data Frames Get your data in and tidy VIDEO 1.4
+      <description>Data Frames (Like your room, data should be tidy) VIDEO 1.4
 SCRIPT
 Contents
 1.4.1 Tidy data concept 1.4.2 Common data file types 1.4.3 Excel, data setup, and data dictionary 1.4.4 Practice exercises

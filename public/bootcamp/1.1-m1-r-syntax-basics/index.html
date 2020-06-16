@@ -128,27 +128,239 @@
         
 <a href="/tags/bootcamp"><kbd class="item-tag">Bootcamp</kbd></a>
 
-<a href="/tags/r"><kbd class="item-tag">R</kbd></a>
-
 <a href="/tags/programming"><kbd class="item-tag">Programming</kbd></a>
+
+<a href="/tags/r"><kbd class="item-tag">R</kbd></a>
 
 
     </div>
 
-    <div align="start" class="content"><h2 id="r-syntax-basics-the-passive-aggressive-butler">R Syntax basics (The passive-aggressive butler)</h2>
+    <div align="start" class="content"><p><img src="/img/butler-alfred-sm.png" alt=" "></p>
+<h2 id="r-syntax-basics-r-as-a-passive-aggressive-butler">R Syntax basics (R as a passive-aggressive butler)</h2>
 <p>VIDEO 1.1</p>
-<p>SCRIPT</p>
+<p><a href="/scripts/script-1.1.R">SCRIPT 1.1</a> Use this to follow along on this page and for the Practice exercises below.</p>
+<p> </p>
+<p><strong>Overview</strong></p>
+<p>R is a programming language and popular open source software design to help non-programmers perform statistical analyses and to make graphs. This page is intended to guide people through some of the basics of the R programming language, just enough to get started.  We love the R language, but sometimes it is a little bit like talking to a passive aggressive butler - if you aren&rsquo;t careful with your language, the interaction may have unexpected outcomes&hellip;</p>
+<p> </p>
 <p><strong>Contents</strong></p>
 <p>1.1.1 Example script, comments, help, pseudocode<br>
 1.1.2 Math operators<br>
 1.1.3 Logical Boolean operators<br>
 1.1.4 Regarding base R and the Tidyverse<br>
 1.1.5 Practice exercises</p>
+<p> </p>
 <h3 id="111-example-script-comments-help-pseudocode">1.1.1 Example script, comments, help, pseudocode</h3>
+<p> </p>
+<p>The most important thing to keep in mind right at the beginning of learning R is to view the script as something you are writing to document a piece of work (e.g. progress in a workshop like this, an analysis, a research project, etc.).  Organising every script you write is extremely important to build &ldquo;good habits&rdquo; for reproducibility of your work.  A good guideline for best practice in writing scripts is to pretend you are writing the script, comments and contents, for a respected colleague - someone who you respect and want to impress, but might not be able to explain in person about the purpose of the script (even if this is your future self).</p>
+<p>To get the most out of this page, we strongly recommend that you <strong>work through the instructions here while using R and RStudio</strong> as you go along.  We consider it very important that you <strong>type you own code rather than using copy and paste</strong>.  Finally, <strong>document all the code in your own script and write clear, concise comments</strong>.</p>
+<p><strong>Example script</strong>
+Download the script at the top of the page and save it in a logical place on your computer.  Open it in RStudio.</p>
+<p>Right at the top you should see the HEADER.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## HEADER ####</span>
+<span style="color:#75715e">## Who: &lt;YOUR NAME&gt;</span>
+<span style="color:#75715e">## https://dsgarage.netlify.app/</span>
+<span style="color:#75715e">## What: 1.1 R syntax basics</span>
+<span style="color:#75715e">## Last edited: &lt;DATE TODAY in yyyy-mm-dd format&gt;</span>
+<span style="color:#75715e">####</span>
+</code></pre></div><p>Go ahead and fill in the header with your own information.</p>
+<p>Next you should see the CONTENTS section.  The idea here is for you to list the CONTENTS of a script that can act as a roadmap to the user, but that can also help organize a large project into manageable chunks.  Each title under the CONTENTS section will become the title in a code chunk below. You should see the contents section in the script you downloaded like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## CONTENTS ####</span>
+<span style="color:#75715e">## 1.1.1 Example script, help, pseudocode  </span>
+<span style="color:#75715e">## 1.1.2 Math operators  </span>
+<span style="color:#75715e">## 1.1.3 Logical Boolean operators  </span>
+<span style="color:#75715e">## 1.1.4 Regarding base R and the Tidyverse   </span>
+<span style="color:#75715e">## 1.1.5 Practice exercises  </span>
+</code></pre></div><p> </p>
+<p>Each item in the CONTENTS section will become the title of individual code chunks.  RStudio recognizes code chunks that have a particular syntax:</p>
+<p>Code chunks begin with 2 &ldquo;##&rdquo; signs (1 works too, we prefer 2)<br>
+Code chunks end with at least 4 &ldquo;####&rdquo; signs</p>
+<p>The first code chunk should already be placed in your script</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## 1.1.1 Example script, help, pseudocode  ####</span>
+</code></pre></div><p> </p>
+<p><strong>help</strong></p>
+<p>One of the great things about using R is the community and the spirit of helping others.  However, there are so many websites, books, blogs and other resources that it can be overwhelming.  <strong>Best practice is to learn to use the R Help system first</strong>, then seek help elsewhere.</p>
+<p>The basic way to access the built-in help in R, is to use the help() function, with the name of tool you need help using inside the brackets.  For example, to calculate the mean of some numbers, we would use the function mean(), and to display the help for the mean() function we would run.  Run the following code in your own script:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Display help page for the function mean</span>
+<span style="color:#a6e22e">help</span>(mean)
+</code></pre></div><p> </p>
+<p>You should see:</p>
+<p><img src="/img/help-page.png" alt="mean help"></p>
+<p> </p>
+<p><strong>Does this help look mean enough?</strong><br>
+Let&rsquo;s orient to the information that is here because the help pages are essential to understand and every help page on every subject is organised in exactly the same way (and we will practice a lot using them).</p>
+<p> </p>
+<p><strong>1 Function name {Package name}</strong>  This field let&rsquo;s you know what &ldquo;R package&rdquo; the function belongs to.  We can ignore this for now, but it can be very useful.</p>
+<p><strong>2 Short description</strong> This tells you in a few words what the function does.</p>
+<p><strong>3 (longer) description</strong> This gives a longer description of what the function does</p>
+<p><strong>4 Usage</strong> This usually gives an example of the function in use and lists the &ldquo;arguments&rdquo; that you are required to supply to the function for it to work on.  Of course, you need to know about the arguments&hellip;</p>
+<p><strong>5 Argument definitions</strong> This field tells you what the argument are and do!</p>
+<p>Using the Usage and Argument fields, we can figure out how to make the function do the work we want.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Under Usage:</span>
+<span style="color:#75715e"># mean(x, ...)</span>
+
+<span style="color:#75715e"># The &#34;x&#34; is an argument that is required</span>
+<span style="color:#75715e"># The &#34;...&#34; means there are other optional arguments</span>
+
+<span style="color:#75715e"># Under Arguments:</span>
+
+<span style="color:#75715e"># x	</span>
+<span style="color:#75715e"># An R object... for numeric/logical vectors ...</span>
+
+<span style="color:#75715e"># try this code in your own script</span>
+my_length <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">122</span>, <span style="color:#ae81ff">97</span>) <span style="color:#75715e"># 3 numerical measures</span>
+<span style="color:#a6e22e">mean</span>(x <span style="color:#f92672">=</span> my_length) 
+
+</code></pre></div><p> </p>
+<p><strong>Pseudocode</strong>
+The idea of pseudocode is to break up a big task into a series of smaller tasks. An example of a task might be <strong>ANALYSE YOUR DATA</strong> (in shouty capitals because it is a big task).  To accomplish this task, we might have to walk through a series of steps, e.g.,</p>
+<p>-Read data into R</p>
+<p>-Test assumption for statistical testing</p>
+<p>-Graph the data</p>
+<p>-Perform statistical test</p>
+<p>-Organize outputs to communicate in report</p>
+<p> </p>
+<p>It is often a good idea to break down a task into pseudocode both to <strong>organise and document the methods in a logical way</strong>, but also to <strong>conceptually simplify a problem that is difficult to solve</strong>.  Practically, the items in a typical table of contents in an R script might be similar to psuedocode.  Note that this technique etends very well to any problem, not just R code and programming.</p>
+<p>E.g., what steps would be involved in a problem like: Send a rocket with people in it to Mars such that they survive and return to Earth.</p>
+<p> </p>
 <h3 id="112-math-operators">1.1.2 Math operators</h3>
+<p>Basic manipulation of numbers in R is very easy to do and is so intuitive that you can probably guess what they are and what they do.  There are just a few specifics that we will practice.  This list is not exhaustive; the goal is to get enough to begin practicing.</p>
+<p> </p>
+<p><strong>Arithmetic</strong></p>
+<p>Try this in your practice script:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Add with &#34;+&#34;</span>
+<span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>
+
+<span style="color:#75715e"># Subtract with &#34;-&#34;</span>
+<span style="color:#ae81ff">10</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">15</span>
+
+<span style="color:#75715e"># Multiply with &#34;*&#34;</span>
+<span style="color:#ae81ff">6</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">4.2</span>
+
+<span style="color:#75715e"># Divide by &#34;/&#34;</span>
+
+<span style="color:#ae81ff">10</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">4</span>
+
+<span style="color:#75715e"># raise to the power of x</span>
+<span style="color:#ae81ff">2</span>^3 
+<span style="color:#ae81ff">9</span><span style="color:#a6e22e">^</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>) <span style="color:#75715e"># same as sqrt()!</span>
+
+<span style="color:#75715e"># There are a few others, but these are the basics</span>
+</code></pre></div><p> </p>
+<p>Your output should look similar to this:</p>
+<p><img src="/img/arithmetic.png" alt="Arithmentic"></p>
+<p> </p>
+<p><strong>Order of operation</strong></p>
+<p>The &ldquo;order of operation&rdquo; refers to the order in which mathematical calculations are carried out.  A phrase like 2 + 2 is simple, but we need to consider order for more complicated phrases like 2 + 2 * 8 - 6.  In general multiplication and division are carried out before addition and subtraction unless specific order is coded.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+<span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>
+
+<span style="color:#75715e"># Order control - same</span>
+<span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#75715e"># Order control - different...</span>
+(<span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>
+
+<span style="color:#75715e">## Use of spaces ####</span>
+
+<span style="color:#75715e"># Try this</span>
+<span style="color:#ae81ff">6+10</span>                                  <span style="color:#75715e"># no spaces</span>
+<span style="color:#ae81ff">7</span>     <span style="color:#ae81ff">-5</span>                              <span style="color:#75715e"># uneven spaces</span>
+<span style="color:#ae81ff">1.6</span>             <span style="color:#f92672">/</span>                <span style="color:#ae81ff">2.3</span>  <span style="color:#75715e"># large spaces</span>
+<span style="color:#ae81ff">16</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>                                <span style="color:#75715e"># exactly 1 space</span>
+
+<span style="color:#75715e"># exactly 1 space is easiest to read...</span>
+
+</code></pre></div><p> </p>
+<p><strong>Use of spaces</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+<span style="color:#ae81ff">6+10</span>                                  <span style="color:#75715e"># no spaces</span>
+<span style="color:#ae81ff">7</span>     <span style="color:#ae81ff">-5</span>                              <span style="color:#75715e"># uneven spaces</span>
+<span style="color:#ae81ff">1.6</span>             <span style="color:#f92672">/</span>                <span style="color:#ae81ff">2.3</span>  <span style="color:#75715e"># large spaces</span>
+<span style="color:#ae81ff">16</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>                                <span style="color:#75715e"># exactly 1 space</span>
+
+<span style="color:#75715e"># exactly 1 space is easiest to read...</span>
+
+</code></pre></div><p> </p>
 <h3 id="113-logical-boolean-operators">1.1.3 Logical Boolean operators</h3>
-<h3 id="114-regarding-base-r-and-the-tidyverse">1.1.4 Regarding base R and the Tidyverse</h3>
+<p>Boolean operators are expressions that resolve TRUE (treated as &ldquo;1&rdquo; in most computing systems including R) versus FALSE (&ldquo;0&rdquo;).  A typical expression might be something like asking if 5 &gt; 3, which is TRUE.  More sophisticated phrases are possible, and sometimes useful.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+<span style="color:#75715e"># simplest example</span>
+<span style="color:#ae81ff">3</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>
+
+<span style="color:#75715e"># 3 is compared to each element</span>
+<span style="color:#ae81ff">3</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>) 
+
+<span style="color:#75715e"># Logic and math</span>
+<span style="color:#75715e"># &amp; (ampersand) means &#34;and&#34;</span>
+<span style="color:#75715e"># | (pipe) means &#34;or&#34;</span>
+
+<span style="color:#75715e"># This asks if both phrases are true (true AND true)</span>
+<span style="color:#75715e"># notice &#34;TRUE&#34; has a special meaning in R</span>
+
+<span style="color:#66d9ef">TRUE</span> <span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">TRUE</span> <span style="color:#75715e"># both phrases are true</span>
+
+<span style="color:#ae81ff">3</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span> <span style="color:#75715e"># both phrases are true</span>
+
+<span style="color:#75715e"># Are both phrases true?</span>
+
+<span style="color:#66d9ef">TRUE</span> <span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">FALSE</span> <span style="color:#75715e"># are both true?</span>
+
+<span style="color:#66d9ef">FALSE</span> <span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">FALSE</span> <span style="color:#75715e"># are both true?</span>
+
+<span style="color:#75715e"># Booleans can be useful to select data</span>
+
+<span style="color:#75715e"># Put some data into a variable and then print the variable</span>
+x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">21</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">22</span>)
+x
+
+x <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">20</span>
+
+<span style="color:#75715e"># the square brackets act as the index for the data vector</span>
+x[x <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">20</span>]
+</code></pre></div><p> </p>
+<p><strong>Sorry !Sorry (the &ldquo;not&rdquo; operator, !)</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+<span style="color:#66d9ef">TRUE</span> <span style="color:#75715e"># plain true</span>
+
+<span style="color:#f92672">!</span><span style="color:#66d9ef">FALSE</span> <span style="color:#75715e"># not false is true!</span>
+
+<span style="color:#ae81ff">6</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span> <span style="color:#75715e">#definitely false</span>
+
+<span style="color:#f92672">!</span>(<span style="color:#ae81ff">6</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>) <span style="color:#75715e">#not false...</span>
+
+<span style="color:#f92672">!</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">44</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">51</span>, <span style="color:#ae81ff">12</span>) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">50</span>) 
+
+
+</code></pre></div><p> </p>
+<h3 id="114-regarding-base-r-and-the-tidyverse">1.1.4 Regarding Base R and the Tidyverse</h3>
+<p><strong>Base R</strong></p>
+<p>The R language as it was invented and continues to be developed is extremely popular, powerful and easy to use, especially for people without a lot of formal programming training or experience in different computing languages. In general, we refer to this pure form of R as <strong>Base R</strong>.  Since the late 1990s, the R-user community and Base R resources on have exploded on the web and this form of the language continues to be extremely popular for experts and beginners alike.</p>
+<p> </p>
+<p><strong>Tidyverse R</strong></p>
+<p>Relatively recently, a second for of R use has evolved that puts forward different standard usage of the R lanuage.  The differences are practical, but also philosophical. This form of R use is generally referred to as <strong>The Tidyverse</strong>.  The Tidyverse is extremely powerful and we love it.  However, we feel that it is far more efficient to learn base R before learning the Tidyverse, and <strong>we will exclusively use base R for this bootcamp</strong>.</p>
+<p>There is some disagreement over which &ldquo;version&rdquo; of R is better or easier to learn and teach with.  You will definitely encounter the Tidyverse at some point and eventually you can choose to use it a little or a lot.</p>
+<p> </p>
+<p><a href="https://github.com/matloff/TidyverseSkeptic">The Argument for Base R</a></p>
+<p><a href="http://varianceexplained.org/r/teach-tidyverse/">The Argument for the Tidyverse</a></p>
+<p> </p>
 <h3 id="115-practice-exercises">1.1.5 Practice exercises</h3>
+<p> </p>
+<p><strong>1</strong> Name and describe the purpose of the first 2 sections that should be present in every R script</p>
+<p> </p>
+<p><strong>2</strong> What is the purpose of &ldquo;main&rdquo; argument in the boxplot() function (hint: use help())</p>
+<p> </p>
+<p><strong>3</strong> Write an expression using good R spacing syntax that takes the sum of 3, 6, and 12 and divides it by 25</p>
+<p> </p>
+<p><strong>4</strong> Write pseudocode steps for calculating the volume of a cylinder (hint, if you do not know it by heart, you may need to research the equation for the volume of a cylinder!).  For a cylinder of height = 3.2 cm and end radius of 5.5 cm, report the volume in cm to 2 decimal points of accuracy.  Use at least 3 decimal points of accuracy for <em>pi</em>.</p>
+<p> </p>
+<p><strong>5</strong> Execute the code and explain the outcome in comments.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#66d9ef">TRUE</span> <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">&amp;</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">FALSE</span>
+
+</code></pre></div><p> </p>
+<p><strong>6</strong> Write a plausible practice question involving the use of the not Boolean operator, &ldquo;!&rdquo;.</p>
+<p> </p>
+<p><a href="/scripts/script-1.1.solutions.R">SCRIPT 1.1 Example SOLUTIONS</a></p>
 </div>
 
 </main>
