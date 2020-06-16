@@ -130,15 +130,15 @@
 
 <a href="/tags/r"><kbd class="item-tag">R</kbd></a>
 
-<a href="/tags/reproducibility"><kbd class="item-tag">Reproducibility</kbd></a>
+<a href="/tags/open-science"><kbd class="item-tag">Open Science</kbd></a>
 
 
     </div>
 
     <div align="start" class="content"><p> </p>
-<p>Analysing data using R can generate complex scripts that might make sense to you while you&rsquo;re actively working on them, but they won&rsquo;t to future you or collaborators. This module offers guidance on best practices for making your code easy to read and understand, both for yourself and others. Consistently following a set of “rules” will improve your R workflow and reduce occurrence of errors.</p>
+<p>Analysing data using R can generate complex scripts that might make sense to you while you&rsquo;re actively working on them, but they won&rsquo;t to future you or collaborators. This bootcamp module offers guidance to improve the reproducibility of your code for yourself and others. Following this guidance will also improve your R workflow and reduce errors.</p>
 <p> </p>
-<p><a href="/scripts/script-3.1.R">SCRIPT</a> Use this for the Practice exercises below</p>
+<p><a href="/scripts/script-3.1.R">SCRIPT</a> - Use this for the practice exercises below</p>
 <p> </p>
 <p><strong>Contents</strong></p>
 <p>3.1.1 Styling Your Code<br>
@@ -151,16 +151,16 @@
 <blockquote>
 <p>&ldquo;Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread.&rdquo; - Hadley Wickham</p>
 </blockquote>
-<p>As we saw in <a href="/bootcamp/1.1-m1-r-syntax-basics/index.html">module 1.1</a> of the bootcamp, it is important to give your R scripts structure to facilitate reproducibility and make them human-readable. We can take this one step further by also styling our code to meet a set of &ldquo;rules&rdquo;. There are lots of different styles but we will focus on the Hadley Wickham&rsquo;s guide, which is comprehensively documented <a href="http://adv-r.had.co.nz/Style.html">here</a>.</p>
+<p>As we saw in <a href="/bootcamp/1.1-m1-r-syntax-basics/index.html">module 1.1</a> of the bootcamp, it is important to give your R scripts structure to make them human-readable. We can take this one step further by styling our code to meet a set of &ldquo;rules&rdquo; to improve its reproducibility. There are lots of different styles but we will use Hadley Wickham&rsquo;s guide. This module outlines the basics of code styling, for a more comprehensive overview please see <a href="http://adv-r.had.co.nz/Style.html">here</a>.</p>
 <p> </p>
 <h4 id="naming-files-and-objects">Naming files and objects</h4>
-<p>Selecting an good names for files and objects may seem easy, but isn&rsquo;t! Whatever you do, avoid the obvious - e.g. naming plots <code>plot1</code>, <code>plot2</code>, etc.</p>
+<p>Selecting good names for files and objects may seem easy, but isn&rsquo;t! Whatever you do, try to avoid the obvious - e.g. naming plots <code>plot1</code>, <code>plot2</code>, etc. Use the following naming rules and you won&rsquo;t go wrong!</p>
 <p> </p>
 <p><strong>File names</strong></p>
 <ul>
 <li>Make them meaningful</li>
 <li>Avoid spaces and unusual characters</li>
-<li>Use all lowercase letters</li>
+<li>Use lowercase letters</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
 aphid_mortality_analysis_2019.R
@@ -170,10 +170,10 @@ Script <span style="color:#ae81ff">+2</span>.R
 </code></pre></div><p> </p>
 <p><strong>Object names</strong></p>
 <ul>
-<li>Use underscores to separate words in object names</li>
-<li>Use informative but short object names</li>
-<li>Do not reuse object names within an analysis</li>
-<li>Avoid reusing names of common functions</li>
+<li>Use underscores to separate words</li>
+<li>Make names informative but short</li>
+<li>Do not reuse names within an analysis</li>
+<li>Avoid using names of functions</li>
 <li>Variable names == nouns while function names == verbs</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
@@ -183,12 +183,12 @@ mean_aphid_mortality
 mean.aphid.mortality
 MeanAphidMortality
 mam
-aphid_Subset
+aphid_Mortality
 </code></pre></div><p> </p>
 <h4 id="spacing">Spacing</h4>
 <p><strong>Commas</strong></p>
 <ul>
-<li>Always put a space after a comma, never before, just like in regular English:</li>
+<li>Always put a space after a comma:</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
 x[, <span style="color:#ae81ff">1</span>]
@@ -245,7 +245,7 @@ height<span style="color:#f92672">&lt;-</span>feet<span style="color:#f92672">*<
 <span style="color:#a6e22e">mean</span>(x, na.rm<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
 </code></pre></div><p> </p>
 <ul>
-<li>Operators with high precedence: <code>::</code>, <code>:::</code>, <code>$</code>, <code>[</code>, <code>^</code>, <code>:</code> etc. should <strong>NOT</strong> have spaces:</li>
+<li>However, operators with high precedence: <code>::</code>, <code>:::</code>, <code>$</code>, <code>^</code>, <code>:</code> etc. should <strong>NOT</strong> have spaces:</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
 <span style="color:#a6e22e">sqrt</span>(x^2 <span style="color:#f92672">+</span> y^2)
@@ -270,7 +270,8 @@ x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span
 <ul>
 <li>Avoid assignment in function calls:</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">complicated_function</span>()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
+x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">complicated_function</span>()
 <span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">nzchar</span>(x) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span>) {
   <span style="color:#75715e"># do something</span>
 }
