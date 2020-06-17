@@ -282,8 +282,16 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">complicat
 }
 </code></pre></div><p> </p>
 <h4 id="long-lines">Long lines</h4>
-<p>Strive to limit your code to 80 characters per line. This fits comfortably on a printed page with a reasonably sized font. If you find yourself running out of room, this is a good indication that you should encapsulate some of the work in a separate function.</p>
-<p>If a function call is too long to fit on a single line, use one line each for the function name, each argument, and the closing ). This makes the code easier to read and to change later.</p>
+<p>Try to limit your code to 80 characters per line as this fits comfortably on a printed page with a reasonably sized font. How do you know when you&rsquo;ve reached 80 characters? RStudio has the option to include a margin in your script, which you can activate by:</p>
+<ol>
+<li>Click <code>tools</code> in the menu</li>
+<li>Click <code>global options</code></li>
+<li>Click <code>code</code></li>
+<li>Click <code>display</code></li>
+<li>Click <code>show margin</code></li>
+</ol>
+<p> </p>
+<p>If a function call is too long to fit on a single line, use one line each for the function name, each argument, and the closing ). This helps make the code easier to read and to change later.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Good</span>
 <span style="color:#a6e22e">do_something_very_complicated</span>(
   something <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;that&#34;</span>,
@@ -297,30 +305,30 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">complicat
                               )
 </code></pre></div><p> </p>
 <h3 id="312-styling-your-code-with-rstudio-addins">3.1.2 Styling Your Code With RStudio Addins</h3>
-<p>RStudio addins are available for the newest version of RStudio and add some functionality to RStudio using point and click menus. Install addins by running the following code:</p>
+<p>RStudio Addins provide extra functionality through a point and click menu. Install addins by running:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;addinslist&#39;</span>)
 </code></pre></div><p> </p>
-<p>After you have installed certain addins, you can access them by clicking on Addins:</p>
+<p>After you have installed addins, you can access them by clicking on <code>Addins</code>:</p>
 <p><img src="/img/3.1-addin-menu.png" alt=" "></p>
 <p> </p>
-<p>Before you can style using RStudio addins your code you will need to install the <code>styler</code> package:</p>
+<p>However, before you can style your code using <code>addins</code> you will need to install the <code>styler</code> package:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">install.package</span>(<span style="color:#e6db74">&#39;styler&#39;</span>)
 </code></pre></div><p> </p>
-<p>Further information on using <code>styler</code> can be found <a href="https://styler.r-lib.org/">here</a>. You can now highlight your code and style according to <code>tidyverse</code> formatting by selecting <code>style selection</code> in the <code>styler</code> section of the addins menu:</p>
+<p>Further information on using <code>styler</code> can be found <a href="https://styler.r-lib.org/">here</a>. You can now highlight your code and style to <code>tidyverse</code> formatting by selecting <code>style selection</code> in the <code>styler</code> section of the addins menu:</p>
 <p><img src="/img/3.1-addin-menu-styler.png" alt=" "></p>
 <p> </p>
 <h3 id="313-project-organisation">3.1.3 Project Organisation</h3>
-<p>Science is a naturally incremental process so most projects begin as a seemingly random collection of files. Many people end up organising their projects like this:</p>
+<p>Most projects begin as a seemingly random collection of files and many people end up organising their projects like this:</p>
 <p><img src="/img/3.1-untidy-project.png" alt=" "></p>
 <p>This is not a well organised project as it is confusing, mixes up many file types and modifies the original data file. Why organise your projects better?</p>
 <ul>
-<li>Helps ensure the integrity of your data</li>
-<li>Makes it simpler to share your code</li>
-<li>Easier to pick the project back up after a break.</li>
+<li>Ensures data integrity</li>
+<li>Simplifies code sharing</li>
+<li>Promotes reproducibility</li>
 </ul>
-<p>Truly reproducible research requires self-contained projects. Everything that goes in to, and comes out of, the project should be contained within a single folder. I recommend that you create a folder called repos/ that your project folders live in, e.g. <code>C:/User/owner/Documents/repos/proj/</code>. This way your project folders are neatly separated from other files.</p>
+<p>Truly reproducible research requires self-contained projects, where all should be contained within a single folder. I recommend that you create a folder called <code>repos/</code> that you save your project folders in, e.g. <code>C:/User/owner/Documents/repos/proj/</code>. This ensures your project folders are neatly separated from other files and will be useful when we explore Git in a later module.</p>
 <p> </p>
-<p>Once you have a <code>repos/</code> folder, you can create the project folder. This is the structure that I find works for me. You may want to find a variation of it that works for you, but the basic premise of keeping repositories self-contained should remain.</p>
+<p>Once you have a <code>repos/</code> folder, you can create a project folder. The following structure is what I find works for me but you may want to find a variation of it that works for you. If you do modify this structure it is important to remember that the basic premise of keeping repositories self-contained should remain!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">C<span style="color:#f92672">:/</span>
 └── Documents<span style="color:#f92672">/</span>
     └── repos<span style="color:#f92672">/</span>
@@ -330,13 +338,13 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">complicat
             ├── figs<span style="color:#f92672">/</span>
             ├── funs<span style="color:#f92672">/</span>
             ├── out<span style="color:#f92672">/</span>
-            ├── cleaning.R
-            └── analysis.R
-</code></pre></div><p>The project repository contains separate directories that can be used to store different file types. Importantly, the analysis and cleaning files are stored in the project root, allowing easy use of relative paths over explicit paths e.g. <code>read.csv(here('data', 'data_file.csv'))</code> rather than <code>read.csv('C:/Users/owner/Documents/repos/my_project/data/data_file.csv')</code>. Relative paths are preferable because they allow projects to be used by multiple people without the need to re-write code. If you use explicit paths and change computer, or the project is opened by another person, the code will break as they will not have the same directory structure as the computer that the code was created on.</p>
-<p><strong>Note:</strong> the example above used an R package called <code>here_here</code>, calling the function <code>here()</code>.</p>
+            ├── data_cleaning.R
+            └── data_analysis.R
+</code></pre></div><p>The project repository contains separate directories that can be used to store different file types. Our <code>data_analysis</code> and <code>data_cleaning</code> files are stored in the project root, allowing easy use of relative paths over explicit paths e.g.<code>read.csv(here('data', 'data_file.csv'))</code> rather than <code>read.csv('C:/Users/owner/Documents/repos/my_project/data/data_file.csv')</code>. Relative paths are preferable because they allow projects to be used by multiple people without the need to re-write code. If you use explicit paths and change computer, or the project is opened by another person, the code will break as they will not have the same directory structure as the computer that the code was created on.</p>
+<p><strong>Note:</strong> the example above used an R package called <code>here_here</code>, calling the function <code>here()</code>. I highly recommend you invest time in learning to use this useful package, which can be found <a href="https://here.r-lib.org/">here</a>.</p>
 <p> </p>
 <h4 id="data"><code>data/</code></h4>
-<p>Treat your data as read-only! This is probably the most important goal of setting up a project. Data is typically time consuming and/or expensive to collect. Working with them interactively (e.g. in Excel) where they can be modified means you are never sure of where the data came from, or how it has been modified since collection.</p>
+<p>Treat your data as read-only! Data is typically time consuming and/or expensive to collect. Working with your raw data interactively (e.g. in Excel) where they it be modified means you are never sure of where the data came from, or how it has been modified since collection. This can cause all sorts of problems later.</p>
 <ul>
 <li><code>docs/</code>: contains the output documents</li>
 <li><code>funs/</code>: contains custom functions you write</li>
@@ -346,13 +354,13 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">complicat
 <p>All output can be treated as disposable as it could be easily regenerated by running the code.</p>
 <p> </p>
 <h3 id="314-rstudio-projects">3.1.4 RStudio Projects</h3>
-<p>There are tools and packages which can help you manage your work effectively. One of the most powerful and useful aspects of RStudio is its project management functionality. All your data, plots and scripts are relative to the project directory created when setting up a project. Detailed guidance on using RStudio projects can be found <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">here</a>.</p>
+<p>There are a number of tools and packages that can help you manage your work effectively. RStudio has incredible project management functionality in-built, so make sure you explpoit this. When using RStudio projects all of your data, plots and scripts are relative to the project directory you create when setting up a project. This makes them very easy to access without having to set your working directory. Detailed guidance on using RStudio projects can be found <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">here</a>.</p>
 <p> </p>
 <h3 id="315-practice-exercises">3.1.5 Practice Exercises</h3>
 <p><strong>1</strong> Install RSudio Addins and the styler package by running:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;addinslist&#39;</span>)
 <span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;styler&#39;</span>)
-</code></pre></div><p>Download the script above and open it with RStudio. Now convert it to the <code>tidyverse</code> style using <code>styler</code>.</p>
+</code></pre></div><p>Download the script above, open it with RStudio and convert it to <code>tidyverse</code> style using <code>styler</code>.</p>
 <p> </p>
 <p><strong>2</strong> Create an RStudio project following these instructions:</p>
 <ol>
