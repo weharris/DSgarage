@@ -117,8 +117,10 @@ SCRIPT
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/3.1-m3-reproducible-research/</guid>
-      <description>Analysing data using R can generate complex scripts that might make sense to you while you&amp;rsquo;re actively working on them, but they won&amp;rsquo;t to future you or collaborators. This module offers guidance on best practices for making your code easy to read and understand, both for yourself and others. Consistently following a set of “rules” will improve your R workflow and reduce occurrence of errors.
- SCRIPT Use this for the Practice exercises below</description>
+      <description>Analysing data using R can generate complex scripts that might make sense to you while you&amp;rsquo;re actively working on them, but they won&amp;rsquo;t to future you or collaborators. This bootcamp module offers guidance to improve the reproducibility of your code for yourself and others. Following this guidance will also improve your R workflow and reduce errors.
+ SCRIPT - Use this for the practice exercises below
+ Contents
+3.1.1 Styling Your Code</description>
     </item>
     
     <item>
