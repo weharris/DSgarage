@@ -68,6 +68,11 @@
   </url>
   
   <url>
+    <loc>/tags/open-science/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/programming/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
@@ -79,11 +84,6 @@
   
   <url>
     <loc>/categories/r/</loc>
-    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/reproducibility/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
   
