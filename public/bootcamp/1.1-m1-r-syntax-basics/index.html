@@ -141,7 +141,10 @@
 <p><a href="/scripts/script-1.1.R">SCRIPT 1.1</a> Use this to follow along on this page and for the Practice exercises below.</p>
 <p> </p>
 <p><strong>Overview</strong></p>
-<p>R is a programming language and popular open source software design to help non-programmers perform statistical analyses and to make graphs. This page is intended to guide people through some of the basics of the R programming language, just enough to get started.  We love the R language, but sometimes it is a little bit like talking to a passive aggressive butler - if you aren&rsquo;t careful with your language, the interaction may have unexpected outcomes&hellip;</p>
+<blockquote>
+<p>We love the R language, but sometimes it is a little bit like talking to a passive aggressive butler - if you aren&rsquo;t careful with your language, the interaction may have unexpected outcomes&hellip;</p>
+</blockquote>
+<p>R is a programming language and popular open source software design to help non-programmers perform statistical analyses and to make graphs. This page is intended to guide people through some of the basics of the R programming language, just enough to get started.  We hope that these pages help make learning R simple (but it can <a href="https://bookdown.org/ndphillips/YaRrr/rrelationship.html">difficult at times</a> while you are learning)</p>
 <p> </p>
 <p><strong>Contents</strong></p>
 <p>1.1.1 Example script, comments, help, pseudocode<br>
@@ -156,6 +159,7 @@
 <p>To get the most out of this page, we strongly recommend that you <strong>work through the instructions here while using R and RStudio</strong> as you go along.  We consider it very important that you <strong>type you own code rather than using copy and paste</strong>.  Finally, <strong>document all the code in your own script and write clear, concise comments</strong>.</p>
 <p><strong>Example script</strong>
 Download the script at the top of the page and save it in a logical place on your computer.  Open it in RStudio.</p>
+<p> </p>
 <p>Right at the top you should see the HEADER.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## HEADER ####</span>
 <span style="color:#75715e">## Who: &lt;YOUR NAME&gt;</span>
@@ -163,7 +167,8 @@ Download the script at the top of the page and save it in a logical place on you
 <span style="color:#75715e">## What: 1.1 R syntax basics</span>
 <span style="color:#75715e">## Last edited: &lt;DATE TODAY in yyyy-mm-dd format&gt;</span>
 <span style="color:#75715e">####</span>
-</code></pre></div><p>Go ahead and fill in the header with your own information.</p>
+</code></pre></div><p> </p>
+<p>Go ahead and fill in the header with your own information.</p>
 <p>Next you should see the CONTENTS section.  The idea here is for you to list the CONTENTS of a script that can act as a roadmap to the user, but that can also help organize a large project into manageable chunks.  Each title under the CONTENTS section will become the title in a code chunk below. You should see the contents section in the script you downloaded like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## CONTENTS ####</span>
 <span style="color:#75715e">## 1.1.1 Example script, help, pseudocode  </span>
@@ -195,6 +200,7 @@ Let&rsquo;s orient to the information that is here because the help pages are es
 <p><strong>3 (longer) description</strong> This gives a longer description of what the function does</p>
 <p><strong>4 Usage</strong> This usually gives an example of the function in use and lists the &ldquo;arguments&rdquo; that you are required to supply to the function for it to work on.  Of course, you need to know about the arguments&hellip;</p>
 <p><strong>5 Argument definitions</strong> This field tells you what the argument are and do!</p>
+<p> </p>
 <p>Using the Usage and Argument fields, we can figure out how to make the function do the work we want.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Under Usage:</span>
 <span style="color:#75715e"># mean(x, ...)</span>
@@ -338,8 +344,8 @@ x[x <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">20</span
 <p>The R language as it was invented and continues to be developed is extremely popular, powerful and easy to use, especially for people without a lot of formal programming training or experience in different computing languages. In general, we refer to this pure form of R as <strong>Base R</strong>.  Since the late 1990s, the R-user community and Base R resources on have exploded on the web and this form of the language continues to be extremely popular for experts and beginners alike.</p>
 <p> </p>
 <p><strong>Tidyverse R</strong></p>
-<p>Relatively recently, a second for of R use has evolved that puts forward different standard usage of the R lanuage.  The differences are practical, but also philosophical. This form of R use is generally referred to as <strong>The Tidyverse</strong>.  The Tidyverse is extremely powerful and we love it.  However, we feel that it is far more efficient to learn base R before learning the Tidyverse, and <strong>we will exclusively use base R for this bootcamp</strong>.</p>
-<p>There is some disagreement over which &ldquo;version&rdquo; of R is better or easier to learn and teach with.  You will definitely encounter the Tidyverse at some point and eventually you can choose to use it a little or a lot.</p>
+<p>Relatively recently, a second version of R use has evolved that puts forward different standard usage of the R lanuage.  The differences are practical, but also philosophical. This form of R use is generally referred to as <strong>The Tidyverse</strong>.  The Tidyverse is extremely powerful and we love it.  However, we feel that it is far more efficient to learn base R for non-programmers, before learning the Tidyverse, and <strong>we will exclusively use base R for this bootcamp</strong>.</p>
+<p>There is some disagreement over which &ldquo;version&rdquo; of R is better or easier to learn and teach with.  You will definitely encounter the Tidyverse at some point and eventually you can choose how much or how little you will use it.</p>
 <p> </p>
 <p><a href="https://github.com/matloff/TidyverseSkeptic">The Argument for Base R</a></p>
 <p><a href="http://varianceexplained.org/r/teach-tidyverse/">The Argument for the Tidyverse</a></p>

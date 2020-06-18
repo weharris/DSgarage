@@ -137,22 +137,146 @@
 
     <div align="start" class="content"><p><img src="/img/toolbox2.png" alt=" "></p>
 <p> </p>
-<h1 id="content-coming-soon">~Content coming soon~</h1>
-<p> </p>
 <h2 id="functions-and-packages-toolboxes-r-as-a-garage-full-of-tools">Functions and Packages Toolboxes (R as a garage full of tools)</h2>
 <p>VIDEO 1.2</p>
 <p>SCRIPT</p>
+<p> </p>
+<p><strong>Overview</strong></p>
+<blockquote>
+<p><strong>R is like a big garage filled with useful tools.</strong></p>
+</blockquote>
+<p>One of the best things about R is that it can be customized to accomplish a huge variety of kinds of tasks: perform all sorts of statistical analyses from simple to bleeding edge, produce professional graphs, format analyses into presentations, manuscripts and web pages, collaboration, GIS and mapping, and a lot more.  The tools themselves are contained in toolboxes and in a given toolbox, the tools are related to each other, usually in a focus to the kind of tasks they are suited for.</p>
+<blockquote>
+<p><strong>The tools in R are functions, and the toolboxes are packages.</strong></p>
+</blockquote>
+<p>While R comes with a lot of packages, there are an enormous amount available for instant download at any time you want or need them (over 15,000 different packages at the moment). Making use of all these resources is usually a case of identifying a problem to solve, finding the package that can help you, and then learning how to use the tools.  This page is all about introducing functions, packages and the R help system.</p>
+<p> </p>
 <p><strong>Contents</strong></p>
 <p>1.2.1 Function tour<br>
 1.2.2 Using functions and getting help<br>
 1.2.3 R packages<br>
 1.2.4 Finding, downloading and using packages<br>
 1.2.5 Practice exercises</p>
+<p> </p>
 <h3 id="121-function-tour">1.2.1 Function tour</h3>
+<blockquote>
+<p><strong>Think of functions in R as tools that do work for you</strong>.</p>
+</blockquote>
+<p>Code for funtions is is simple once you get the idea, but you have to understand how they work to use them in the most powerful way. Also, to make the most of functions, you must get to know which ones perform common tasks, and how to use them.  We will practice that in this section.  We consider the USE of functions (for a given problem) as a separate issue from discovering a function, and here we focus on USE.</p>
+<p>A generic might look like this: <code>function_name()</code>. The <strong>function name</strong> is (obviously) <code>function_name</code> and all functions must have the bracket notation <code>()</code>. There are some rules for function names and for naming R objects in general, but for now the most important thing to keep in mind is that details like capitalization are important, that is, R is case sensitive.  Thus, <code>function_name()</code> is not the same as <code>Function_name()</code> or <code>function_nmae()</code> (see what I did there?).</p>
+<p>Functions are typically used by providing some information inside the brackets, usually data for the function to do work on or settings for the function.  <strong>Function settings are assigned to function arguments</strong> and most functions have several arguments.</p>
+<p> </p>
+<p><code>function_name(argument_1 = value_1, argument_2 = value_2, ...)</code></p>
+<p>A general rule is that <strong>you INPUT information or data into function brackets</strong> that you want the function to do work and <strong>function OUTPUT is the work being done</strong>, sometimes including information output (like the results of a statistical test, or a plot).</p>
+<p>Notice:</p>
+<ul>
+<li>Each argument has a unique name</li>
+<li>Argument values are assigned using the equals sign<code>=</code>, the assignment operator</li>
+<li>Each argument is separated by a comma <code>,</code></li>
+<li>The <code>...</code> means there are additional arguments that can be used optionally (for now we can ignore those)</li>
+</ul>
+<p> </p>
+<h4 id="function-names">Function names</h4>
+<p>Finding functions by their names is often easy for very simple and common tasks.  For example:</p>
+<p><code>mean()</code> Calculates the arithmentic mean<br>
+<code>log()</code> Calculates the log<br>
+<code>sd()</code> Calculates the standard deviation</p>
+<p><code>plot()</code> Draws plots<br>
+<code>boxplot()</code> Draws boxplots<br>
+<code>help()</code> Used to access help pages</p>
+<p>You get the idea&hellip;</p>
+<p>The most important thing here is that <strong>you would generally get the help page up as a reference to what arguments are required and how to customize your function use</strong>, that is, until you memorize the use and arguments for common functions.</p>
+<p> </p>
 <h3 id="122-using-functions-and-getting-help">1.2.2 Using functions and getting help</h3>
+<p>For now, let&rsquo;s assume that you know:</p>
+<ul>
+<li>What tasks you want to do (maybe outlined with pseudocode), and</li>
+<li>What function(s) can perform those tasks.</li>
+</ul>
+<p>Try this out in your own script:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## A workflow for using functions ####</span>
+
+<span style="color:#75715e">## (make pseudocode of steps)</span>
+<span style="color:#75715e"># Overall task: calculate the mean for a vector of numbers</span>
+<span style="color:#75715e"># Step 1: Code the vector of data - c() function</span>
+<span style="color:#75715e"># Step 2: Calculate the mean - mean() function</span>
+<span style="color:#75715e"># Step 3: Plot the data - boxplot()</span>
+
+<span style="color:#75715e"># Step 1: Code the vector of data - c() function</span>
+
+<span style="color:#a6e22e">help</span>(c) <span style="color:#75715e"># We use this a lot - it &#34;combines&#34; numbers</span>
+<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8.1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>) 
+
+<span style="color:#75715e"># Step 2: Calculate the mean - mean() function</span>
+
+<span style="color:#a6e22e">help</span>(mean) 
+<span style="color:#75715e"># Notice under Usage, the &#34;x&#34; argument</span>
+<span style="color:#75715e"># Notice under Arguments, x is a numeric vector</span>
+
+<span style="color:#a6e22e">mean</span>(x <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8.1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>)) <span style="color:#75715e"># Easy</span>
+
+<span style="color:#75715e"># Step 3: Plot the data - boxplot()</span>
+
+<span style="color:#a6e22e">help</span>(boxplot) <span style="color:#75715e"># x again!</span>
+<span style="color:#a6e22e">boxplot</span>(x <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8.1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>))
+
+<span style="color:#75715e"># Challenge 1: Add a title to you boxplot using the argument &#34;main&#34;</span>
+<span style="color:#75715e"># Challenge 2: Add an axis label to the y-axis - can you find the argument?</span>
+
+
+</code></pre></div><p> </p>
+<p>This boxplot would look a lot better with a main title and a y-axis label&hellip;<br>
+<img src="/img/1.2-first-boxplot.png" alt="Generic boxplot"></p>
 <h3 id="123-r-packages">1.2.3 R packages</h3>
+<p>There are a lot of R packages.  These are &ldquo;toolboxes&rdquo; often built in the spirit of identifying a problem, literally making a tools that solves the problem, and then sharing the tool for other to use as well.  In fact, all official R packages are &ldquo;open source&rdquo;, meaning that you may use them freely, but also you can improve them and add functionality.  <strong>This section is about the basics of R packages</strong> that are additional to the base R installation.</p>
+<p>Typically, you only download a package once you identify you need to use functions in it. There are are several ways to accomplish this. We are going to practice 2 different ways, one with R code that is simple and will work no matter how you use R, and one that uses menus in RStudio.</p>
+<p> </p>
 <h3 id="124-finding-downloading-and-using-packages">1.2.4 Finding, downloading and using packages</h3>
+<p>Finding packages happens a variety of ways in practice.  A package may be recommended to you, you might be told to use a particular package for a task or assignment, or you may discover it on the web.</p>
+<p><strong>Installing and loading packages with code</strong></p>
+<p>There are 2 steps here - installing, then loading.  Installing is very easy to do using the <code>install.packages()</code> function.  Loading a package making the functions in it available for use is done using the <code>library()</code> package.  Basic usage of these functions is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Step 1: install a package</span>
+
+<span style="color:#a6e22e">help</span>(install.packages) <span style="color:#75715e"># just have a look</span>
+<span style="color:#a6e22e">install.packages</span>(pkgs <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;package_name&#34;</span>)
+
+<span style="color:#75715e"># The package is downloaded from a remote repository, often</span>
+<span style="color:#75715e"># with additional packages that are required for use.</span>
+
+<span style="color:#75715e"># Step 2: load a package</span>
+
+<span style="color:#a6e22e">library</span>(<span style="color:#e6db74">&#34;package_name&#34;</span>)
+
+Challenge<span style="color:#f92672">:</span> Install and load the <span style="color:#e6db74">&#34;yarrr&#34;</span> package, and then use <span style="color:#a6e22e">help</span>() to look at the help page for the function <span style="color:#a6e22e">pirateplot</span>().
+
+</code></pre></div><p> </p>
+<p><strong>Installing and loading packages with the RStudio Packages tab</strong></p>
+<p>You can find the packages tab in RStudio in the lower left pane by default.</p>
+<p><img src="/img/1.2-packages-tab.png" alt="Packages tab"></p>
+<p> </p>
+<p>When you click on the <strong>Packages tab (A in the picture above)</strong>, you can see a list of packages that are available to you (i.e., in RStudio desktop these have already been downloaded locally).</p>
+<p>In order to <strong>load a package</strong>, you can find the package name in the list and click the <strong>radio button (B in the picture)</strong>.</p>
+<p>To <strong>install a package</strong>, you can click on the Install button (C in the image).</p>
+<p>You should see the Installe Packages window, where you can enter the name of a package for installation, searching the official Comprehensive R Archive Network (Repository (CRAN)) by default:</p>
+<p><img src="/img/1.2-install-packages.png" alt="Install pkgs windows in RStudio"></p>
+<p> </p>
 <h3 id="125-practice-exercises">1.2.5 Practice exercises</h3>
+<p> </p>
+<p><strong>1</strong> Explain in your own words what the freq argument in the hist() function does.  It often helps to practice trail and error to understand what is happening with data.  Try experimenting with this data vector with the hist() function to explore the freq argument:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">7</span>)
+</code></pre></div><p> </p>
+<p><strong>2</strong> Tailor you code from the hist() example in problem 1 so that your histogram has a main title, axis labels, and set the col argument to &ldquo;blue&rdquo;.  We are just scratching the surface with plot customization - try to incorporate other arguments to make an attractive graph.</p>
+<p> </p>
+<p><strong>3</strong> Use the mean() function on the following data vector</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#66d9ef">NA</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">7</span>)
+</code></pre></div><p>You will see an error message.  The symbol &ldquo;NA&rdquo; has a special meaning in R, indicating a missing value.  Use help() for the mean function and implement the na.rm argument to fix the problem.  Show your code.</p>
+<p> </p>
+<p><strong>4</strong> In your own words, what value is required for the &ldquo;d&rdquo; argument in the pwr.t.test() function in the {pwr} package? Show all code involved including any appropriate comment code required to answer this question.</p>
+<p> </p>
+<p><strong>5</strong> Every official R package has a webpage on the Comprehensive R Archive Network (CRAN) and there are often tutorials called &ldquo;vignettes&rdquo;.  Google the CRAN page for the package {yarrr} and find the vignette called the &ldquo;Package guide.  Near the top is a demonstration for the function piratepal().  Read this and find a pallette you like aesthetically. Provide commented code for all of the steps required to identify, identifying your favorite pallette.  (hint: the help page for piratepal() has some example code to display the pallettes)</p>
+<p> </p>
+<p><strong>6</strong> Write a plausible practice question involving the use of the help menu for an R function.</p>
+<p> </p>
 </div>
 
 </main>
