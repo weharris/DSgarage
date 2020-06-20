@@ -137,27 +137,248 @@
 
     <div align="start" class="content"><p><img src="/img/r-space.png" alt=" "></p>
 <p> </p>
-<h1 id="content-coming-soon">~Content coming soon~</h1>
-<p> </p>
 <h2 id="data-objects-r-space-as-a-thing">Data Objects (R space as &ldquo;a thing&rdquo;)</h2>
 <p>VIDEO 1.3</p>
-<p>SCRIPT</p>
+<p><a href="/scripts/script-1.3.R">SCRIPT 1.3</a> Use this to follow along on this page and for the Practice exercises below.</p>
+<p> </p>
+<p><strong>Overview</strong></p>
+<blockquote>
+<p><strong>Imagine you are floating in space in the R Global Environment and any data object you can see, you can call on by name to manipulate with functions.  Let&rsquo;s call it R Space</strong></p>
+</blockquote>
+<p>The fundamental way to analyse data in R is to be able to manipuate it with code.  In order to do that, we need a system of containers to store the data in.  This page is about the rules used for storing data in data objects.  We will examine basic data types at the same time as how R stores them.  R is actually very flexible in the way it handles data, making it as easy as possible for non-programmers to get going.</p>
+<p> </p>
 <p><strong>Contents</strong></p>
 <p>1.3.1 Basic data types, str<br>
 1.3.2 Data with factor<br>
-1.3.3 class and converting variables<br>
+1.3.3 Class and converting variables<br>
 1.3.4 Vector and Matrix fun<br>
 1.3.5 Practice exercises</p>
 <p> </p>
-<h3 id="131-basic-data-types-str">1.3.1 Basic data types, str</h3>
+<h3 id="131-basic-data-types-str">1.3.1 Basic data types, str()</h3>
+<p><strong>Storage containers types</strong></p>
+<p>The first things to examine are the way that R <strong>variables</strong> are named, and the organization system for storing the data.  The organization part is particularly important, because it is used to actually access and use data.</p>
+<p>Variable names in R are simple and do not need to be &ldquo;declared&rdquo; like in some computing lanugages, and they can be almost anything, but there are a few rules. The R system has a built-in error message and warning message system (also known as the Passive-Agressive Butler), which will usually give a hint when some of these rules are violated.</p>
+<p><strong>The Global Environment</strong></p>
+<p>One of the things we notice when people begin using R, even if they are experienced in data analysis, is that they expect to &ldquo;see&rdquo; data and data sets, almost as they are physical things.  This might be because of experience using Excel and seeing the visual representation of data in spreadsheets (indeed, a graphical representation of physical spreadsheets!).</p>
+<p>The regular R system for interacting with data is a little more abstract which can be disconcerting to new users.  Typical use is to creat variables in code script files and, usually, the bring data into the Global Environment from external files on the local PC, or from the web.  We will practice using the Global Environment is the main way to interact with data.</p>
+<p>You can use the <code>class()</code> function to find out the variable type (using this this is a good idea, since R occasionally guesses the intended data type incorrectly).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+
+variable_1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>) <span style="color:#75715e"># a numeric vector</span>
+
+variable_2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#66d9ef">TRUE</span>, <span style="color:#66d9ef">TRUE</span>, <span style="color:#66d9ef">TRUE</span>, <span style="color:#66d9ef">FALSE</span>) <span style="color:#75715e"># a logical vector</span>
+
+variable_3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Peter Parker&#34;</span>, <span style="color:#e6db74">&#34;Bruce Wayne&#34;</span>, <span style="color:#e6db74">&#34;Groo the Wanderer&#34;</span>) <span style="color:#75715e"># a character vector</span>
+
+<span style="color:#a6e22e">class</span>(variable_1) <span style="color:#75715e"># &#34;numeric&#34;</span>
+<span style="color:#a6e22e">class</span>(variable_2) <span style="color:#75715e"># &#34;logical&#34;</span>
+<span style="color:#a6e22e">class</span>(variable_3) <span style="color:#75715e"># &#34;character&#34;</span>
+
+</code></pre></div><p> </p>
+<p>Look at the upper right pane of your RStudio and you should see something like:</p>
+<p><img src="/img/1.3-global-env.png" alt="RStudio Global Environment"></p>
 <p> </p>
-<h3 id="132-data-with-factor">1.3.2 Data with factor</h3>
+<p>The Environment tab contains the Global Environment (labelled A in the picture above).  There are some other tabs, but we will ignore these for now.  The Global Environment itself contains information about the variables that are held in memory.  If we think of this as &ldquo;R Space&rdquo;, a general rule is that if you can see a variable here in the Global Environment, you can manipulate it and work with it.</p>
+<p>Notice that there is quite a lot of information in the Global Environment about the actual variables (B in the picture). There is a column with the variable NAME (variable_1, variable_2, etc.), a column with the variable TYPES (num, logi, etc.), a column with the variable dimensions ([1:14] is an index like a unique &ldquo;street address&rdquo; for each of the 14 numeric values contained in &ldquo;variable_1&rdquo;)</p>
 <p> </p>
-<h3 id="133-class-and-converting-variables">1.3.3 class and converting variables</h3>
+<p><strong>Naming conventions for variables</strong></p>
+<p>Variable names:</p>
+<ul>
+<li>
+<p>Can contain letters, numbers, some symbolic characters</p>
+</li>
+<li>
+<p>Must begin with a letter</p>
+</li>
+<li>
+<p>Must not contain spaces</p>
+</li>
+<li>
+<p>Some forbidden characters like math operators, &ldquo;@&rdquo;, and a few others</p>
+</li>
+<li>
+<p>Should be human-readable, consistent, and not too long</p>
+</li>
+<li>
+<p>Case sensitive</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+
+<span style="color:#75715e">## Variable name rules ####</span>
+
+<span style="color:#75715e"># Can contain letters, numbers, some symbolic characters</span>
+x1 <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">5</span>  <span style="color:#75715e"># OK</span>
+x2 <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;It was a dark and stormy night&#34;</span> <span style="color:#75715e"># OK</span>
+my_variable_9283467 <span style="color:#f92672">&lt;-</span> <span style="color:#75715e"># technically works, but hard to read and too long</span>
+
+<span style="color:#75715e"># Must begin with a letter </span>
+varieties <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red delicious&#34;</span>, <span style="color:#e6db74">&#34;granny smith&#34;</span>) <span style="color:#75715e"># OK</span>
+x432 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>) <span style="color:#75715e"># OK</span>
+<span style="color:#ae81ff">22</span>catch <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#66d9ef">TRUE</span>, <span style="color:#66d9ef">TRUE</span>, <span style="color:#66d9ef">FALSE</span>)  <span style="color:#75715e"># nope</span>
+
+<span style="color:#75715e">#- Must not contain spaces</span>
+my_variable <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">3</span> <span style="color:#75715e"># OK</span>
+my.variable <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">4</span> <span style="color:#75715e"># OK</span>
+myVariable <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">5</span> <span style="color:#75715e"># OK</span>
+
+my variable <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">6</span> <span style="color:#75715e"># nope</span>
+<span style="color:#e6db74">&#34;my variable&#34;</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">7</span> <span style="color:#75715e"># nope</span>
+
+<span style="color:#75715e"># Must not contain forbidden characters like </span>
+<span style="color:#75715e"># math operators, &#34;@&#34;, and a few others</span>
+my<span style="color:#f92672">@</span>var <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e"># nope</span>
+my<span style="color:#f92672">-</span>var <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e"># nope</span>
+my<span style="color:#f92672">=</span>var <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e"># nope</span>
+<span style="color:#75715e"># etc.</span>
+
+<span style="color:#75715e"># Should be human-readable, consistent, and not too long</span>
+
+Diameter_Breast_Height_cm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">24</span>, <span style="color:#ae81ff">29</span>, <span style="color:#ae81ff">55</span>, <span style="color:#ae81ff">43</span>) <span style="color:#75715e"># legal but too long</span>
+DBH_cm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">24</span>, <span style="color:#ae81ff">29</span>, <span style="color:#ae81ff">55</span>, <span style="color:#ae81ff">43</span>) <span style="color:#75715e"># much better</span>
+
+<span style="color:#75715e">#Case sensitive</span>
+height <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">180</span>, <span style="color:#ae81ff">164</span>, <span style="color:#ae81ff">177</span>) <span style="color:#75715e"># OK</span>
+Height <span style="color:#75715e"># Error: object &#39;Height&#39; not found (notice capital H)</span>
+height <span style="color:#75715e"># OK</span>
+</code></pre></div><p> </p>
+<h3 id="132-data-with-factor">1.3.2 Data with factor()</h3>
+<p>Sometimes you will need to analyze <strong>data that is a factor, where the different values are categories</strong>. Factors in R can be a cause for confusion, but there needn&rsquo;t be problems if you understand them.  The information here is a starting point, and we skip some complexities, but essentially <strong>there are 2 types of factors, non-ordered and ordinal</strong>.</p>
+<p><strong>Non-ordered factors</strong> are simply categories and the levels are simply the names of the categories.  By definition, non-ordered factor  do not have a specific order! an example here might be plant varieties.</p>
+<p><strong>Ordered factors</strong> have a specific order, which can be important for analysis or for graphing.  You usually have to specify the order explicitly to get this right. An example here might be the days of the week, where the order of day is important.</p>
 <p> </p>
+<h3 id="133-class-and-converting-variables">1.3.3 Class() and converting variables</h3>
+<p>We use the <code>class()</code> function to query what data category a variable is set too.  R is pretty good at setting this correctly, but it is a good idea to check sometimes and occasionally you will have to manually set variable characteristics.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># try this</span>
+
+<span style="color:#75715e"># non-ordered factor</span>
+variety <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;short&#34;</span>, <span style="color:#e6db74">&#34;short&#34;</span>, <span style="color:#e6db74">&#34;short&#34;</span>,
+             <span style="color:#e6db74">&#34;early&#34;</span>, <span style="color:#e6db74">&#34;early&#34;</span>, <span style="color:#e6db74">&#34;early&#34;</span>,
+             <span style="color:#e6db74">&#34;hybrid&#34;</span>, <span style="color:#e6db74">&#34;hybrid&#34;</span>, <span style="color:#e6db74">&#34;hybrid&#34;</span>)
+<span style="color:#a6e22e">class</span>(variety)  <span style="color:#75715e"># &#34;character&#34;, but this is really a factor...</span>
+variety <span style="color:#75715e"># Notice the character strings are just printed out</span>
+
+variety <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(variety) <span style="color:#75715e"># use factor() to convert the character vector to a factor</span>
+<span style="color:#a6e22e">class</span>(variety)  <span style="color:#75715e"># now variety is a &#34;factor&#34;</span>
+variety <span style="color:#75715e"># notice the output has changed</span>
+
+<span style="color:#75715e"># Ordered factors</span>
+day <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Monday&#34;</span>, <span style="color:#e6db74">&#34;Monday&#34;</span>, 
+         <span style="color:#e6db74">&#34;Tuesday&#34;</span>, <span style="color:#e6db74">&#34;Tuesday&#34;</span>, 
+         <span style="color:#e6db74">&#34;Wednesday&#34;</span>, <span style="color:#e6db74">&#34;Wednesday&#34;</span>, 
+         <span style="color:#e6db74">&#34;Thursday&#34;</span>)
+<span style="color:#a6e22e">class</span>(day) <span style="color:#75715e"># &#34;character</span>
+
+<span style="color:#75715e">#make day a factor</span>
+day <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(day)
+<span style="color:#a6e22e">class</span>(day)
+day <span style="color:#75715e"># Notice the Levels: Monday Thursday Tuesday Wednesday</span>
+
+<span style="color:#75715e"># To set the order explicitly we need to set them explicitly</span>
+<span style="color:#a6e22e">help</span>(factor) <span style="color:#75715e"># notice the levels argument - it sets the order of the level names</span>
+
+day <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(x <span style="color:#f92672">=</span> day, levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Monday&#34;</span>, <span style="color:#e6db74">&#34;Tuesday&#34;</span>,
+                         <span style="color:#e6db74">&#34;Wednesday&#34;</span>, <span style="color:#e6db74">&#34;Thursday&#34;</span>))
+day <span style="color:#75715e"># Notice the level order now</span>
+</code></pre></div><p> </p>
 <h3 id="134-vector-and-matrix-fun">1.3.4 Vector and Matrix fun</h3>
+<p><strong>Vector and matrix data structures are two fundamental ways to arrange data in R.</strong>  We have already looked at vectors, which store data in a single dimension.</p>
+<p>There are actually a few different data organisation structures in R.</p>
+<ul>
+<li>
+<p><strong>Vector</strong> - stores data in a single dimension from 1 to i, myvec[1:i]</p>
+</li>
+<li>
+<p><strong>Matrix</strong> - stores data in two dimensions 1 to i rows, 1 to j columns mymat[1:i, 1:j]</p>
+</li>
+<li>
+<p><strong>Array</strong> - 3 dimensions to i, j, and k myarray[i, j, k]</p>
+</li>
+</ul>
+<p>Vectors, Matrices and Arrays can only store the same TYPE of data.</p>
 <p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+
+myvec1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>) <span style="color:#75715e"># numeric vector</span>
+myvec1
+<span style="color:#a6e22e">class</span>(myvec1) <span style="color:#75715e"># see? I told ya!</span>
+
+myvec2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.character</span>(myvec1) <span style="color:#75715e">#convert to character</span>
+myvec2 <span style="color:#75715e"># notice the quotes</span>
+<span style="color:#a6e22e">class</span>(myvec2) <span style="color:#75715e"># now character</span>
+
+myvec3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;male&#34;</span>)
+myvec3 <span style="color:#75715e">#notice the numbers now have quotes - forced to character...</span>
+
+myvec4 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.numeric</span>(myvec3) <span style="color:#75715e">#notice the warning</span>
+myvec4 <span style="color:#75715e"># The vector element that could not be coerced to be a numeric was converted to NA</span>
+</code></pre></div><p> </p>
+<p><strong>Matrices</strong></p>
+<p>Matrices can be quite useful - you can manipulate data into matrix form with the <code>matrix()</code> function.  By default rows and columns are merely numbered, but they can be named as well.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+
+vec1 <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">16</span> <span style="color:#75715e"># make a numeric vector with 16 elements</span>
+vec1 
+
+<span style="color:#a6e22e">help</span>(matrix) <span style="color:#75715e">#notice the ncol, nrow and byrow arguments</span>
+
+mat1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">matrix</span>(data <span style="color:#f92672">=</span> vec1, ncol <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>, byrow <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>) <span style="color:#75715e">#byrow = FALSE is the default</span>
+
+mat1 <span style="color:#75715e"># Notice the numbers filled in by columns</span>
+<span style="color:#a6e22e">colnames</span>(mat1) <span style="color:#75715e"># The Columns and Rows have no names</span>
+
+<span style="color:#a6e22e">colnames</span>(mat1) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">&#34;D&#34;</span>) <span style="color:#75715e"># Set the column names for mat1</span>
+<span style="color:#a6e22e">colnames</span>(mat1)
+
+mat1 <span style="color:#75715e"># Yep the columns shows names</span>
+
+<span style="color:#75715e"># Challenge 1: Set the Row names for Mat1 using the rownames() function</span>
+
+<span style="color:#75715e"># Challenge 2: make a matrix with 3 rows with the following vector, </span>
+<span style="color:#75715e"># so the the first COLUMN contains the numbers 2, 5, and 9, in the order,</span>
+<span style="color:#75715e"># for rows o1, 2, and 3 respectively:</span>
+
+vec2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>)
+</code></pre></div><p> </p>
 <h3 id="135-practice-exercises">1.3.5 Practice exercises</h3>
+<p> </p>
+<p><strong>1</strong> Create a vector named my_var1 that contains the following 6 integers: 3, 6, 12, 7, 5, 0.1. Create a Second vector called my_var2 that contains the following 2 integers: 2, 3.  Evalude the expression my_var1 + my_var 2.  Explain the output in terms of R mechanics in your own words.</p>
+<p> </p>
+<p><strong>2</strong> Create a character vector with the names of the 12 months of the year.  Convert the vector to a factor, with the month names in chronological order.  Show your code.</p>
+<p> </p>
+<p><strong>3</strong> What is wrong with the following code?  Describe, show the code, and justify a fix for the problem in your own words.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mymat <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">matrix</span>(data <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>( <span style="color:#ae81ff">12</span>,   <span style="color:#ae81ff">23</span>,   <span style="color:#ae81ff">45</span>,
+                         <span style="color:#e6db74">&#34;34&#34;</span>, <span style="color:#e6db74">&#34;22&#34;</span>, <span style="color:#e6db74">&#34;31&#34;</span>))
+</code></pre></div><p> </p>
+<p><strong>4</strong> Use the <code>array()</code> function to make a 2 x 3 x 3 array to produce the following output:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">, , <span style="color:#ae81ff">1</span>
+
+     [,<span style="color:#ae81ff">1</span>] [,<span style="color:#ae81ff">2</span>]
+[1,]    <span style="color:#ae81ff">1</span>    <span style="color:#ae81ff">3</span>
+[2,]    <span style="color:#ae81ff">2</span>    <span style="color:#ae81ff">4</span>
+
+, , <span style="color:#ae81ff">2</span>
+
+     [,<span style="color:#ae81ff">1</span>] [,<span style="color:#ae81ff">2</span>]
+[1,]    <span style="color:#ae81ff">5</span>    <span style="color:#ae81ff">7</span>
+[2,]    <span style="color:#ae81ff">6</span>    <span style="color:#ae81ff">8</span>
+
+, , <span style="color:#ae81ff">3</span>
+
+     [,<span style="color:#ae81ff">1</span>] [,<span style="color:#ae81ff">2</span>]
+[1,]    <span style="color:#ae81ff">9</span>   <span style="color:#ae81ff">11</span>
+[2,]   <span style="color:#ae81ff">10</span>   <span style="color:#ae81ff">12</span>
+
+</code></pre></div><p> </p>
+<p><strong>5</strong> Show the code to make the following matrix:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">       cat dog
+male    <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">88</span>
+female  <span style="color:#ae81ff">71</span>  <span style="color:#ae81ff">29</span>
+</code></pre></div><p> </p>
+<p><strong>6</strong> Write a plausible practice question involving the use of the <code>matrix()</code> and <code>vector()</code> functions.</p>
+<p> </p>
 </div>
 
 </main>
