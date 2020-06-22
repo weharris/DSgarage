@@ -56,13 +56,12 @@ SCRIPT 1.3 Use this to follow along on this page and for the Practice exercises 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.4-m1-data-frames/</guid>
-      <description>~Content coming soon~  Data Frames (Like your room, data should be tidy) VIDEO 1.4
+      <description>Data Frames (Like your room, data should be tidy) VIDEO 1.4
 SCRIPT
- Contents
-1.4.1 Tidy data concept 1.4.2 Data file types and getting data into R 1.4.3 Excel, data setup, and data dictionary 1.4.4 Practice exercises
- 1.4.1 Tidy data concept  1.4.2 Common data file types  1.4.3 Excel, data setup, and data dictionary  1.4.4 Practice exercises  1
- 2
- 3</description>
+NB for this page we assume you have access to Microsoft Excel; however, similar spreadsheet software (like Libre Office Calc) will work fine.
+ Overview
+ The first step for getting your data into R is making your data tidy. The first step in using R for data analysis is getting your data into R.
+ The commonest question we have experienced for new users of R who want to perform analysis on their data is how to get data into R.</description>
     </item>
     
     <item>

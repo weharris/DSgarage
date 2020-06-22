@@ -137,37 +137,311 @@
 
     <div align="start" class="content"><p><img src="/img/tidy.png" alt=" "></p>
 <p> </p>
-<h1 id="content-coming-soon">~Content coming soon~</h1>
-<p> </p>
 <h2 id="data-frames-like-your-room-data-should-be-tidy">Data Frames (Like your room, data should be tidy)</h2>
 <p>VIDEO 1.4</p>
 <p>SCRIPT</p>
+<p>NB for this page we assume you have access to Microsoft Excel; however, similar spreadsheet software (like Libre Office Calc) will work fine.</p>
+<p> </p>
+<p><strong>Overview</strong></p>
+<blockquote>
+<p>The first step for getting your data into R is making your data tidy.  The first step in using R for data analysis is getting your data into R.</p>
+</blockquote>
+<p>The commonest question we have experienced for new users of R who want to perform analysis on their data is how to get data into R.  There is good news and bad news.  The good news is that <strong>it is exceedingly easy to get data into R for analysis, in almost any format</strong>.  The bad news is that <strong>a step most new users find very difficult is taking responsibility for their own data</strong>, in terms of basic aspects of data management, like choosing appropriate variable names, error checking, providing information about variables and data collection, proliferation of excessive dataset versions, and, worst of all, embedding superfluous information into Excel spreadsheets with valuable data.</p>
+<p>A concept to streamline data preparation for analysis is Tidy Data.  The basic idea is to format data for analysis in a way that 1) archives data for reproducibility of results, and 2) makes the data transparent to colleagues or researchers by documenting a data dictionary.  This page is all about the tidy data concept and a simple recipe for best practice to prepare data for analysis and to get data into R.</p>
 <p> </p>
 <p><strong>Contents</strong><br>
-1.4.1 Tidy data concept
-1.4.2 Data file types and getting data into R
-1.4.3 Excel, data setup, and data dictionary
-1.4.4 Practice exercises</p>
+1.4.1 Tidy data concept<br>
+1.4.2 Common data file types<br>
+1.4.3 Excel, data setup, and the Data Dictionary<br>
+1.4.4 Getting data into R<br>
+1.4.5 Manipulating variables in the Data Frame
+1.4.6 Practice exercises</p>
 <p> </p>
 <h4 id="141-tidy-data-concept">1.4.1 Tidy data concept</h4>
+<p>The <a href="https://www.jstatsoft.org/article/view/v059i10">tidy Data concept is generally attributed to Wickham (2014)</a>, and is based on the idea that with a few simple rules, data can be archived for complete reproducibility of results.  This practice benefits any user, because it facilitates collaboration at the same time as documenting both data and analysis methods for value to future use.</p>
+<p>The essentials of Tidy Data are:</p>
+<ul>
+<li>
+<p>Each variable should be in a column</p>
+</li>
+<li>
+<p>Each observation should be in a row</p>
+</li>
+<li>
+<p>A Data Dictionary should be assocatied with the dataset, such that completely reproducible analysis is possible</p>
+</li>
+</ul>
 <p> </p>
 <h4 id="142-common-data-file-types">1.4.2 Common data file types</h4>
+<p>The best file type for the majority of people to archive data for analysis is in a plain text <strong>Comma Separated Values (CSV or .csv) file</strong>, or just an <strong>Excel Spreadsheet</strong>.  Proprietary data formats should be avoided, like those produced by SPSS, Genstat, Minitab or other programs.  The reason for this is that data stored in those formats is not necessarily useful to people who do not have access to the software, and that for archiving purposes, such software file formats tend to change over time.  While Excel is a proprietary format, we find that it is is easy to use, (almost completely) ubiquitous, and relatively resilient to backwards compatibility issues. Thus, sticking to CSV or Excel is a rule you should have a very good reason if you choose to break from it.</p>
+<p>We recommend using Excel to store data with the goal (for simple datasets and analyses) of having one table for the actual data, in Tidy Data format, and a second tab consisting of a Data Dictionary where each variable is described in enough detail to completely reproduce any analysis. Generally, no formatting or results should ever be embedded in an Excel sreadsheet that is used to store data.</p>
 <p> </p>
-<h4 id="143-excel-data-setup-and-data-dictionary">1.4.3 Excel, data setup, and data dictionary</h4>
+<h4 id="143-excel-data-setup-and-the-data-dictionary">1.4.3 Excel, data setup, and the Data Dictionary</h4>
+<p><strong>Tidy Data and Excel</strong></p>
+<p>For this section, you should download the following files in Excel (.xlsx) format:</p>
+<ul>
+<li>
+<p><a href="/data/1.4-tidy.xlsx">Tidy Data example Excel file</a></p>
+</li>
+<li>
+<p><a href="/data/1.4-untidy.xlsx">The exact same information as un-Tidy Data</a></p>
+</li>
+</ul>
 <p> </p>
-<h4 id="144-practice-exercises">1.4.4 Practice exercises</h4>
+<p><strong>The following account describes an experiment.</strong></p>
+<blockquote>
+<p>You are contacted by someone who wants help with data analysis and they give you some information about their experiment. They are interested in how diet affects the production of an important metabolite in pest aphids.  They designed an experiment with a control treatment where aphids were allowed to feed on plain plants, another treatment where their diet was supplemented with one additive, &ldquo;AD&rdquo;, and a third treatment where their diet was supplemented with two additives, &ldquo;AD&rdquo; and &ldquo;SA&rdquo;.  Another factor was aphid Genus, where individuals from the genera <em>Brevicoryne</em> and <em>Myzus</em> were tested. Three replicates of each treatment combination were performed (i.e. aphid genus [2 levels] X food treatment [3 levels including the control]).</p>
+</blockquote>
+<blockquote>
+<p>The metabolite of interest was measured with a spectrometer using three individual aphids from each replicate.  The spectrometer peak area (an arbitrary scale) represents the total amount of the metabolite, which was converted to a real scale of metabolite total concentration.  Finally, this total concentration was divided by 3 to estimate the concentration of the metabolite in each individual aphid.</p>
+</blockquote>
 <p> </p>
-<p><strong>1</strong></p>
+<p>Have a look at the file 1.4-untidy.xlsx in Excel.</p>
 <p> </p>
-<p><strong>2</strong></p>
+<p>The dataset is fairly small and it is readable by humans, but in its current form it is not useable for analysis in R or other statistical software and there are a few ambiguous aspects which we will explore and try to improve.</p>
 <p> </p>
-<p><strong>3</strong></p>
+<p><strong>Untidy</strong></p>
+<p><img src="/img/1.4-untidy.png" alt="Untidy"></p>
 <p> </p>
-<p><strong>4</strong></p>
+<ul>
+<li>
+<p>The file contains embedded figures and summary tables</p>
+</li>
+<li>
+<p>There is empty white space in the file (Row 1 and Column A)</p>
+</li>
+<li>
+<p>The variable names violate several naming conventions (spaces, special characters)</p>
+</li>
+<li>
+<p>Missing data is coded incorrectly (Row 13 was a failed reading, but records zeros for the actual measurements)</p>
+</li>
+<li>
+<p>Conversion information accessory to the data is present (Row 3)</p>
+</li>
+<li>
+<p>There is no Data Dictionary (i.e. explanation of the variables)</p>
+</li>
+<li>
+<p>The Aphid and Diet treatments are &ldquo;confounded&rdquo; in their coding</p>
+</li>
+<li>
+<p>What the heck is the &ldquo;RT&rdquo; column (most of the values are identical)</p>
+</li>
+</ul>
 <p> </p>
-<p><strong>5</strong></p>
+<p><strong>Now, have a look at the Tidy Data version of the data file.</strong></p>
+<p><img src="/img/1.4-tidy.png" alt="Untidy"></p>
 <p> </p>
-<p><strong>6</strong></p>
+<ul>
+<li>
+<p>The embedded figures have been removed</p>
+</li>
+<li>
+<p>The white space rows and columns have been removed</p>
+</li>
+<li>
+<p>The variable names have been edited but still are equally informative</p>
+</li>
+<li>
+<p>Missing data is coded correctly with &ldquo;NA&rdquo;</p>
+</li>
+<li>
+<p>The conversion info has been removed and placed in the Data Dictionary</p>
+</li>
+<li>
+<p>A complete Data Dictionary on a new tab (&ldquo;dictionary&rdquo;) was added, explaining each variable</p>
+</li>
+<li>
+<p>The aphid and food treatment variables were made separate</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Tidy Data version Data Dictionary tab</strong></p>
+<p><img src="/img/1.4-tidy-dictionary.png" alt="Untidy"></p>
+<p> </p>
+<p>Notice in the Data Dictionary how there is a row for each variable with the name of the variable and an explanation for each variable.</p>
+<p> </p>
+<p>Once your data is tidy, it is very easy to read in Excel data files, or they can be exported into a text file format like CSV to read straight into R or other programs.</p>
+<p> </p>
+<p><strong>CSV</strong></p>
+<p>Have a look at the Tidy Data dataset in .csv file format - open it with a plain text editor (e.g. Notepad in Windows, or similar). You will notice that each column entry is separated from others with a comma <code>,</code>, hence the name Comma Separated Values!</p>
+<p> </p>
+<p><strong>Tidy csv</strong></p>
+<p><img src="/img/1.4-tidy.csv.png" alt="Tidy csv"></p>
+<p> </p>
+<h4 id="144-getting-data-into-r">1.4.4 Getting data into R</h4>
+<p>We still need to actually read data into R from external files.  There are a very large number of ways to do this and most people enventually find the own workflow.  For beginners, we think it is best to begin with Excel or CSV files in Tidy Data format.</p>
+<p>The basics of reading external files from a script is to to use the <code>read.xlsx()</code> function in the <code>{openxlsx}</code> package (you will oprobably need to install this with the <code>install.packages()</code> function), or else to use <code>read.csv()</code> that comes standard in base R.  We will briefly try both.</p>
+<p> </p>
+<blockquote>
+<p>Best practice when working with files is to formally set your &ldquo;working directory&rdquo;.  Basically, this tells R where your input (i.e. data) and output (like scripts or figures) files should be.</p>
+</blockquote>
+<p> </p>
+<p><strong>Working directory</strong></p>
+<p>There are several viable ways to set your working directory in R, e.g. via the Session menu:</p>
+<p><img src="/img/1.4-working-directory.png" alt="Working directory"></p>
+<p> </p>
+<p>However, the best way to do this this is to set your working directory using code with the <code>setwd()</code> function. Here we should a workflow for Windows, which is similar on other computer systems.  <strong>We consider the step of setting a working directory essential for best practice.</strong></p>
+<p>If you are unfamiliar with how to obtain the path to your working directory, open windows explorer, navigate to the folder you wish to save your script, data files and other inpouts and outputs.  You can think of this folder as one that contains all related files for e.g. a data analysis project, or perhaps this bootcamp module!</p>
+<p> </p>
+<p><strong>Your directory window might look similar to this</strong></p>
+<p><img src="/img/1.4-explorer.png" alt="Working directory"></p>
+<p> </p>
+<p>Notice the folder &ldquo;view&rdquo; is set to &ldquo;Details&rdquo;, and also notice that the folder options are set to &ldquo;Show file extensions.  We recommend to setting your own settings like this.</p>
+<p>The pointer is indicated in the circle marked A in the picture above.</p>
+<p>Left click the area to the right of the folder text once (where the pointer is in the picture above) and you should see something similar to the figure below, where the folder path is displayed and the text is automatically selected.</p>
+<p> </p>
+<p><strong>Your selected file path might look similar to this</strong></p>
+<p><img src="/img/1.4-path.png" alt="Working directory"></p>
+<p> </p>
+<p>Assuming you have opened the File Explorer in your working directory or navigated there, the selected path is the working directory path which you can copy (<code>Ctrl + c</code> in Windows).  I your script, you can now use <code>getwd()</code> to get and priont your working directory path, and <code>setwd()</code>, which takes a single character string of the path for your working directory for the argument <code>dir</code> , to set it.</p>
+<p> </p>
+<blockquote>
+<p>R file paths use the forward slash symbol &ldquo;/&rdquo; to separate file names. A very important step for Windows users when setting the working directory in R is to change the Windows default &ldquo;&quot; for forward slashes&hellip;</p>
+</blockquote>
+<p> </p>
+<p><strong>You need this for the following code:</strong> <a href="/data/1.4-tidy.xlsx">.xlsx data file</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+
+<span style="color:#a6e22e">getwd</span>() <span style="color:#75715e"># Prints working directory in Console</span>
+
+<span style="color:#a6e22e">setwd</span>(<span style="color:#e6db74">&#34;D:/Dropbox/git/DSgarage/static/scripts&#34;</span>) 
+<span style="color:#75715e"># NB the quotes</span>
+<span style="color:#75715e"># NB the use of &#34;/&#34;</span>
+<span style="color:#75715e"># NB this is MY directory - change the string to YOUR directory :)</span>
+
+<span style="color:#a6e22e">getwd</span>() <span style="color:#75715e"># Check that change worked</span>
+
+<span style="color:#75715e">## Read in Excel data file</span>
+
+
+<span style="color:#a6e22e">install.packages</span>(openxlsx, dep <span style="color:#f92672">=</span> T) <span style="color:#75715e"># Run if needed</span>
+<span style="color:#a6e22e">library</span>(openxlsx) <span style="color:#75715e"># Load package needed to read Excel files</span>
+
+<span style="color:#75715e"># Make sure the data file &#34;1.4-tidy.xlsx&#34; is in your working directory</span>
+my_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.xlsx</span>(<span style="color:#e6db74">&#34;1.4-tidy.xlsx&#34;</span>)
+</code></pre></div><p> </p>
+<p>All being well, you should see the following data object in your Global Environement.  Note the small blue button (A, circled below) you can press to espand the view of the variables in your data frame.</p>
+<p><img src="/img/1.4-tidy-global-env.png" alt="Data from file"></p>
+<p> </p>
+<p>Note that the same procedure works with Comma Separated Values data files, and other kinds of files that you want to read into R, except that the R function used will be specific to the file type.  E.g., <code>read.csv()</code> for CSV files, <code>read.delim</code> for TAB delimited files, or <code>read.table()</code> as a generic function to tailor to many types of plain text data files (there are many others, but this is enough for now).</p>
+<p> </p>
+<h4 id="145-manipulating-variables-in-the-data-frame">1.4.5 Manipulating variables in the Data Frame</h4>
+<blockquote>
+<p>Now that there is a data frame in your working environment, we can start working with the variables.  This is a good time to think about the &ldquo;R Space&rdquo; metaphor.  You are floating in R Space and you can see a data frame called &ldquo;my_data&rdquo;.  You cannot see inside the container, so we will look at methods of accessing the data inside by name&hellip;</p>
+</blockquote>
+<p> </p>
+<p>Some important topics:</p>
+<ul>
+<li>
+<p>The <code>names()</code> function</p>
+</li>
+<li>
+<p>The use of the <code>$</code> operator for data frames</p>
+</li>
+<li>
+<p>The use of the <code>str()</code> function for data frames</p>
+</li>
+<li>
+<p>The use of the index operator <code>[ , ]</code></p>
+</li>
+<li>
+<p>The use of the <code>attach()</code> function</p>
+</li>
+</ul>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+
+<span style="color:#a6e22e">class</span>(my_data) <span style="color:#75715e"># data.frame, a generic class for holding data</span>
+
+<span style="color:#75715e">## The ```names()``` function ####</span>
+
+<span style="color:#75715e"># The names() function returns the name of attributes in R objects</span>
+<span style="color:#75715e"># When used on a data frame it returns the names of the variables</span>
+<span style="color:#a6e22e">names</span>(my_data)
+
+<span style="color:#75715e"># Note the conc.ind variable is classed numeric</span>
+<span style="color:#75715e"># Note the treatment variable is classed as character (not a factor)</span>
+
+
+<span style="color:#75715e">## The use of the ```$``` operator for data frames ####</span>
+
+<span style="color:#75715e"># The $ operator allows us to access variable names inside R objects</span>
+<span style="color:#75715e"># Use it like: data_object$variable_name</span>
+my_data<span style="color:#f92672">$</span>conc.ind
+
+<span style="color:#75715e"># Try this</span>
+conc.ind <span style="color:#75715e"># Gives an error because the variable conc.ind is INSIDE my_data</span>
+
+
+<span style="color:#75715e">## The use of the ```str()``` function for data frames ####</span>
+<span style="color:#75715e"># The str() function returns the STRUCTURE of a data frame</span>
+<span style="color:#75715e"># This includes variable names, classes, and the first few values</span>
+
+<span style="color:#a6e22e">str</span>(my_data) <span style="color:#75715e"># This is similar to the graphical Global Environment view in RStudio</span>
+
+<span style="color:#75715e">## The use of the index operator ```[ , ]``` ####</span>
+<span style="color:#75715e"># The index operator allows us to access specified rows and colums in data frames</span>
+<span style="color:#75715e"># (this works exactly the same in matrices and otehr indexed objects)</span>
+
+my_data<span style="color:#f92672">$</span>conc.tot <span style="color:#75715e"># The conc.tot variable with $</span>
+my_data<span style="color:#f92672">$</span>conc.tot[1<span style="color:#f92672">:</span><span style="color:#ae81ff">6</span>] <span style="color:#75715e"># each variable is a vector - 1st 6 values</span>
+
+<span style="color:#a6e22e">help</span>(dim)
+<span style="color:#a6e22e">dim</span>(my_data) <span style="color:#75715e"># my_data has 18 rows, 6 columns</span>
+
+my_data[ , ] <span style="color:#75715e"># Leaving the entries blank means return all rows and columns</span>
+<span style="color:#a6e22e">names</span>(my_data) <span style="color:#75715e"># Note conc.tot is the 6th variable</span>
+<span style="color:#a6e22e">names</span>(my_data)[6] <span style="color:#75715e"># Returns the name of the 6th variable</span>
+
+my_data[ , <span style="color:#ae81ff">6</span>] <span style="color:#75715e"># Returns all rows of the 6th variable in my_data</span>
+
+<span style="color:#75715e"># We can explicitly specify all rows (there are 18 remember)</span>
+my_data[1<span style="color:#f92672">:</span><span style="color:#ae81ff">18</span> , <span style="color:#ae81ff">6</span>] <span style="color:#75715e"># ALSO returns all rows of the 6th variable in my_data</span>
+
+<span style="color:#75715e"># We can specify the variable names with a character</span>
+my_data[ , <span style="color:#e6db74">&#34;conc.tot&#34;</span>]
+my_data[ , <span style="color:#e6db74">&#34;conc.ind&#34;</span>]
+
+<span style="color:#75715e"># Specify more than 1 by name with c() in the column slot of [ , ]</span>
+my_data[ , <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;conc.tot&#34;</span>, <span style="color:#e6db74">&#34;conc.ind&#34;</span>)] 
+
+
+<span style="color:#75715e">## The use of the ```attach()``` function ####</span>
+<span style="color:#75715e"># The attach() function makes variable names available </span>
+<span style="color:#75715e"># for a data object in R space</span>
+
+conc.ind <span style="color:#75715e"># Error; the Passive-Aggressive Butler doesn&#39;t understand...</span>
+
+<span style="color:#a6e22e">attach</span>(my_data)
+conc.ind <span style="color:#75715e"># Now that my_data is &#34;attached&#34;, the Butler can find variables inside</span>
+
+<span style="color:#a6e22e">help</span>(detach) <span style="color:#75715e"># Undo attach()</span>
+<span style="color:#a6e22e">detach</span>(my_data)
+conc.ind <span style="color:#75715e"># Is Sir feeling well, Sir?</span>
+</code></pre></div><p> </p>
+<h4 id="146-practice-exercises">1.4.6 Practice exercises</h4>
+<p> </p>
+<p><a href="/data/1.4-butterfly.xlsx">Data file for exercises</a></p>
+<p><strong>1</strong> Download the data file above and place it in a working directory.  Set your working directory.  Read in the data file and place it in a data frame object named &ldquo;data1&rdquo;.  Using mean(), calculate the mean of the variable &ldquo;length&rdquo; and report the results in a comment to 2 decimal points accuracy.  Show your R code.</p>
+<p> </p>
+<p><strong>2</strong> Show the code to convert the diet variable to an ordinal factor with the order &ldquo;control&rdquo; &gt; &ldquo;enhanced&rdquo;, and the sex variable to a plain categorical factor.</p>
+<p> </p>
+<p><strong>3</strong> Show code for 2 different variations of  using only the &ldquo;[ , ]&rdquo; operator with your data frame to show the following output:</p>
+<pre><code>       diet length
+8   control      6
+9   control      7
+10  control      6
+11 enhanced      8
+12 enhanced      7
+13 enhanced      9
+</code></pre><p> </p>
+<p><strong>4</strong> Show code to read in a comma separated values data file that does not have a header (first row containing variable names).</p>
+<p> </p>
+<p><strong>5</strong> Describe in your own words what the attach() function does.</p>
+<p> </p>
+<p><strong>6</strong> Write a plausible practice question involving any aspect of manipuation of a data frame.</p>
 <p> </p>
 </div>
 
