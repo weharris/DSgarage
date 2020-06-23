@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>3.2 RMarkdown for Reproducible Reports</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: white;
+    }
+
+    :root {
+        --accent: green;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/haskell.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/swift.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.72.0" />
+        
+
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+
+    </head>
+
+    <body>
+        
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">3.2 RMarkdown for Reproducible Reports</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/bootcamp/">Bootcamp</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="https://join.slack.com/t/hadatascience/shared_invite/zt-ekigo1t3-0ADgafsF6zTDwJ9SxIws9w"><i class="fa fa-slack"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://twitter.com/adams_data/"><i class="fa fa-twitter"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.youtube.com/channel/UCOEuOH6cY8yisodud25hb7w"><i class="fa fa-youtube"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+<main>
+
+    <div>
+        <h2>3.2 RMarkdown for Reproducible Reports</h2>
+        <h5></h5>
+        
+<a href="/tags/bootcamp"><kbd class="item-tag">Bootcamp</kbd></a>
+
+<a href="/tags/r"><kbd class="item-tag">R</kbd></a>
+
+<a href="/tags/open-science"><kbd class="item-tag">Open Science</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p> </p>
+<p>As researchers we often want our collaborators to easily understand what we have done during an analysis. We could just share our raw data and code as it should be reproducible now you&rsquo;ve completed <a href="/bootcamp/3.1-m3-reproducible-research/index.html">module 3.1</a>. It would be much better to create a <strong>reproducible report</strong> using RMarkdown that presents your code alongside its output (graphs, tables, etc.) with conventional text to explain it. Of course, reproducible reports aren&rsquo;t just a useful way of sharing analyses with collaborators but can also act as a record for yourself.</p>
+<p> </p>
+<p><strong>Contents</strong></p>
+<p>3.2.1 What is RMarkdown?<br>
+3.2.2 Installing RMarkdown<br>
+3.2.3 Creating an RMarkdown Document   <br>
+3.2.4 YAML Header<br>
+3.2.5 Code Chunks and Plain Text<br>
+3.2.6 Plots<br>
+3.2.7 Tables<br>
+3.2.8 Markdown Basics<br>
+3.2.9 Useful Resources</p>
+<p> </p>
+<h3 id="321-what-is-rmarkdown">3.2.1 What is RMarkdown?</h3>
+<p>Many programming languages used for data analysis have packages to generate reproducible reports - the most popular ones are Jupyter Notebooks for Python users and RMarkdown for R users. While both of these examples share many commonalities, their implementation and everyday applications differ.</p>
+<p> </p>
+<p>RMarkdown is a file format (typically saved with the <code>.Rmd</code> extension) that can contain: a YAML header, text, code chunks, and inline code. The <code>rmarkdown</code> package converts this file into a report, most commonly into HTML or PDF. You don&rsquo;t need to understand the multi-step process that <code>rmarkdown</code> uses to generate report outputs but for those interested please see <a href="https://rmarkdown.rstudio.com/lesson-2.html">here</a>.</p>
+<p> </p>
+<h3 id="322-installing-rmarkdown">3.2.2 Installing RMarkdown</h3>
+<p>To use RMarkdown in RStudio you first need to install and load the <code>rmarkdown</code> package by running:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;rmarkdown&#34;</span>)  <span style="color:#75715e"># Installs package</span>
+<span style="color:#a6e22e">library</span>(rmarkdown)  <span style="color:#75715e"># Loads package</span>
+</code></pre></div><p> </p>
+<h3 id="323-creating-an-rmarkdown-document">3.2.3 Creating an RMarkdown Document</h3>
+<p>Now that you have <code>rmarkdown</code> installed let&rsquo;s create a reproducible report! The first thing we need to do is create an RMarkdown file in RStudio:</p>
+<ol>
+<li>Click <code>File</code></li>
+<li>Click <code>New File</code></li>
+<li>Click <code>R Markdown</code></li>
+</ol>
+<p>The following window will now appear:</p>
+<p><img src="/img/3.2-create-rmarkdown-document.png" alt=" "></p>
+<ol start="4">
+<li>Change the &lsquo;Title&rsquo; to &lsquo;My First Reproducible Report&rsquo; and the Author to your name</li>
+<li>Click <code>OK</code></li>
+</ol>
+<p>You should now have a file that looks like this:</p>
+<p><img src="/img/3.2-rmarkdown-document.png" alt=" "></p>
+<p>As you can see, newly created RMarkdown files come with some basic instructions and examples but we are not interested in these so select and delete them before saving your document. We can now populate our RMarkdown file with our own analyses and information.</p>
+<p> </p>
+<h3 id="324-yaml-header">3.2.4 YAML Header</h3>
+<p>YAML headers lives at the top of your RMarkdown file and are delineated by three dashes (&mdash;) at the top and at the bottom of it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">---</span>
+title<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;My First Reproducible Report&#34;</span>
+author<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Joe Roberts&#34;</span>
+date<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;15/06/2020&#34;</span>
+output<span style="color:#f92672">:</span> html_document
+<span style="color:#f92672">---</span>
+</code></pre></div><p>YAML headers are optional but when you create a new RMarkdown file the title, author, date and output format are printed at the top of your document by default. Although this section is optional it is usually a good idea to include a YAML header as they can be used to specify:</p>
+<ul>
+<li>Document characteristics (e.g. title, authors, creation date, etc.)</li>
+<li>Pandoc arguments to specify output file information (e.g. file type, reference format, etc.)</li>
+</ul>
+<p>Using the above code as an example, add a YAML header containing your <code>title</code>, <code>author</code>, <code>date</code> and <code>output</code> information to the RMarkdown file we just created:</p>
+<p><img src="/img/3.2-yaml-header.png" alt=" "></p>
+<p>Now click <code>knit</code> to compile the <code>.Rmd</code> into a <code>.html</code> file (red box in the above image). RStudio will open a separate preview window to display the output of your <code>.Rmd</code> file and also save a <code>.html</code> file in the same folder as your <code>.Rmd</code> file. Your preview should look like this:</p>
+<p><img src="/img/3.2-first-knit.png" alt=" "></p>
+<p>Congratulations - you&rsquo;ve just compiled your first RMarkdown file! Below the YAML header is where we write code and text as well as displaying any outputs (e.g. plots, tables, etc.). Let&rsquo;s take a closer look at these aspects of RMarkdown.</p>
+<p> </p>
+<h3 id="325-code-chunks-and-plain-text">3.2.5 Code Chunks and Plain Text</h3>
+<p>Code chunks can be interspersed within the text of the report and are delineated by three backticks at the top and at the bottom. Top backticks are followed by curly brackets that specify the:</p>
+<ul>
+<li>Programming language</li>
+<li>Code chunk name (optional, but good practice)</li>
+<li><code>knitr</code> options that control how the code, output, or figures are interpreted and displayed</li>
+</ul>
+<p>Everything after the chunk name <strong>HAS</strong> to be a valid R expression! RMarkdown doesn’t pay attention to anything loaded in other R scripts or the global environment, you <strong>MUST</strong> load all objects and packages in the RMarkdown script.</p>
+<pre><code>```{r example-code-chunk, include = TRUE}
+# This is an example code chunk
+```
+</code></pre><p>The above code chunk is specifies <code>R</code> as the programming language, that the chunk is called <code>example-code-chunk</code> and that it should be included in the RMarkdown <code>.html</code> document. Let&rsquo;s add some plain text and a code chunk to our own RMarkdown file. Copy the following into your RMarkdown file and <code>knit</code> again:</p>
+<pre><code>This is our first code chunk: 
+```{r our-first-code-chunk, include = TRUE}
+# Load the cars data into a new object
+car_data &lt;- cars
+
+# Examine first five rows of this object
+head(car_data)
+```
+</code></pre><p>There are lots of different <code>knitr</code> options availble to you to customise the behaviour of your code chunks. A summary of key options can be found <a href="https://rmarkdown.rstudio.com/lesson-3.html">here</a>.</p>
+<p> </p>
+<h3 id="326-plots">3.2.6 Plots</h3>
+<p>Inserting plots into an RMarkdown file is very easy! The more challenging aspect is adjusting their format using <code>knitr</code> options. First, insert a second code chunk into your RMarkdown file called <code>example-plot-chunk</code> and then create a plot by adding the following code and running <code>knit</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Create a plot of the car data</span>
+<span style="color:#a6e22e">plot</span>(car_data)
+</code></pre></div><p>RMarkdown maximises plot height while keeping them within the margins of the page and maintaining aspect ratio. To manually set the figure dimensions, you can insert an instruction into the curly brackets:</p>
+<pre><code>```{r example-plot-chunk, fig.width = 10, fig.height = 5, include = TRUE}
+plot(car_data)
+```
+</code></pre><p>Hopefully you now have two code chunks in your RMarkdown file.</p>
+<p> </p>
+<h3 id="327-tables">3.2.7 Tables</h3>
+<p>R Markdown displays data frames and matrixes as they would be in the R terminal (in a monospaced font). If you prefer that data be displayed with additional formatting you can use the <code>knitr::kable function</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Create a dataframe</span>
+A <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>)
+B <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">20</span>)
+dataframe <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(A, B)
+
+<span style="color:#75715e"># Format using `kable` package</span>
+<span style="color:#a6e22e">library</span>(knitr)
+<span style="color:#a6e22e">kable</span>(dataframe, digits <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
+</code></pre></div><p>Insert the above code into a third data chunk in your RMarkdown file and <code>knit</code>. There are many alternative ways of creating tables in RMarkdown, which you can investigate yourself.</p>
+<p> </p>
+<h3 id="328-markdown-basics">3.2.8 Markdown Basics</h3>
+<p>You can format the text in your RMarkdown file with Pandoc’s Markdown, a set of markup annotations for plain text files. When you compile your file, Pandoc transforms the marked up text into formatted text in your final file format. Markdown formatting examples:</p>
+<ul>
+<li><em>italics</em> = <code>*italics*</code></li>
+<li><strong>bold</strong> = <code>**bold**</code></li>
+<li><a href="https://rmarkdown.rstudio.com/lesson-8.html">links</a> = <code>[links](https://rmarkdown.rstudio.com/lesson-8.html)</code></li>
+</ul>
+<p>A comprehensive reference guide to Markdown formatting can be found <a href="https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">here</a>.</p>
+<p> </p>
+<h3 id="329-useful-resources">3.2.9 Useful Resources</h3>
+<ul>
+<li><a href="https://rmarkdown.rstudio.com/lesson-1.html">RStudio RMarkdown Tutorial</a></li>
+<li><a href="https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">RStudio RMarkdown Cheat Sheet</a></li>
+<li><a href="https://bookdown.org/yihui/rmarkdown/">RMarkdown: The Definitive Guide</a></li>
+</ul>
+</div>
+
+</main>
+
+        <footer>
+            <p class="copyright text-muted">© All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a>.</p>
+        </footer>
+
+        
+
+        
+    </body>
+
+</html>
+
