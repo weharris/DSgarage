@@ -97,5 +97,14 @@ SCRIPT
 3.1.1 Styling Your Code</description>
     </item>
     
+    <item>
+      <title>3.2 RMarkdown for Reproducible Reports</title>
+      <link>/bootcamp/3.2-m3-rmarkdown/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/3.2-m3-rmarkdown/</guid>
+      <description>As researchers we often want our collaborators to easily understand what we have done during an analysis. We could just share our raw data and code as it should be reproducible now you&amp;rsquo;ve completed module 3.1. It would be much better to create a reproducible report using RMarkdown that presents your code alongside its output (graphs, tables, etc.) with conventional text to explain it. Of course, reproducible reports aren&amp;rsquo;t just a useful way of sharing analyses with collaborators but can also act as a record for yourself.</description>
+    </item>
+    
   </channel>
 </rss>
