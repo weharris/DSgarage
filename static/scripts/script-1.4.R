@@ -50,7 +50,7 @@ class(my_data) # data.frame, a generic class for holding data
 names(my_data)
 
 # Note the conc.ind variable is classed numeric
-# Note the treatment variable is classed as character (but it is a factor...)
+# Note the treatment variable is classed as character (not a factor)
 
 
 ## The use of the ```$``` operator for data frames ####
