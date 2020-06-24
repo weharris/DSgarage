@@ -139,27 +139,27 @@
 <p>As researchers we often want our collaborators to easily understand what we have done during an analysis. We could just share our raw data and code as it should be reproducible now you&rsquo;ve completed <a href="/bootcamp/3.1-m3-reproducible-research/index.html">module 3.1</a>. It would be much better to create a <strong>reproducible report</strong> using RMarkdown that presents your code alongside its output (graphs, tables, etc.) with conventional text to explain it. Of course, reproducible reports aren&rsquo;t just a useful way of sharing analyses with collaborators but can also act as a record for yourself.</p>
 <p> </p>
 <p><strong>Contents</strong></p>
-<p>3.2.1 What is RMarkdown?<br>
-3.2.2 Installing RMarkdown<br>
-3.2.3 Creating an RMarkdown Document   <br>
-3.2.4 YAML Header<br>
-3.2.5 Code Chunks and Plain Text<br>
-3.2.6 Plots<br>
-3.2.7 Tables<br>
-3.2.8 Markdown Basics<br>
-3.2.9 Useful Resources</p>
+<p><a href="#anchor-1">3.2.1 What is RMarkdown?</a> <br>
+<a href="#anchor-2">3.2.2 Installing RMarkdown</a> <br>
+<a href="#anchor-3">3.2.3 Creating an RMarkdown Document</a>     <br>
+<a href="#anchor-4">3.2.4 YAML Header</a> <br>
+<a href="#anchor-5">3.2.5 Code Chunks and Plain Text</a> <br>
+<a href="#anchor-6">3.2.6 Plots</a> <br>
+<a href="#anchor-7">3.2.7 Tables</a> <br>
+<a href="#anchor-8">3.2.8 Markdown Basics</a> <br>
+<a href="#anchor-9">3.2.9 Useful Resources</a></p>
 <p> </p>
-<h3 id="321-what-is-rmarkdown">3.2.1 What is RMarkdown?</h3>
+<h3 id="anchor-1">3.2.1 What is RMarkdown?</h3>
 <p>Many programming languages used for data analysis have packages to generate reproducible reports - the most popular ones are Jupyter Notebooks for Python users and RMarkdown for R users. While both of these examples share many commonalities, their implementation and everyday applications differ.</p>
 <p> </p>
 <p>RMarkdown is a file format (typically saved with the <code>.Rmd</code> extension) that can contain: a YAML header, text, code chunks, and inline code. The <code>rmarkdown</code> package converts this file into a report, most commonly into HTML or PDF. You don&rsquo;t need to understand the multi-step process that <code>rmarkdown</code> uses to generate report outputs but for those interested please see <a href="https://rmarkdown.rstudio.com/lesson-2.html">here</a>.</p>
 <p> </p>
-<h3 id="322-installing-rmarkdown">3.2.2 Installing RMarkdown</h3>
+<h3 id="anchor-2">3.2.2 Installing RMarkdown</h3>
 <p>To use RMarkdown in RStudio you first need to install and load the <code>rmarkdown</code> package by running:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;rmarkdown&#34;</span>)  <span style="color:#75715e"># Installs package</span>
 <span style="color:#a6e22e">library</span>(rmarkdown)  <span style="color:#75715e"># Loads package</span>
 </code></pre></div><p> </p>
-<h3 id="323-creating-an-rmarkdown-document">3.2.3 Creating an RMarkdown Document</h3>
+<h3 id="anchor-3">3.2.3 Creating an RMarkdown Document</h3>
 <p>Now that you have <code>rmarkdown</code> installed let&rsquo;s create a reproducible report! The first thing we need to do is create an RMarkdown file in RStudio:</p>
 <ol>
 <li>Click <code>File</code></li>
@@ -176,7 +176,7 @@
 <p><img src="/img/3.2-rmarkdown-document.png" alt=" "></p>
 <p>As you can see, newly created RMarkdown files come with some basic instructions and examples but we are not interested in these so select and delete them before saving your document. We can now populate our RMarkdown file with our own analyses and information.</p>
 <p> </p>
-<h3 id="324-yaml-header">3.2.4 YAML Header</h3>
+<h3 id="anchor-4">3.2.4 YAML Header</h3>
 <p>YAML headers lives at the top of your RMarkdown file and are delineated by three dashes (&mdash;) at the top and at the bottom of it:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">---</span>
 title<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;My First Reproducible Report&#34;</span>
@@ -195,7 +195,7 @@ output<span style="color:#f92672">:</span> html_document
 <p><img src="/img/3.2-first-knit.png" alt=" "></p>
 <p>Congratulations - you&rsquo;ve just compiled your first RMarkdown file! Below the YAML header is where we write code and text as well as displaying any outputs (e.g. plots, tables, etc.). Let&rsquo;s take a closer look at these aspects of RMarkdown.</p>
 <p> </p>
-<h3 id="325-code-chunks-and-plain-text">3.2.5 Code Chunks and Plain Text</h3>
+<h3 id="anchor-5">3.2.5 Code Chunks and Plain Text</h3>
 <p>Code chunks can be interspersed within the text of the report and are delineated by three backticks at the top and at the bottom. Top backticks are followed by curly brackets that specify the:</p>
 <ul>
 <li>Programming language</li>
@@ -217,7 +217,7 @@ head(car_data)
 ```
 </code></pre><p>There are lots of different <code>knitr</code> options availble to you to customise the behaviour of your code chunks. A summary of key options can be found <a href="https://rmarkdown.rstudio.com/lesson-3.html">here</a>.</p>
 <p> </p>
-<h3 id="326-plots">3.2.6 Plots</h3>
+<h3 id="anchor-6">3.2.6 Plots</h3>
 <p>Inserting plots into an RMarkdown file is very easy! The more challenging aspect is adjusting their format using <code>knitr</code> options. First, insert a second code chunk into your RMarkdown file called <code>example-plot-chunk</code> and then create a plot by adding the following code and running <code>knit</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Create a plot of the car data</span>
 <span style="color:#a6e22e">plot</span>(car_data)
@@ -227,7 +227,7 @@ plot(car_data)
 ```
 </code></pre><p>Hopefully you now have two code chunks in your RMarkdown file.</p>
 <p> </p>
-<h3 id="327-tables">3.2.7 Tables</h3>
+<h3 id="anchor-7">3.2.7 Tables</h3>
 <p>R Markdown displays data frames and matrixes as they would be in the R terminal (in a monospaced font). If you prefer that data be displayed with additional formatting you can use the <code>knitr::kable function</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Create a dataframe</span>
 A <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>)
@@ -239,7 +239,7 @@ dataframe <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">d
 <span style="color:#a6e22e">kable</span>(dataframe, digits <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
 </code></pre></div><p>Insert the above code into a third data chunk in your RMarkdown file and <code>knit</code>. There are many alternative ways of creating tables in RMarkdown, which you can investigate yourself.</p>
 <p> </p>
-<h3 id="328-markdown-basics">3.2.8 Markdown Basics</h3>
+<h3 id="anchor-8">3.2.8 Markdown Basics</h3>
 <p>You can format the text in your RMarkdown file with Pandoc’s Markdown, a set of markup annotations for plain text files. When you compile your file, Pandoc transforms the marked up text into formatted text in your final file format. Markdown formatting examples:</p>
 <ul>
 <li><em>italics</em> = <code>*italics*</code></li>
@@ -248,7 +248,7 @@ dataframe <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">d
 </ul>
 <p>A comprehensive reference guide to Markdown formatting can be found <a href="https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">here</a>.</p>
 <p> </p>
-<h3 id="329-useful-resources">3.2.9 Useful Resources</h3>
+<h3 id="anchor-9">3.2.9 Useful Resources</h3>
 <ul>
 <li><a href="https://rmarkdown.rstudio.com/lesson-1.html">RStudio RMarkdown Tutorial</a></li>
 <li><a href="https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">RStudio RMarkdown Cheat Sheet</a></li>
