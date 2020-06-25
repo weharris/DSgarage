@@ -152,13 +152,15 @@
 <p>While R comes with a lot of packages, there are an enormous amount available for instant download at any time you want or need them (over 15,000 different packages at the moment). Making use of all these resources is usually a case of identifying a problem to solve, finding the package that can help you, and then learning how to use the tools.  This page is all about introducing functions, packages and the R help system.</p>
 <p> </p>
 <p><strong>Contents</strong></p>
-<p><a href="#anchor-1">1.2.1 Function tour</a><br>
-<a href="#anchor-2">1.2.2 Using functions and getting help </a><br>
-<a href="#anchor-3">1.2.3 R packages</a><br>
-<a href="#anchor-4">1.2.4 Finding, downloading and using packages</a><br>
-<a href="#anchor-5">1.2.5 Practice exercises</a></p>
+<p><a href="#anchor-1">1.2.1 Function tour</a></p>
+<p><a href="#anchor-2">1.2.2 Using functions and getting help </a></p>
+<p><a href="#anchor-3">1.2.3 R packages</a></p>
+<p><a href="#anchor-4">1.2.4 Finding, downloading and using packages</a></p>
+<p><a href="#anchor-5">1.2.5 Practice exercises</a></p>
+<h1 id="anchor-1"></h1>
 <p> </p>
-<h3 id="anchor-1">1.2.1 Function tour</h3>
+<p> </p>
+<h3 id="121-function-tour">1.2.1 Function tour</h3>
 <blockquote>
 <p><strong>Think of functions in R as tools that do work for you</strong>.</p>
 </blockquote>
@@ -186,8 +188,10 @@
 <code>help()</code> Used to access help pages</p>
 <p>You get the idea&hellip;</p>
 <p>The most important thing here is that <strong>you would generally get the help page up as a reference to what arguments are required and how to customize your function use</strong>, that is, until you memorize the use and arguments for common functions.</p>
+<h1 id="anchor-2"></h1>
 <p> </p>
-<h3 id="anchor-2">1.2.2 Using functions and getting help</h3>
+<p> </p>
+<h3 id="122-using-functions-and-getting-help">1.2.2 Using functions and getting help</h3>
 <p>For now, let&rsquo;s assume that you know:</p>
 <ul>
 <li>What tasks you want to do (maybe outlined with pseudocode), and</li>
@@ -227,11 +231,16 @@
 </code></pre></div><p> </p>
 <p>This boxplot would look a lot better with a main title and a y-axis label&hellip;<br>
 <img src="/img/1.2-first-boxplot.png" alt="Generic boxplot"></p>
-<h3 id="anchor-3">1.2.3 R packages</h3>
+<h1 id="anchor-3"></h1>
+<p> </p>
+<p> </p>
+<h3 id="123-r-packages">1.2.3 R packages</h3>
 <p>There are a lot of R packages.  These are &ldquo;toolboxes&rdquo; often built in the spirit of identifying a problem, literally making a tools that solves the problem, and then sharing the tool for other to use as well.  In fact, all official R packages are &ldquo;open source&rdquo;, meaning that you may use them freely, but also you can improve them and add functionality.  <strong>This section is about the basics of R packages</strong> that are additional to the base R installation.</p>
 <p>Typically, you only download a package once you identify you need to use functions in it. There are are several ways to accomplish this. We are going to practice 2 different ways, one with R code that is simple and will work no matter how you use R, and one that uses menus in RStudio.</p>
+<h1 id="anchor-4"></h1>
 <p> </p>
-<h3 id="anchor-4">1.2.4 Finding, downloading and using packages</h3>
+<p> </p>
+<h3 id="124-finding-downloading-and-using-packages">1.2.4 Finding, downloading and using packages</h3>
 <p>Finding packages happens a variety of ways in practice.  A package may be recommended to you, you might be told to use a particular package for a task or assignment, or you may discover it on the web.</p>
 <p><strong>Installing and loading packages with code</strong></p>
 <p>There are 2 steps here - installing, then loading.  Installing is very easy to do using the <code>install.packages()</code> function.  Loading a package making the functions in it available for use is done using the <code>library()</code> package.  Basic usage of these functions is:</p>
@@ -259,8 +268,10 @@ Challenge<span style="color:#f92672">:</span> Install and load the <span style="
 <p>To <strong>install a package</strong>, you can <strong>click on the Install button (C in the image)</strong>.</p>
 <p>You should see the Installe Packages window, where you can enter the name of a package for installation, searching the official Comprehensive R Archive Network (Repository (CRAN)) by default:</p>
 <p><img src="/img/1.2-install-packages.png" alt="Install pkgs windows in RStudio"></p>
+<h1 id="anchor-5"></h1>
 <p> </p>
-<h3 id="anchor-5">1.2.5 Practice exercises</h3>
+<p> </p>
+<h3 id="125-practice-exercises">1.2.5 Practice exercises</h3>
 <p> </p>
 <p><strong>1</strong> Explain in your own words what the freq argument in the hist() function does.  It often helps to practice trail and error to understand what is happening with data.  Try experimenting with this data vector with the hist() function to explore the freq argument:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">7</span>)

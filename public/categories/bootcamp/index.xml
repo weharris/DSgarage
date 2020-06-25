@@ -33,7 +33,8 @@ This page is intended to guide people during their first installation and use of
  Contents
 0.1.1 How Data Science Garage works
 0.1.2 R motivation 
-0.1.3 Install R and RStudio or set up RStudio Cloud 0.1.4 RStudio components and setup
+0.1.3 Install R and RStudio or set up RStudio Cloud
+0.1.4 RStudio components and setup
 0.1.5 Workflow for scripts in R</description>
     </item>
     
@@ -100,11 +101,7 @@ NB for this page we assume you have access to Microsoft Excel; however, similar 
 SCRIPT
  Contents
 1.5.1 Indexing concept 1.5.2 Using which() and subsetting 1.5.3 Comments on data.frame objects 1.5.4 Using aggregate() 1.5.5 Practice exercises
- 1.5.1 Indexing concept  1.5.2 Using which() and subsetting  1.5.3 Comments on data.frame objects{anchor-3}  1.5.4 Using aggregate()  1.5.5 Practice exercises  1
- 2
- 3
- 4
- 5</description>
+   1.5.1 Indexing concept    1.5.2 Using which() and subsetting    1.5.3 Comments on data.frame objects    1.5.4 Using aggregate()    1.5.5 Practice exercises  1</description>
     </item>
     
   </channel>

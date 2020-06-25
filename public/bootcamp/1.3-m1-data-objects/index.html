@@ -148,13 +148,15 @@
 <p>The fundamental way to analyse data in R is to be able to manipuate it with code.  In order to do that, we need a system of containers to store the data in.  This page is about the rules used for storing data in data objects.  We will examine basic data types at the same time as how R stores them.  R is actually very flexible in the way it handles data, making it as easy as possible for non-programmers to get going.</p>
 <p> </p>
 <p><strong>Contents</strong></p>
-<p><a href="#anchor-1">1.3.1 Basic data types, str</a> <br>
-<a href="#anchor-2">1.3.2 Data with factor</a> <br>
-<a href="#anchor-3">1.3.3 Class and converting variables</a> <br>
-<a href="#anchor-4">1.3.4 Vector and Matrix fun</a> <br>
-<a href="#anchor-5">1.3.5 Practice exercises</a></p>
+<p><a href="#anchor-1">1.3.1 Basic data types, str</a></p>
+<p><a href="#anchor-2">1.3.2 Data with factor</a></p>
+<p><a href="#anchor-3">1.3.3 Class and converting variables</a></p>
+<p><a href="#anchor-4">1.3.4 Vector and Matrix fun</a></p>
+<p><a href="#anchor-5">1.3.5 Practice exercises</a></p>
+<h1 id="anchor-1"></h1>
 <p> </p>
-<h3 id="anchor-1">1.3.1 Basic data types, str()</h3>
+<p> </p>
+<h3 id="131-basic-data-types-str">1.3.1 Basic data types, str()</h3>
 <p><strong>Storage containers types</strong></p>
 <p>The first things to examine are the way that R <strong>variables</strong> are named, and the organization system for storing the data.  The organization part is particularly important, because it is used to actually access and use data.</p>
 <p>Variable names in R are simple and do not need to be &ldquo;declared&rdquo; like in some computing lanugages, and they can be almost anything, but there are a few rules. The R system has a built-in error message and warning message system (also known as the Passive-Agressive Butler), which will usually give a hint when some of these rules are violated.</p>
@@ -241,13 +243,17 @@ DBH_cm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</s
 height <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">180</span>, <span style="color:#ae81ff">164</span>, <span style="color:#ae81ff">177</span>) <span style="color:#75715e"># OK</span>
 Height <span style="color:#75715e"># Error: object &#39;Height&#39; not found (notice capital H)</span>
 height <span style="color:#75715e"># OK</span>
-</code></pre></div><p> </p>
-<h3 id="anchor-2">1.3.2 Data with factor()</h3>
+</code></pre></div><h1 id="anchor-2"></h1>
+<p> </p>
+<p> </p>
+<h3 id="132-data-with-factor">1.3.2 Data with factor()</h3>
 <p>Sometimes you will need to analyze <strong>data that is a factor, where the different values are categories</strong>. Factors in R can be a cause for confusion, but there needn&rsquo;t be problems if you understand them.  The information here is a starting point, and we skip some complexities, but essentially <strong>there are 2 types of factors, non-ordered and ordinal</strong>.</p>
 <p><strong>Non-ordered factors</strong> are simply categories and the levels are simply the names of the categories.  By definition, non-ordered factor  do not have a specific order! an example here might be plant varieties.</p>
 <p><strong>Ordered factors</strong> have a specific order, which can be important for analysis or for graphing.  You usually have to specify the order explicitly to get this right. An example here might be the days of the week, where the order of day is important.</p>
+<h1 id="anchor-3"></h1>
 <p> </p>
-<h3 id="anchor-3">1.3.3 Class() and converting variables</h3>
+<p> </p>
+<h3 id="133-class-and-converting-variables">1.3.3 Class() and converting variables</h3>
 <p>We use the <code>class()</code> function to query what data category a variable is set too.  R is pretty good at setting this correctly, but it is a good idea to check sometimes and occasionally you will have to manually set variable characteristics.</p>
 <p> </p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># try this</span>
@@ -281,8 +287,10 @@ day <span style="color:#75715e"># Notice the Levels: Monday Thursday Tuesday Wed
 day <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(x <span style="color:#f92672">=</span> day, levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Monday&#34;</span>, <span style="color:#e6db74">&#34;Tuesday&#34;</span>,
                          <span style="color:#e6db74">&#34;Wednesday&#34;</span>, <span style="color:#e6db74">&#34;Thursday&#34;</span>))
 day <span style="color:#75715e"># Notice the level order now</span>
-</code></pre></div><p> </p>
-<h3 id="anchor-4">1.3.4 Vector and Matrix fun</h3>
+</code></pre></div><h1 id="anchor-4"></h1>
+<p> </p>
+<p> </p>
+<h3 id="134-vector-and-matrix-fun">1.3.4 Vector and Matrix fun</h3>
 <p><strong>Vector and matrix data structures are two fundamental ways to arrange data in R.</strong>  We have already looked at vectors, which store data in a single dimension.</p>
 <p>There are actually a few different data organisation structures in R.</p>
 <ul>
@@ -341,8 +349,10 @@ mat1 <span style="color:#75715e"># Yep the columns shows names</span>
 <span style="color:#75715e"># for rows o1, 2, and 3 respectively:</span>
 
 vec2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>)
-</code></pre></div><p> </p>
-<h3 id="anchor-5">1.3.5 Practice exercises</h3>
+</code></pre></div><h1 id="anchor-5"></h1>
+<p> </p>
+<p> </p>
+<h3 id="135-practice-exercises">1.3.5 Practice exercises</h3>
 <p> </p>
 <p><strong>1</strong> Create a vector named my_var1 that contains the following 6 integers: 3, 6, 12, 7, 5, 0.1. Create a Second vector called my_var2 that contains the following 2 integers: 2, 3.  Evalude the expression my_var1 + my_var 2.  Explain the output in terms of R mechanics in your own words.</p>
 <p> </p>
