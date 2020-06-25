@@ -73,12 +73,8 @@ NB for this page we assume you have access to Microsoft Excel; however, similar 
       <description>~Content coming soon~  Data Subsetting and Manipulation (Use sumo on data) VIDEO 1.5
 SCRIPT
  Contents
-1.5.1 Indexing concept
-1.5.2 Using which() and subsetting
-1.5.3 Comments on data.frame objects
-1.5.4 Using aggregate()
-1.5.5 Practice exercises
- 1.5.1 Indexing concept  1.5.2 Using which() and subsetting  1.5.3 Comments on data.frame objects  1.5.4 Using aggregate()  1.5.5 Practice exercises  1
+1.5.1 Indexing concept 1.5.2 Using which() and subsetting 1.5.3 Comments on data.frame objects 1.5.4 Using aggregate() 1.5.5 Practice exercises
+ 1.5.1 Indexing concept  1.5.2 Using which() and subsetting  1.5.3 Comments on data.frame objects{anchor-3}  1.5.4 Using aggregate()  1.5.5 Practice exercises  1
  2
  3
  4
@@ -94,7 +90,7 @@ SCRIPT
       <description>Analysing data using R can generate complex scripts that might make sense to you while you&amp;rsquo;re actively working on them, but they won&amp;rsquo;t to future you or collaborators. This bootcamp module offers guidance to improve the reproducibility of your code for yourself and others. Following this guidance will also improve your R workflow and reduce errors.
  SCRIPT - Use this for the practice exercises below
  Contents
-3.1.1 Styling Your Code</description>
+3.1.1 Styling Your Code 3.</description>
     </item>
     
     <item>

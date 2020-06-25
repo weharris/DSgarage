@@ -150,14 +150,14 @@
 <p>A concept to streamline data preparation for analysis is Tidy Data.  The basic idea is to format data for analysis in a way that 1) archives data for reproducibility of results, and 2) makes the data transparent to colleagues or researchers by documenting a data dictionary.  This page is all about the tidy data concept and a simple recipe for best practice to prepare data for analysis and to get data into R.</p>
 <p> </p>
 <p><strong>Contents</strong><br>
-1.4.1 Tidy data concept<br>
-1.4.2 Common data file types<br>
-1.4.3 Excel, data setup, and the Data Dictionary<br>
-1.4.4 Getting data into R<br>
-1.4.5 Manipulating variables in the Data Frame
-1.4.6 Practice exercises</p>
+<a href="#anchor-1">1.4.1 Tidy data concept</a> <br>
+<a href="#anchor-2">1.4.2 Common data file types</a> <br>
+<a href="#anchor-3">1.4.3 Excel, data setup, and the Data Dictionary</a> <br>
+<a href="#anchor-4">1.4.4 Getting data into R</a> <br>
+<a href="#anchor-5">1.4.5 Manipulating variables in the Data Frame</a><br>
+<a href="#anchor-6">1.4.6 Practice exercises</a></p>
 <p> </p>
-<h4 id="141-tidy-data-concept">1.4.1 Tidy data concept</h4>
+<h4 id="anchor-1">1.4.1 Tidy data concept</h4>
 <p>The <a href="https://www.jstatsoft.org/article/view/v059i10">tidy Data concept is generally attributed to Wickham (2014)</a>, and is based on the idea that with a few simple rules, data can be archived for complete reproducibility of results.  This practice benefits any user, because it facilitates collaboration at the same time as documenting both data and analysis methods for value to future use.</p>
 <p>The essentials of Tidy Data are:</p>
 <ul>
@@ -172,11 +172,11 @@
 </li>
 </ul>
 <p> </p>
-<h4 id="142-common-data-file-types">1.4.2 Common data file types</h4>
+<h4 id="anchor-2">1.4.2 Common data file types</h4>
 <p>The best file type for the majority of people to archive data for analysis is in a plain text <strong>Comma Separated Values (CSV or .csv) file</strong>, or just an <strong>Excel Spreadsheet</strong>.  Proprietary data formats should be avoided, like those produced by SPSS, Genstat, Minitab or other programs.  The reason for this is that data stored in those formats is not necessarily useful to people who do not have access to the software, and that for archiving purposes, such software file formats tend to change over time.  While Excel is a proprietary format, we find that it is is easy to use, (almost completely) ubiquitous, and relatively resilient to backwards compatibility issues. Thus, sticking to CSV or Excel is a rule you should have a very good reason if you choose to break from it.</p>
 <p>We recommend using Excel to store data with the goal (for simple datasets and analyses) of having one table for the actual data, in Tidy Data format, and a second tab consisting of a Data Dictionary where each variable is described in enough detail to completely reproduce any analysis. Generally, no formatting or results should ever be embedded in an Excel sreadsheet that is used to store data.</p>
 <p> </p>
-<h4 id="143-excel-data-setup-and-the-data-dictionary">1.4.3 Excel, data setup, and the Data Dictionary</h4>
+<h4 id="anchor-3">1.4.3 Excel, data setup, and the Data Dictionary</h4>
 <p><strong>Tidy Data and Excel</strong></p>
 <p>For this section, you should download the following files in Excel (.xlsx) format:</p>
 <ul>
@@ -270,7 +270,7 @@
 <p><strong>Tidy csv</strong></p>
 <p><img src="/img/1.4-tidy.csv.png" alt="Tidy csv"></p>
 <p> </p>
-<h4 id="144-getting-data-into-r">1.4.4 Getting data into R</h4>
+<h4 id="anchor-4">1.4.4 Getting data into R</h4>
 <p>We still need to actually read data into R from external files.  There are a very large number of ways to do this and most people enventually find the own workflow.  For beginners, we think it is best to begin with Excel or CSV files in Tidy Data format.</p>
 <p>The basics of reading external files from a script is to to use the <code>read.xlsx()</code> function in the <code>{openxlsx}</code> package (you will oprobably need to install this with the <code>install.packages()</code> function), or else to use <code>read.csv()</code> that comes standard in base R.  We will briefly try both.</p>
 <p> </p>
@@ -327,7 +327,7 @@ my_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rea
 <p> </p>
 <p>Note that the same procedure works with Comma Separated Values data files, and other kinds of files that you want to read into R, except that the R function used will be specific to the file type.  E.g., <code>read.csv()</code> for CSV files, <code>read.delim</code> for TAB delimited files, or <code>read.table()</code> as a generic function to tailor to many types of plain text data files (there are many others, but this is enough for now).</p>
 <p> </p>
-<h4 id="145-manipulating-variables-in-the-data-frame">1.4.5 Manipulating variables in the Data Frame</h4>
+<h4 id="anchor-5">1.4.5 Manipulating variables in the Data Frame</h4>
 <blockquote>
 <p>Now that there is a data frame in your working environment, we can start working with the variables.  This is a good time to think about the &ldquo;R Space&rdquo; metaphor.  You are floating in R Space and you can see a data frame called &ldquo;my_data&rdquo;.  You cannot see inside the container, so we will look at methods of accessing the data inside by name&hellip;</p>
 </blockquote>
@@ -421,7 +421,7 @@ conc.ind <span style="color:#75715e"># Now that my_data is &#34;attached&#34;, t
 <span style="color:#a6e22e">detach</span>(my_data)
 conc.ind <span style="color:#75715e"># Is Sir feeling well, Sir?</span>
 </code></pre></div><p> </p>
-<h4 id="146-practice-exercises">1.4.6 Practice exercises</h4>
+<h4 id="anchor-6">1.4.6 Practice exercises</h4>
 <p> </p>
 <p><a href="/data/1.4-butterfly.xlsx">Data file for exercises</a></p>
 <p><strong>1</strong> Download the data file above and place it in a working directory.  Set your working directory.  Read in the data file and place it in a data frame object named &ldquo;data1&rdquo;.  Using mean(), calculate the mean of the variable &ldquo;length&rdquo; and report the results in a comment to 2 decimal points accuracy.  Show your R code.</p>
