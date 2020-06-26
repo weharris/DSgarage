@@ -126,6 +126,15 @@ SCRIPT
     </item>
     
     <item>
+      <title>3.3 Version Control</title>
+      <link>/bootcamp/3.3-m3-version-control/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/3.3-m3-version-control/</guid>
+      <description>An inescapable fact of science is that it produces a lot of output. This output could be data files, code, figures, tables, manuscripts, etc. Many of these files evolve during the course of a project and often need to be shared with collaborators. Projects can easily spiral out of control without careful management, reducing the quality, reproducibility and reliability of your work. The good news is that this can be mitigated by repurposing tools and workflows typically used by software developers - i.</description>
+    </item>
+    
+    <item>
       <title>About</title>
       <link>/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

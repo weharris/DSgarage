@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>3.3 Version Control</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: white;
+    }
+
+    :root {
+        --accent: green;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/haskell.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/swift.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.72.0" />
+        
+
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+
+    </head>
+
+    <body>
+        
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">3.3 Version Control</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/bootcamp/">Bootcamp</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="https://join.slack.com/t/hadatascience/shared_invite/zt-ekigo1t3-0ADgafsF6zTDwJ9SxIws9w"><i class="fa fa-slack"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://twitter.com/adams_data/"><i class="fa fa-twitter"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.youtube.com/channel/UCOEuOH6cY8yisodud25hb7w"><i class="fa fa-youtube"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+<main>
+
+    <div>
+        <h2>3.3 Version Control</h2>
+        <h5></h5>
+        
+<a href="/tags/bootcamp"><kbd class="item-tag">Bootcamp</kbd></a>
+
+<a href="/tags/r"><kbd class="item-tag">R</kbd></a>
+
+<a href="/tags/open-science"><kbd class="item-tag">Open Science</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p> </p>
+<p>An inescapable fact of science is that it produces a lot of output. This output could be data files, code, figures, tables, manuscripts, etc.  Many of these files evolve during the course of a project and often need to be shared with collaborators. Projects can easily spiral out of control without careful management, reducing the quality, reproducibility and reliability of your work. The good news is that this can be mitigated by repurposing tools and workflows typically used by software developers - i.e. version control.</p>
+<p> </p>
+<p><strong>Contents</strong></p>
+<p><a href="#anchor-1">3.3.1 Version&hellip;What?</a></p>
+<p><a href="#anchor-2">3.3.2 Git and GitHub</a></p>
+<p><a href="#anchor-3">3.3.3 Benefits of Version Control</a></p>
+<p><a href="#anchor-4">3.3.4 Git Fundamentals</a></p>
+<p><a href="#anchor-5">3.3.5 Register a GitHub Account</a></p>
+<p><a href="#anchor-6">3.3.6 Installing Git</a></p>
+<p><a href="#anchor-7">3.3.7 Introduce Yourself to Git</a></p>
+<p><a href="#anchor-8">3.2.8 Your First Repository</a></p>
+<p><a href="#anchor-9">3.2.9 3.3.9 Interact with Repositories Using RStudio</a></p>
+<h1 id="anchor-1"></h1>
+<p> </p>
+<p> </p>
+<h3 id="331-versionwhat">3.3.1 Version&hellip;what?</h3>
+<p>Version control allows you to keep track of your work and any changes you make. It is very likely that you are already implementing a basic type of version control into your workflow using an iterative file naming system:</p>
+<pre><code>001_aphid_analysis_script.R 
+002_aphid_analysis_script.R
+003_aphid_analysis_script.R
+</code></pre><p>The downside to using a version control system like this is that you end up with <strong>LOTS</strong> of similarly named files. This makes it difficult to compare these different versions as well as potentially making it confusing for collaborators - we need a better system! Luckily for us, a better system exists - Git and GitHub.</p>
+<h1 id="anchor-2"></h1>
+<p> </p>
+<p> </p>
+<h3 id="332-git-and-github">3.3.2 Git and GitHub</h3>
+<h4 id="git">Git</h4>
+<p>Git is a version control system created to help developers work collaboratively on big software projects.  Git manages the evolution of a set of files (AKA a repository) in a highly structured way, much like “Track Changes”  in  Microsoft  Word.</p>
+<p> </p>
+<h4 id="github">GitHub</h4>
+<p>GitHub is a hosting service that provides an online home for projects and complements Git by providing a user interface and distribution mechanism for Git repositories. This allows others to browse project files, explore their history, sync up with the current version, and perhaps even propose or make changes.</p>
+<h1 id="anchor-3"></h1>
+<p> </p>
+<p> </p>
+<h3 id="333-benefits-of-version-control">3.3.3 Benefits of Version Control</h3>
+<p>GitHub repositories make it easy to track collaborative and personal projects as all files associated with a project are in one place and people can add their code, graphs, etc. during the course of a project. Each file on GitHub has a &lsquo;history&rsquo; that makes it easy to explore any changes made and revert to a previous version if necessary. Version control also allows you to maintain an online backup and develop a portfolio of your work.</p>
+<h1 id="anchor-4"></h1>
+<p> </p>
+<p> </p>
+<h3 id="334-git-fundamentals">3.3.4 Git Fundamentals</h3>
+<p>Before we delve into setting your system up for Git and GitHub we need to familiarise ourselves with some terminology and the basics of version control.</p>
+<p> </p>
+<h4 id="repositories">Repositories</h4>
+<p>As we already know, git manages the evolution of a set of files – called a repository or <strong>repo</strong> – in a highly structured way. For new and existing projects it is recommended that you:</p>
+<ul>
+<li>Dedicate a local directory or folder to it</li>
+<li>Make it an RStudio Project</li>
+<li>Make it a Git repository</li>
+</ul>
+<p>This setup happens once per project and can happen at any stage of a project. In all likelihood, your existing projects probably already live in dedicated directories.</p>
+<p> </p>
+<h4 id="basic-workflow">Basic workflow</h4>
+<p>Incorporating Git into your basic workflow probably won&rsquo;t alter it that much. There are three key elements to the Git workflow (<code>commit</code>, <code>pull</code> and <code>push</code>) that you need to get your head around.</p>
+<ul>
+<li><code>commit</code>: takes a snapshot of all the files in the entire project</li>
+<li><code>pull</code>: update local files from the latest GitHub version</li>
+<li><code>push</code>: update the GitHub version with any changes made to the local files</li>
+</ul>
+<p>Each file on GitHub has a history you can see what it looked at different points in time and revert to a previous version if necessary.</p>
+<h1 id="anchor-5"></h1>
+<p> </p>
+<p> </p>
+<h3 id="335-register-a-github-account">3.3.5 Register a GitHub Account</h3>
+<p>The first step on your version control journey is easy, just head over to <a href="https://github.com/">GitHub</a> and register a <strong>free</strong> account.</p>
+<h1 id="anchor-6"></h1>
+<p> </p>
+<p> </p>
+<h3 id="336-installing-git">3.3.6 Installing Git</h3>
+<p>To use version control you will need to install Git. If there’s any chance it’s already installed, verify it and skip this step. Otherwise, follow the installation instructions outlined for your operating system below.</p>
+<p> </p>
+<h4 id="is-git-already-installed">Is Git already installed?</h4>
+<p>To check whether Git is already installed open RStudio and click <code>Tools</code> then <code>Shell</code>. Once the shell is open run the following lines in the <code>Shell</code> window that opens:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Request the path to your Git executable</span>
+which git  <span style="color:#75715e"># Input</span>
+<span style="color:#75715e">## /usr/bin/git  # Output</span>
+
+<span style="color:#75715e"># Identify Git version</span>
+git <span style="color:#f92672">--</span>version  <span style="color:#75715e"># Input</span>
+<span style="color:#75715e">## git version 2.21.0  # Output</span>
+</code></pre></div><p>If you see output similar to that above you have Git already. No need to install! If you see something like <code>git: command not found</code>, install as described below.</p>
+<p> </p>
+<h4 id="windows">Windows</h4>
+<p>Install <a href="https://gitforwindows.org/">Git for Windows</a>. When asked about “Adjusting your PATH environment”, select “Git from the command line and also from 3rd-party software”. Otherwise, accept the defaults.</p>
+<p> </p>
+<h4 id="macos">macOS</h4>
+<p>Open the <code>Shell</code> as described above and enter the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">xcode<span style="color:#f92672">-</span>select <span style="color:#f92672">--</span>install
+</code></pre></div><p> </p>
+<h4 id="linux">Linux</h4>
+<p>Install Git via your distro’s package manager:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Ubuntu or Debian Linux:</span>
+sudo apt<span style="color:#f92672">-</span>get install git
+
+<span style="color:#75715e"># Fedora or RedHat Linux:</span>
+sudo yum install git
+</code></pre></div><h1 id="anchor-7"></h1>
+<p> </p>
+<p> </p>
+<h3 id="337-introduce-yourself-to-git">3.3.7 Introduce Yourself to Git</h3>
+<p>Open RStudio and click <code>Tools</code> then <code>Shell</code> and enter the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">git config <span style="color:#f92672">--</span>global user.name <span style="color:#e6db74">&#39;Jane Doe&#39;</span>  <span style="color:#75715e"># Change Jane Doe to your name</span>
+git config <span style="color:#f92672">--</span>global user.email <span style="color:#e6db74">&#39;jane@example.com&#39;</span>  <span style="color:#75715e"># Change to your email address</span>
+git config <span style="color:#f92672">--</span>global <span style="color:#f92672">--</span>list
+</code></pre></div><p>Now that you (hopefully) have a GitHub account, Git installed and you&rsquo;ve introduced yourself to Git we can practice using these tools.</p>
+<h1 id="anchor-8"></h1>
+<p> </p>
+<p> </p>
+<h3 id="338-your-first-repository">3.3.8 Your First Repository</h3>
+<p>Let&rsquo;s start by creating your first repository:</p>
+<ol>
+<li>Go to <a href="https://github.com/">GitHub</a>, sign-in and navigate to your profile</li>
+<li>Click on &lsquo;Repositories&rsquo; at the top of your profile then the green &lsquo;New&rsquo; button:</li>
+</ol>
+<p><img src="/img/3.3-github-new-repo.png" alt=" "></p>
+<ol start="3">
+<li>You will then be greeted by the following screen:</li>
+</ol>
+<p><img src="/img/3.3-github-new-repo-screen.png" alt=" "></p>
+<ol start="4">
+<li>Copy the &lsquo;Repository Name&rsquo; and &lsquo;Description&rsquo; fields and click &lsquo;Initialize this repository with a README&rsquo;</li>
+<li>Click the green &lsquo;Create Repository&rsquo; button</li>
+<li>Congratulations - you have created your first repository that should look like the following:</li>
+</ol>
+<p><img src="/img/3.3-github-example-repo.png" alt=" "></p>
+<h1 id="anchor-9"></h1>
+<p> </p>
+<p> </p>
+<h3 id="339-interact-with-repositories-using-rstudio">3.3.9 Interact with Repositories Using RStudio</h3>
+</div>
+
+</main>
+
+        <footer>
+            <p class="copyright text-muted">© All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a>.</p>
+        </footer>
+
+        
+
+        
+    </body>
+
+</html>
+
