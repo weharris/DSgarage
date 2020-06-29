@@ -137,50 +137,402 @@
 
     <div align="start" class="content"><p><img src="/img/sumo.png" alt=" "></p>
 <p> </p>
-<h1 id="content-coming-soon">~Content coming soon~</h1>
 <p> </p>
 <h2 id="data-subsetting-and-manipulation-use-sumo-on-data">Data Subsetting and Manipulation (Use sumo on data)</h2>
-<p>VIDEO 1.5</p>
-<p>SCRIPT</p>
 <p> </p>
-<p><strong>Contents</strong><br>
-<a href="#anchor-1">1.5.1 Indexing concept</a> <br>
-<a href="#anchor-2">1.5.2 Using which() and subsetting</a> <br>
-<a href="#anchor-3">1.5.3 Comments on data.frame objects</a> <br>
-<a href="#anchor-4">1.5.4 Using aggregate()</a> <br>
-<a href="#anchor-5">1.5.5 Practice exercises</a></p>
+<p>VIDEO 1.5</p>
+<p><a href="/scripts/script-1.5.R">SCRIPT 1.5</a> Use this to follow along on this page and for the Practice exercises below.</p>
+<p> </p>
+<p><strong>Overview</strong></p>
+<blockquote>
+<p>With a good basic set of moves for subsetting and manipulating data, you can overpower any dataset no matter how large and powerful they may be. Then, you will have strong data Sumo.</p>
+</blockquote>
+<p>Subsetting and manipuating data is probably the commonest activity for anyone who works with data.  This is a core activity for exploratory data analysis, but is also extensively used in simple data aquisition, analysis and graphing, while also being related to more general data manipulating activities, for example database queries.  This page is an introduction to the core syntax and some of the tools for manipulating and subsetting data in R.</p>
+<p> </p>
+<p><strong>Contents</strong></p>
+<p><a href="#anchor-1">1.5.1 Indexing concept</a></p>
+<p><a href="#anchor-2">1.5.2 Using which() and subsetting</a></p>
+<p><a href="#anchor-3">1.5.3 Selection on data.frame objects</a></p>
+<p><a href="#anchor-4">1.5.4 Using aggregate()</a></p>
+<p><a href="#anchor-5">1.5.5 Practice exercises</a></p>
 <h1 id="anchor-1"></h1>
 <p> </p>
 <p> </p>
 <h3 id="151-indexing-concept">1.5.1 Indexing concept</h3>
-<h1 id="anchor-2"></h1>
+<blockquote>
+<p>If you would like to slice and dice your data, you will need to learn all about indexing!</p>
+</blockquote>
+<p>The basics of the indexing concept in R syntax is very simple, where data storage objects like vectors (1 dimension), matrices (2 dimensions) and arrays (3 or more dimensions) store individual data values that can be accessed by the &ldquo;address&rdquo; of the dimension(s).</p>
+<p> </p>
+<p><strong>How indexing works</strong></p>
+<p>Say you have a numeric vector called <code>my_vector</code> that has 10 values. The index values will be 1 to 10, with each value corresponding consecutively to the data value at that position.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> my_vector
+ [1] <span style="color:#ae81ff">11.3</span> <span style="color:#ae81ff">11.2</span> <span style="color:#ae81ff">10.4</span> <span style="color:#ae81ff">10.4</span>  <span style="color:#ae81ff">8.7</span> <span style="color:#ae81ff">10.8</span> <span style="color:#ae81ff">10.5</span> <span style="color:#ae81ff">10.3</span>  <span style="color:#ae81ff">9.7</span> <span style="color:#ae81ff">11.2</span>
+</code></pre></div><p> </p>
+<p>Notice the <code>[1]</code> in the R console output? This indicates the index of value right next to it and the R system will provide an index value for longer vectors as the wrap in the console.  If we could see the actual index values it would look something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> my_vector
+ [1] <span style="color:#ae81ff">11.3</span> <span style="color:#ae81ff">11.2</span> <span style="color:#ae81ff">10.4</span> <span style="color:#ae81ff">10.4</span>  <span style="color:#ae81ff">8.7</span> <span style="color:#ae81ff">10.8</span> <span style="color:#ae81ff">10.5</span> <span style="color:#ae81ff">10.3</span>  <span style="color:#ae81ff">9.7</span> <span style="color:#ae81ff">11.2</span>
+<span style="color:#75715e">#     ^    ^    ^    ^    ^    ^    ^    ^    ^    ^</span>
+<span style="color:#75715e">#     1    2    3    4    5    6    7    8    9    10</span>
+</code></pre></div><p> </p>
+<p><strong>Vectors</strong></p>
+<p>You can create vector subsets by manipulating the index. Vector objects have indices in 1 dimension.  For example, <code>my_vector[1:i]</code>, where <code>i</code> is the length of the vector.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Vectors ####</span>
+<span style="color:#75715e"># Try this</span>
+
+my_vector <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">11.3</span>, <span style="color:#ae81ff">11.2</span>, <span style="color:#ae81ff">10.4</span>, <span style="color:#ae81ff">10.4</span>, <span style="color:#ae81ff">8.7</span>, <span style="color:#ae81ff">10.8</span>, <span style="color:#ae81ff">10.5</span>, <span style="color:#ae81ff">10.3</span>, <span style="color:#ae81ff">9.7</span>, <span style="color:#ae81ff">11.2</span>)
+
+<span style="color:#75715e"># Return all values</span>
+my_vector        <span style="color:#75715e"># Typical way</span>
+my_vector[ ]     <span style="color:#75715e"># Square brackets with blank index implies all index values</span>
+my_vector[ <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>] <span style="color:#75715e"># Returns all index values explicitly</span>
+
+<span style="color:#75715e"># Return the first 3 values</span>
+<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span> <span style="color:#75715e"># Reminder of the function of the colon operator &#34;:&#34;</span>
+my_vector[ <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>] <span style="color:#75715e"># Notice consecutive indices can use the &#34;:&#34; operator</span>
+
+<span style="color:#75715e"># Return 5th and 9th values</span>
+my_vector[ <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">9</span>)] <span style="color:#75715e"># Notice we have to place non-consecutive index values in the c() function</span>
+</code></pre></div><p> </p>
+<p><strong>Matrices</strong></p>
+<p>Matrix objects have 2 dimensions denoted as <code>my_matrix[1:i, 1:j]</code>, where <code>i</code> is the number of rows and <code>j</code> is the number of columns.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Matrices ####</span>
+<span style="color:#75715e"># Try this</span>
+
+my_matrix <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">matrix</span>(data <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">6</span>),
+                    nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, byrow <span style="color:#f92672">=</span> T)
+
+my_matrix <span style="color:#75715e"># notice how the arguments arranged the data</span>
+
+<span style="color:#75715e"># Flash challenge: make a matrix with the same data vector above to look like...</span>
+<span style="color:#75715e">#      [,1] [,2]</span>
+<span style="color:#75715e"># [1,]    2    6</span>
+<span style="color:#75715e"># [2,]    3    6</span>
+<span style="color:#75715e"># [3,]    4    6</span>
+<span style="color:#75715e"># [4,]    5    6</span>
+
+<span style="color:#75715e"># &#34;Slicing&#34; out a row or column</span>
+my_matrix[1,  ] <span style="color:#75715e"># Slice out row 1</span>
+my_matric[ , <span style="color:#ae81ff">3</span>] <span style="color:#75715e"># Slice out column 3</span>
+
+<span style="color:#75715e"># Matrix columns and rows often have names</span>
+<span style="color:#a6e22e">names</span>(my_matrix) <span style="color:#75715e"># No names yet</span>
+
+<span style="color:#a6e22e">nrow</span>(my_matrix) <span style="color:#75715e"># Returns number of rows (useful for large matrices)</span>
+<span style="color:#a6e22e">rownames</span>(my_matrix) <span style="color:#75715e"># No row names; 2 rows, need two names</span>
+
+<span style="color:#a6e22e">rownames</span>(my_matrix) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;dogs&#34;</span>, <span style="color:#e6db74">&#34;cats&#34;</span>)
+my_matrix <span style="color:#75715e"># Now the rows have names!</span>
+<span style="color:#a6e22e">rownames</span>(my_matrix) <span style="color:#75715e"># Get them this way too!</span>
+
+<span style="color:#75715e"># Flash challenge: Name the columns of my_matrix &#34;a&#34;, &#34;b&#34;, &#34;c&#34;, &#34;d&#34; with colnames()</span>
+
+my_matrix
+
+<span style="color:#75715e"># Should look like this:</span>
+<span style="color:#75715e">#      a b c d</span>
+<span style="color:#75715e"># dogs 2 3 4 5</span>
+<span style="color:#75715e"># cats 6 6 6 6</span>
+
+<span style="color:#75715e"># You can also slice out matrix portions by name</span>
+my_matrix[<span style="color:#e6db74">&#34;dogs&#34;</span>, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;d&#34;</span>)]
+
+<span style="color:#75715e"># Finally, functions act on values, not the index</span>
+<span style="color:#a6e22e">mean</span>(my_matrix[<span style="color:#e6db74">&#34;dogs&#34;</span>, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;d&#34;</span>)])
+</code></pre></div><p> </p>
+<p><strong>Arrays</strong></p>
+<p>Arrays are data objects with more than 2 dimensions (well, technically a matrix with 2 dimensions is also an array, but let&rsquo;s ignore that for now). Array dimensions are denoted as <code>my_array[1:i, 1:j, 1:k]</code>, where <code>i</code> is the number of rows and <code>j</code>  the columns and <code>k</code> the &ldquo;depth&rdquo; of <code>i * j</code>.</p>
+<p><img src="/img/1.5-array.png" alt="my_array"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Arrays ####</span>
+<span style="color:#75715e"># Try this</span>
+
+<span style="color:#75715e"># help(runif)</span>
+<span style="color:#75715e"># help(round)</span>
+<span style="color:#75715e"># Try it to see what it does... </span>
+my_vec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">round</span>(<span style="color:#a6e22e">runif</span>(n <span style="color:#f92672">=</span> <span style="color:#ae81ff">27</span>, min <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, max <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>), <span style="color:#ae81ff">0</span>)
+my_vec <span style="color:#75715e"># See what we did there?</span>
+
+<span style="color:#a6e22e">length</span>(my_vec) <span style="color:#75715e"># Just checking</span>
+
+my_array <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">array</span>(data <span style="color:#f92672">=</span> my_vec,
+                  dim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>))
+my_array
+
+<span style="color:#75715e"># Flash challenge: </span>
+<span style="color:#75715e"># specify and print the 1st and 3rd  slice of the k dimension of my_array</span>
+
+</code></pre></div><h1 id="anchor-2"></h1>
 <p> </p>
 <p> </p>
 <h3 id="152-using-which-and-subsetting">1.5.2 Using which() and subsetting</h3>
+<p>Subsetting data objects is done by exploiting the index system.  We usually do this by either specifying index values explicitly (effective, but it requires that you know A LOT about the data object), or by contructing <em>queries</em> that choose subsect of data based on particular values.  The <code>which()</code> function is a powerful way to construct queries.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+<span style="color:#a6e22e">help</span>(which) <span style="color:#75715e"># Notice how the x argument is required to be a LOGICAL vector?</span>
+
+<span style="color:#75715e"># Make a NUMERIC vector</span>
+vector_a <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>)
+
+<span style="color:#75715e"># Use a boolean phrase to ask which elements of vector_a are greater than 5</span>
+vector_a <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> <span style="color:#75715e"># Interesting... it is a LOGICAL vector!</span>
+
+<span style="color:#75715e"># The which function will return the index values of TRUE values</span>
+<span style="color:#75715e"># In other words, WHICH values in vector_a are greater than 5?</span>
+<span style="color:#a6e22e">which</span>(vector_a <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>)
+
+<span style="color:#75715e"># What is the point of all this?</span>
+<span style="color:#75715e"># THE POINT is to be able to use expressions to obtain indices </span>
+<span style="color:#75715e"># and values in data structures...</span>
+
+<span style="color:#75715e"># What VALUES in vector_a are &gt; 5?</span>
+vector_a<span style="color:#a6e22e">[which</span>(vector_a <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>)]
+
+<span style="color:#75715e"># This also works on vectors of other types</span>
+<span style="color:#75715e"># Consider a character vector</span>
+char_vec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;wheat&#34;</span>, <span style="color:#e6db74">&#34;maize&#34;</span>, <span style="color:#e6db74">&#34;wheat&#34;</span>, <span style="color:#e6db74">&#34;maize&#34;</span>, <span style="color:#e6db74">&#34;wheat&#34;</span>, <span style="color:#e6db74">&#34;wheat&#34;</span>)
+
+<span style="color:#75715e"># Which elements are equivalent to &#34;wheat&#34;?</span>
+char_vec <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;wheat&#34;</span>
+<span style="color:#a6e22e">which</span>(char_vec <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;wheat&#34;</span>)
+
+char_vec[ <span style="color:#a6e22e">which</span>(char_vec <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;wheat&#34;</span>)] <span style="color:#75715e"># This works</span>
+char_vec[ char_vec <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;wheat&#34;</span>]        <span style="color:#75715e"># Same output</span>
+
+<span style="color:#75715e"># Flash challenge: Explain in your own words why </span>
+<span style="color:#75715e"># the previous 2 lines of code have identical output?</span>
+</code></pre></div><p> </p>
+<p>We are just beginning to scratch the surface of possibilties with the <code>which()</code> function - keep it in mind and practice it when you can.</p>
+<p> </p>
 <h1 id="anchor-3"></h1>
 <p> </p>
 <p> </p>
-<h3 id="153-comments-on-dataframe-objects">1.5.3 Comments on data.frame objects</h3>
-<h1 id="anchor-4"></h1>
+<h3 id="153-selection-on-dataframe-objects">1.5.3 Selection on data.frame objects</h3>
+<blockquote>
+<p>Data frames are the ultimate data object for getting, storing, organizing and analyzing data. A good scientist must learn to communicate the subtlety of data.  A good statistician must learn not to underestimate the subtletly of data. A good student must learn that <strong>subtlety may exist, even in simple data</strong>.</p>
+</blockquote>
+<p>There are a couple of data object types that have a special characteristic in that they store data of different types, where vectors, matrices and arrays can only store one type of data (e.g., numeric, character, logical, etc.).  The special data objects that can contain multiple data types are list objects, and data frames - here we will focus on data frames.  <strong>Data frames can have different vector types arranged by column</strong> but there is a constraint that each vector must be the same length, that is, <strong>each ROW is considerend an observation for each variable value</strong> (though there may be missing data coded by NA).</p>
+<p>There are a few ways to think about selecting values in a data frame.  The first is simply to access values through the variable names, which can either be done by using the data frame name with the <code>$</code> operator and the variable name, or by using the <code>[ , ]</code> syntax with either the variable name or the column number of the variable of interest <a href="https://dsgarage.netlify.app/bootcamp/1.4-m1-data-frames/#anchor-5">see here</a>.</p>
+<p>A second powerful way to access variables in a data frame is by selecting particular rows of a data frame.  This may be done by selecting the rows of a data based on values of one or more variables.  We will practice doing this using <code>which()</code>, the <code>[ , ]</code> syntax, and boolean phrases is the following code block.</p>
+<p>For the following section, we will use the <code>OrchardSprays</code> dataset that exists as a data frame in the in-built <code>{datasets}</code> package. You can use <code>help(OrchardSprays)</code> to see the help page (the help page is characteristically terse, so some description is given here.</p>
+<p> </p>
+<p><strong>The OrchardSprays experiment</strong></p>
+<p>This is a classic dataset based on <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1744-7348.1943.tb06173.x">an experiment looking at how a chemical additive could be used to deter honeybees from being attracted to crops and subsequently killed by pesticides</a>.</p>
+<p>The experiment involved having a treatment consisting of adding a &ldquo;lime sulphur emulsion&rdquo; (honeybee deterrent) in increasing concentrations to a sucrose solution.  <strong>The <code>treatment</code> variable</strong> had 8 levels including a control (no deterrent) and 7 other levels with increasing concentration of the deterrent. The treatment levels were named A (the highest amount of deterrent), B (second highest deterrent) through to G (lowest deterrent) and H (control - no deterrent) <strong>The decrease variable</strong> was a measure of the quantity of sucrose solution that was taken by honeybees (the prediction here is that higher concentrations of the deterrent should result in a lower decrease in the sucrose solution).</p>
+<p>The experiment involved a <a href="https://en.wikipedia.org/wiki/Latin_square">Latin Square</a> design, with the order of the 8 treatments arranged randomly in an array of 8 columns (the purpose of this design is to randomize any effect of the treatment ORDER or POSITION on the response variable).  This resulted in an 8 row by 8 column experiment.  The response was measured after placing 100 honeybees into an experimental chamber with the 64 containers of sucrose solution.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## OrchardSprays ####</span>
+<span style="color:#75715e">## Understand the data - an important step</span>
+<span style="color:#75715e"># Try this</span>
+
+<span style="color:#75715e"># Load the OrchardSpray data using the data() function</span>
+<span style="color:#a6e22e">data</span>(OrchardSprays) <span style="color:#75715e"># Should see OrchardSprays &lt;promise&gt; in the Global Env.</span>
+
+<span style="color:#75715e"># Look at the data head()</span>
+<span style="color:#a6e22e">head</span>(OrchardSprays) <span style="color:#75715e"># First 6 rows</span>
+
+<span style="color:#75715e"># Look at variable types with str()</span>
+<span style="color:#a6e22e">help</span>(str) <span style="color:#75715e"># Good function to see info about data object</span>
+<span style="color:#a6e22e">str</span>(OrchardSprays)
+
+<span style="color:#75715e"># First let&#39;s just look at the data</span>
+<span style="color:#75715e"># Don&#39;t worry too much about the code for these graphs if you have not encountered it before</span>
+<span style="color:#a6e22e">boxplot</span>(decrease <span style="color:#f92672">~</span> treatment, data <span style="color:#f92672">=</span> OrchardSprays, 
+        main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The pattern fits the prediction&#34;</span>,
+        ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Amount of sucrose consumed&#34;</span>,
+        xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Lime sulpher treatment amount in decreasing order (H = control)&#34;</span>)
+
+<span style="color:#75715e"># This is the experimental design</span>
+<span style="color:#75715e"># Latin Square is kind of like Sudoku</span>
+<span style="color:#75715e"># No treatment can be in row or column more than once</span>
+<span style="color:#a6e22e">plot</span>(x <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>colpos,  <span style="color:#75715e"># NB use of $ syntax to access data</span>
+     y <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>rowpos, 
+     pch <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.character</span>(OrchardSprays<span style="color:#f92672">$</span>treatment),
+     xlim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">9</span>), ylim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">9</span>),
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;The Latin Square design of treatments&#34;</span>,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;\&#34;Column\&#34; position&#34;</span>,
+     ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;\&#34;Row\&#34; position&#34;</span>)
+</code></pre></div><p> </p>
+<p><strong>Practice selecting parts a data frame</strong></p>
+<p>Selecting particular parts of a data frame based on the values of <strong>one variable</strong> is a common and extremely useful task.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Practice selecting parts a data frame ####</span>
+
+<span style="color:#75715e"># Select the rows of the dataset for treatment &#34;D&#34;</span>
+<span style="color:#75715e"># (Pseudocode steps to solve) </span>
+<span style="color:#75715e"># Break it down to make small steps easy to read</span>
+<span style="color:#75715e"># 01 Boolean phrase to identify rows where treatment value is &#34;D&#34;</span>
+<span style="color:#75715e"># 02 which() to obtain index of TRUE in boolean vector</span>
+<span style="color:#75715e"># 03 Exploit [ , ] syntax with data frame object to slice out rows</span>
+
+<span style="color:#75715e"># 01 Boolean phrase</span>
+OrchardSprays<span style="color:#f92672">$</span>treatment <span style="color:#75715e"># Just print variable to compare visually to boolean</span>
+OrchardSprays<span style="color:#f92672">$</span>treatment <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;D&#34;</span> <span style="color:#75715e"># logical vector - TRUE in &#34;D&#34; positions</span>
+
+<span style="color:#75715e"># 02 which()</span>
+<span style="color:#a6e22e">which</span>(OrchardSprays<span style="color:#f92672">$</span>treatment <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;D&#34;</span>) <span style="color:#75715e"># Index of TRUE values</span>
+my_selection <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">which</span>(OrchardSprays<span style="color:#f92672">$</span>treatment <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;D&#34;</span>) <span style="color:#75715e"># Place index in a variable</span>
+my_selection <span style="color:#75715e"># Just checking</span>
+
+<span style="color:#75715e"># 03 Exploit [ , ] syntax with data frame object to slice out rows</span>
+OrchardSprays[my_selection, ]
+
+<span style="color:#75715e"># Flash challenge: Select and print all rows at &#34;colpos&#34; values of 2</span>
+</code></pre></div><p> </p>
+<p><strong>Selection based on more than one variable value</strong></p>
+<p>Using the basic building blocks of boolean selection, more complex rules for selecting data can be made.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Compound boolean for selection ####</span>
+
+<span style="color:#75715e"># Select all rows of the data frame where </span>
+<span style="color:#75715e"># rowpos equals 4 OR 6 AND treatment equals &#34;A&#34; OR &#34;H&#34;</span>
+<span style="color:#75715e"># What we expect is exactly 2 values (A or H) for each powpos (4 or 6)</span>
+
+<span style="color:#75715e"># rowpos 4 and 6</span>
+OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> <span style="color:#75715e"># The 4s</span>
+OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span> <span style="color:#75715e"># The 6s</span>
+
+OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">|</span> OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span> <span style="color:#75715e"># All together</span>
+
+<span style="color:#75715e"># now with which()</span>
+<span style="color:#a6e22e">which</span>(OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>) <span style="color:#75715e"># The 4s</span>
+<span style="color:#a6e22e">which</span>(OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>) <span style="color:#75715e"># The 6s</span>
+
+<span style="color:#a6e22e">which</span>(OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">|</span> OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>) <span style="color:#75715e"># All together</span>
+
+<span style="color:#75715e"># treatment A and H</span>
+<span style="color:#a6e22e">which</span>(OrchardSprays<span style="color:#f92672">$</span>treatment <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;A&#34;</span> <span style="color:#f92672">|</span> OrchardSprays<span style="color:#f92672">$</span>treatment <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;H&#34;</span>) <span style="color:#75715e"># All together</span>
+
+<span style="color:#75715e"># Now we need the intersection of value that are in both our which() vectors</span>
+
+<span style="color:#a6e22e">which</span>((OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">|</span> OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>) <span style="color:#f92672">&amp;</span>  <span style="color:#75715e"># It works</span>
+        (OrchardSprays<span style="color:#f92672">$</span>treatment <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;A&#34;</span> <span style="color:#f92672">|</span> OrchardSprays<span style="color:#f92672">$</span>treatment <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;H&#34;</span>) ) 
+  
+<span style="color:#75715e"># NB this is a long way of spelling out our selection, </span>
+<span style="color:#75715e"># but trying to be very explicit with what is going on</span>
+
+my_selec2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">which</span>((OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">|</span> OrchardSprays<span style="color:#f92672">$</span>rowpos <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>) <span style="color:#f92672">&amp;</span>  
+                     (OrchardSprays<span style="color:#f92672">$</span>treatment <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;A&#34;</span> <span style="color:#f92672">|</span> OrchardSprays<span style="color:#f92672">$</span>treatment <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;H&#34;</span>) ) 
+
+OrchardSprays[my_selec2, ] <span style="color:#75715e"># Double check it works and is similar to expectation...</span>
+
+<span style="color:#75715e"># Flash challenge: Calculate the mean of decrease for treatment &#34;A&#34; </span>
+<span style="color:#75715e"># and the mean of decrease for treatment &#34;H&#34;</span>
+</code></pre></div><h1 id="anchor-4"></h1>
 <p> </p>
 <p> </p>
 <h3 id="154-using-aggregate">1.5.4 Using aggregate()</h3>
-<h1 id="anchor-5"></h1>
+<p><strong>The aggregate() function</strong></p>
+<p>We often may wish to summarise parts of a data set according to some index of variable values.  A very convenient tool for the is the <code>aggregate()</code> function, which we will practice here.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">help</span>(aggregate)
+
+<span style="color:#75715e"># A few important things to note about how this function works:</span>
+<span style="color:#75715e"># The &#34;x&#34; argument is a data object you input, but should only contain numeric values usually</span>
+<span style="color:#75715e"># If a data.frame object is input as x, a data.frame object is the output</span>
+<span style="color:#75715e"># The &#34;by&#34; argument must be a list() object and can be one or more indices</span>
+<span style="color:#75715e"># The FUN argument is the name of the function that will act on the &#34;x&#34; argument data</span>
+
+<span style="color:#75715e"># Let&#39;s try a few examples</span>
+
+<span style="color:#75715e">## 1 calculate the mean of decrease by treatment in OrchardSprays</span>
+
+<span style="color:#a6e22e">aggregate</span>(x <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>decrease,
+          <span style="color:#75715e"># NB use of list() and naming it &#34;treatment&#34;</span>
+          by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(treatment <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>treatment), 
+          FUN <span style="color:#f92672">=</span> mean)
+
+<span style="color:#75715e"># we can &#34;recycle&#34; the code above to apply different functions</span>
+<span style="color:#75715e"># standard deviation with sd()</span>
+<span style="color:#a6e22e">aggregate</span>(x <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>decrease,
+          <span style="color:#75715e"># NB use of list() and naming it &#34;treatment&#34;</span>
+          by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(treatment <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>treatment), 
+          FUN <span style="color:#f92672">=</span> sd)
+
+<span style="color:#75715e"># Range with range()</span>
+<span style="color:#a6e22e">aggregate</span>(x <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>decrease,
+          <span style="color:#75715e"># NB use of list() and naming it &#34;treatment&#34;</span>
+          by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(treatment <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>treatment), 
+          FUN <span style="color:#f92672">=</span> range)
+
+<span style="color:#75715e"># What if we want several summary statistics?</span>
+
+<span style="color:#a6e22e">aggregate</span>(x <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>decrease,
+          <span style="color:#75715e"># NB use of list() and naming it &#34;treatment&#34;</span>
+          by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(treatment <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>treatment), 
+          <span style="color:#75715e"># NB use of function() </span>
+          FUN <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">c</span>(mean <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(x), <span style="color:#75715e"># Add naming</span>
+                              sd <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(x), 
+                              range <span style="color:#f92672">=</span> <span style="color:#a6e22e">range</span>(x)))
+
+<span style="color:#75715e">## Example of use of aggregate object</span>
+<span style="color:#75715e"># Say you would like to graph a barplot of the MEAN of decrease by treatment</span>
+<span style="color:#75715e"># and you would like to show STANDARD DEVIATION error bars</span>
+
+<span style="color:#75715e"># Make data frame with summary values using aggregate()</span>
+my_mean <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(x <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>decrease,
+                        by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(treatment <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>treatment), 
+                        FUN <span style="color:#f92672">=</span> mean)
+
+my_sd <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(x <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>decrease,
+                   by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(treatment <span style="color:#f92672">=</span> OrchardSprays<span style="color:#f92672">$</span>treatment), 
+                   FUN <span style="color:#f92672">=</span> sd)
+
+my_mean
+my_sd
+
+<span style="color:#75715e"># Tidy things up in a new data frame using data.frame()</span>
+<span style="color:#75715e"># Take care of naming variables for clarity</span>
+<span style="color:#a6e22e">help</span>(data.frame) <span style="color:#75715e"># Continue using help() as a good habit</span>
+new_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(treatment <span style="color:#f92672">=</span> my_mean<span style="color:#f92672">$</span>treatment,
+                       mean <span style="color:#f92672">=</span> my_mean<span style="color:#f92672">$</span>x,
+                       sd <span style="color:#f92672">=</span> my_sd<span style="color:#f92672">$</span>x)
+new_data <span style="color:#75715e"># Looks good</span>
+
+<span style="color:#75715e"># There is a lot going on in the following code</span>
+<span style="color:#75715e"># The point is to show what is possible</span>
+
+(bar_centers <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">barplot</span>(new_data<span style="color:#f92672">$</span>mean,<span style="color:#75715e">#   use mean for barheight</span>
+                        ylim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">115</span>),
+                        ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mean solution decrease (+- 1 SD)&#34;</span>,
+                        xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Treatment&#34;</span>))
+<span style="color:#75715e"># NB bar_centers holds the numerical position value of the bars...</span>
+
+<span style="color:#a6e22e">help</span>(arrows)  <span style="color:#75715e"># Use to draw error bars</span>
+<span style="color:#a6e22e">arrows</span>(x0 <span style="color:#f92672">=</span> bar_centers, 
+       x1 <span style="color:#f92672">=</span> bar_centers,
+       y0 <span style="color:#f92672">=</span> new_data<span style="color:#f92672">$</span>mean , <span style="color:#75715e"># start error bar at top of the bar!</span>
+       y1 <span style="color:#f92672">=</span> new_data<span style="color:#f92672">$</span>mean <span style="color:#f92672">+</span> new_data<span style="color:#f92672">$</span>sd, <span style="color:#75715e"># end error bar here!</span>
+       angle <span style="color:#f92672">=</span> <span style="color:#ae81ff">90</span>,
+       length <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>)
+
+<span style="color:#75715e"># Last step: label the x axis</span>
+<span style="color:#a6e22e">axis</span>(side <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+     at <span style="color:#f92672">=</span> bar_centers,
+     labels <span style="color:#f92672">=</span> new_data<span style="color:#f92672">$</span>treatment)
+     
+<span style="color:#75715e"># Flash challenge: Draw a new barplot by recycling the code above</span>
+<span style="color:#75715e"># This time, add error bars showing on both the top and the bottom of the mean values</span>
+</code></pre></div><h1 id="anchor-5"></h1>
 <p> </p>
 <p> </p>
 <h3 id="155-practice-exercises">1.5.5 Practice exercises</h3>
+<p>For the following exercises, use the trees dataset, which has Girth, Height and Volume variables for 31 Black Cherry trees.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Examine the data</span>
+<span style="color:#a6e22e">help</span>(trees)
+<span style="color:#a6e22e">data</span>(trees)
+<span style="color:#a6e22e">str</span>(trees)
+</code></pre></div><p> </p>
+<p><strong>1</strong> Show code to calculate the mean Girth of Black Cherry trees with Height less than 75 ft.</p>
 <p> </p>
-<p><strong>1</strong></p>
+<p><strong>2</strong> Use <code>help(cut)</code> and use the <code>cut()</code> function to create a new factor variable based on the <code>Height</code> numeric variable in the <code>trees</code> dataset. Try setting the <code>break</code>s argument to 2 ro 3.  Rename the levels of your new factor to something meaningful.  Show the code.</p>
 <p> </p>
-<p><strong>2</strong></p>
+<p><strong>3</strong> Using the new factor from question 2, use <code>aggregate()</code> to calculate the mean and standard deviation of all three variables in the <code>trees</code> data.  Show your code and report the results to 2 decimal points of accuracy.</p>
 <p> </p>
-<p><strong>3</strong></p>
+<p><strong>4</strong> Show the code using which() and boolean phrases as appropriate to find the rows in the <code>trees</code> dataset where Girth is higher than 11 and Height is lower than 75.</p>
 <p> </p>
-<p><strong>4</strong></p>
+<p><strong>5</strong> Run the following code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">data_1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(volume <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#66d9ef">NA</span>,<span style="color:#ae81ff">10</span>),
+           population <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,
+           <span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>))
+</code></pre></div><p>Use <code>aggregate()</code> to calculate the mean of volume for each population (hint: you may need to use help for the functions involved and pay close attention to your data frame&hellip;).</p>
 <p> </p>
-<p><strong>5</strong></p>
-<p> </p>
-<p><strong>6</strong></p>
+<p><strong>6</strong> Write a plausible practice question involving any aspect of using <code>which()</code>, boolean phrases and/or <code>aggregate()</code> involving the in-built R dataset <code>iris</code>.</p>
 <p> </p>
 </div>
 
