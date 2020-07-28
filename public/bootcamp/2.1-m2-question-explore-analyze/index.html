@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>2.1 Question, explore, analyze</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: white;
+    }
+
+    :root {
+        --accent: green;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/haskell.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/swift.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.72.0" />
+        
+
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+
+    </head>
+
+    <body>
+        
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">2.1 Question, explore, analyze</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/bootcamp/">Bootcamp</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="https://join.slack.com/t/hadatascience/shared_invite/zt-ekigo1t3-0ADgafsF6zTDwJ9SxIws9w"><i class="fa fa-slack"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://twitter.com/adams_data/"><i class="fa fa-twitter"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.youtube.com/channel/UCOEuOH6cY8yisodud25hb7w"><i class="fa fa-youtube"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+<main>
+
+    <div>
+        <h2>2.1 Question, explore, analyze</h2>
+        <h5></h5>
+        
+<a href="/tags/bootcamp"><kbd class="item-tag">Bootcamp</kbd></a>
+
+<a href="/tags/r"><kbd class="item-tag">R</kbd></a>
+
+<a href="/tags/statistics"><kbd class="item-tag">Statistics</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p><img src="/img/unsplash-pig.png" alt=" "></p>
+<p> </p>
+<h2 id="question-explore-analyze-a-workflow-for-data-science">Question, explore, analyze (a workflow for data science)</h2>
+<p> </p>
+<p>VIDEO 2.1</p>
+<p><a href="/scripts/script-2.1.R">SCRIPT 2.1</a> Use this to follow along on this page and for the Practice exercises below.</p>
+<p>Optional reference to review key concepts: <a href="https://learningstatisticswithr.com/book/">Danielle Navarro. 2019. Learning Statistics with R</a></p>
+<p> </p>
+<p><strong>Overview</strong></p>
+<blockquote>
+<p>A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description.  Likewise, it may contain wonderful knowledge, there to discover.  Either way, your first task is to <strong>weigh the pig</strong>.</p>
+</blockquote>
+<p>The very first task for any data analysis is to gain an understanding of the data itself.  This typically involves examining the variables (Are they as we expect? Do we need to adjust the variable types?), graphing the data, and possibly examining numerical summaries and statistical assumptions.  Further, it is necessary to look for errors in the data both trivial (e.g. misspelling  factor level names like &ldquo;control&rdquo; with an extra space &ldquo;control &ldquo;), and more serious such as numerical typographical errors (e.g. misplacing a decimal point is a classic: height of 5 men in feet: c(5.5, 5.8, 6.1, 5.9, 52)&hellip; ). In total, this part of data analysis is sometimes referred to as <strong>Exploratory Data Analysis</strong>.</p>
+<p><strong>Exploratory Data Analysis</strong> (EDA) is part practical and part philosophical in that is requires skill and experience, but is also subjective. Think of it as a step that might take a long while, where the data scientists decides what the analysis is that will be applied to the data, that the analysis is correct and appropriate.  Ironically, while EDA is considered very important and can take a large proportion of the total time spent analysing data, it is usually only reported on very briefly if at all.</p>
+<p>The order of operation for most analyses should be <strong>1 question</strong>, <strong>2 explore</strong>, <strong>3 analyse</strong>.  Focus on the question and make sure it is clear in formulation, and choose an analysis approach that can resolve the question (given the data&hellip; but the data collection should be DESIGNED to fit the question and chosen analysisprior to collection).  Explore the data to examine any assumptions required for the analysis, including the use of graphing and any diagnostic or summary statistics.  Finally, perform and summarize the analysis.  We will practice this workflow for different basic questions in this module, with an emphasis on simple quantitative data.</p>
+<p> </p>
+<p><strong>Contents</strong></p>
+<p><a href="#anchor-1">2.1.1 Question formulation and hypothesis testing</a></p>
+<p><a href="#anchor-2">2.1.2 Summarize: Weighing the Pig</a></p>
+<p><a href="#anchor-3">2.1.3 Variables and graphing</a></p>
+<p><a href="#anchor-4">2.1.4 &ldquo;Analysis&rdquo; versus &ldquo;EDA&rdquo;</a></p>
+<p><a href="#anchor-5">2.1.5 Statistical Analysis Plan: the concept</a></p>
+<p><a href="#anchor-6">2.1.6 Practice exercises</a></p>
+<h1 id="anchor-1"></h1>
+<p> </p>
+<p> </p>
+<h3 id="211-question-formulation-and-hypothesis-testing">2.1.1 Question formulation and hypothesis testing</h3>
+<blockquote>
+<p>It is the primary responsibility of the data collector and the data scientist to agree on the specific details of generating evidence from data (i.e., statistical analysis) to answer questions.  When these roles are occupied by the same person, this matter should be settled before collecting any data.</p>
+</blockquote>
+<p>The general topic of formulating statistical questions is vast; many books have been written on the subject. The tradition and practice of statistical analysis has evolved through time.  Here we will focus on the traditional starting point for a &ldquo;first statistics course&rdquo;, within the context of <strong>Null Hypothesis Significance testing (NHST)</strong>.</p>
+<p><strong>Sampling concept and NHST</strong></p>
+<p>The gambit of NHST is that there is a <strong>population of interest</strong> but that the population cannot be directly measured because it is too big or otherwise inconvenient or impossible to measure.  Thus, <strong>experimental samples</strong> are drawn randomly from the population, possibly subjected to <strong>experimental conditions</strong>, and the magnitude of observed differences or measured associations are summarized by various <strong>test statistics</strong> and compared to how likely such an observed difference or association would be to observe in the absence of the hypothesized effect (the latter is referred to as the <strong>null hypothesis</strong>).  Finally, a <strong>P-value</strong>, the (conditional) probability of the observed effect siuze relative to the null hypothesis of no difference, is used to decide if the observed difference is &ldquo;signficant&rdquo;.</p>
+<p>Traditionally, the P-value is compared to the <strong>alpha value</strong>, almost always set to 0.05.  This alpha value can be interpreted as the maximum probability that is acceptable of making a mistake and concluding there IS a difference, when in fact a difference does not exist. When the P-value is less than 0.05, we conclude there is a difference, rejecting the null hypothesis and &ldquo;accepting&rdquo; the hypothesis we predicted was true (usually referred to as the <strong>alternative hypothesis</strong>)</p>
+<p> </p>
+<p><strong>NHST notes</strong></p>
+<p>The NHST is sometimes viewed contemporarily as a little deficient in practice. The reasons for this are complicated, but relate to alternative statistical frameworks that are now possible due to the development of statistical theory (e.g. Bayesian statistics, the Generalized Linear Model) and computational methods (e.g. machine learning).  Nevertheless, it is still in standard use in many fields and remains the staple for the &ldquo;first statistics class&rdquo;.</p>
+<p> </p>
+<p>Benefits of NHST</p>
+<ul>
+<li>
+<p>Familiar and acceptable to majority of researchers</p>
+</li>
+<li>
+<p>Typically robust to assumptions when applied correctly</p>
+</li>
+<li>
+<p>Strong framework for evidence, especially for experiments</p>
+</li>
+<li>
+<p>The basic idea is objective and simple</p>
+</li>
+</ul>
+<p> </p>
+<p>Criticism of HNST</p>
+<ul>
+<li>
+<p>Often conceived, applied and interpreted under error</p>
+</li>
+<li>
+<p>Validation of analysis (e.g. assumptions testing) is often neglected</p>
+</li>
+<li>
+<p>Education for applied researchers deficient in sciences</p>
+</li>
+<li>
+<p>Though simple, practitioners may be ignorant of subtle concepts</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Further reading</strong></p>
+<p>If the idea is new to you that NHST in statistics is not perfect and you want to get serious about understanding why, like most subjects, you will need to pursue further sources.</p>
+<p><a href="https://www.jstor.org/stable/3803199?seq=1">Anderson, D.R., Burnham, K.P. and Thompson, W.L., 2000. Null hypothesis testing: problems, prevalence, and an alternative. The journal of wildlife management, pp.912-923.</a></p>
+<p><a href="https://psycnet.apa.org/journals/met/5/2/241.html?uid=2000-07827-007">Nickerson, R.S., 2000. Null hypothesis significance testing: a review of an old and continuing controversy. Psychological methods, 5(2), p.241.</a></p>
+<p><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.453.9776&amp;rep=rep1&amp;type=pdf">Nix, T.W. and Barnette, J.J., 1998. The data analysis dilemma: Ban or abandon. A review of null hypothesis significance testing. Research in the Schools, 5(2), pp.3-14.</a></p>
+<p><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.1365-2664.2005.01002.x">Stephens, P.A., Buskirk, S.W., Hayward, G.D. and Martinez Del Rio, C., 2005. Information theory and hypothesis testing: a call for pluralism. Journal of applied ecology, 42(1), pp.4-12.</a></p>
+<p> </p>
+<h1 id="anchor-2"></h1>
+<p> </p>
+<p> </p>
+<h3 id="212-summarize-weighing-the-pig">2.1.2 Summarize: Weighing the Pig</h3>
+<p> </p>
+<blockquote>
+<p>The best way gain skill in handling data is to practice.</p>
+</blockquote>
+<p><strong>Weighing the pig</strong> is the term we use to describe creating a summary-at-a-glance of a dataset.  Usually this includes graphics and statistical summary, as well a description of <strong>how much data</strong> we have. A key consideration is, also, the specification of the variables.</p>
+<p>We will practice data handling with the data file <a href="/data/2.1-chickwts.xlsx">chickwts.xlsx</a>.</p>
+<p>Download the file, read it into a data object in R called &ldquo;chicks&rdquo;, and convert the &ldquo;feed&rdquo; variable to a factor if necessary.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e"># Download the 2.1-chickwts.xlsx file, read it into a data </span>
+<span style="color:#75715e"># object in R called &#34;chicks&#34;, </span>
+<span style="color:#75715e"># and convert the &#34;feed&#34; variable to a factor if necessary.</span>
+
+<span style="color:#75715e"># Do not neglect looking inside the &#34;raw&#34; data file</span>
+<span style="color:#75715e"># Is it as you expect?  Is the data dictionary present and clear?</span>
+
+<span style="color:#75715e"># Load necessary libraries</span>
+<span style="color:#a6e22e">library</span>(openxlsx)
+
+<span style="color:#75715e"># Read file</span>
+<span style="color:#a6e22e">setwd</span>(<span style="color:#e6db74">&#34;D:/Dropbox/git/DSgarage/public/data&#34;</span>) <span style="color:#75715e"># NB change to YOUR file path...</span>
+chicks <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.xlsx</span>(<span style="color:#e6db74">&#34;2.1-chickwts.xlsx&#34;</span>)
+
+<span style="color:#75715e"># Convert feed to factor if needed</span>
+<span style="color:#a6e22e">class</span>(chicks<span style="color:#f92672">$</span>feed) <span style="color:#75715e"># Character</span>
+chicks<span style="color:#f92672">$</span>feed <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(chicks<span style="color:#f92672">$</span>feed)
+<span style="color:#a6e22e">class</span>(chicks<span style="color:#f92672">$</span>feed) <span style="color:#75715e"># Factor</span>
+</code></pre></div><p> </p>
+<blockquote>
+<p>The hypothesis voices &ldquo;how you think the world works&rdquo; or what you predict to be true&rdquo;</p>
+</blockquote>
+<p>The basic hypothesis we believe is true for the chicks dataset might be phrased in different ways.</p>
+<ul>
+<li>
+<p>Chick weight differs after 6 weeks according to feed additive type</p>
+</li>
+<li>
+<p>Mean chick weight varies according to feed additive type</p>
+</li>
+<li>
+<p>The variance between chick weight for different feed additives is bigger than the variance within chick weight as a whole</p>
+</li>
+</ul>
+<p> </p>
+<p>The minimum amount of information we are ususally interested in when sizing up a dataset is <strong>How much data is there?</strong>, <strong>What is the central tendency (e.g. the mean, variance, etc.)?</strong>, and possibly <strong>Are there rare values?</strong>.  We would typically <strong>start graphing the data</strong> right away.  If we have a notion of what our questions or hypotheses are, they should inform the initial peek at the data.  For example, in the <strong>chickwts</strong> data, we know our question will be related not to the overall central tendency of chick weight, but to chick weight for each individual feed type.</p>
+<p>We do not approach this sizing up of the data in a workhorse fashion, merely to check a tick box.  We are looking quickly for details in the data that give us insight into what the data is like. For example, we peek at whether the mean and median are close to each other (indicator our data may be <a href="https://en.wikipedia.org/wiki/Normal_distribution">Gaussian</a>), we compare the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, variance or <a href="https://en.wikipedia.org/wiki/Standard_error">standard error</a> of a numeric variable relative to different levels of a factor, to see if they are similar.</p>
+<p>NB here will avoid a review of these basic math concepts, but if you are interested in a review, <a href="https://learningstatisticswithr.com/book/descriptives.html.">here is a good place to start</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e"># Summarize the whole dataset</span>
+<span style="color:#75715e"># summary() provides summary statistics for numeric variables and counts</span>
+<span style="color:#a6e22e">summary</span>(chicks)
+
+<span style="color:#75715e"># we might want to look at summary for different levels of feed</span>
+<span style="color:#f92672">?</span>summary
+<span style="color:#a6e22e">summary</span>(object <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight<span style="color:#a6e22e">[which</span>(chicks<span style="color:#f92672">$</span>feed <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;casein&#34;</span>)])
+<span style="color:#a6e22e">summary</span>(object <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight<span style="color:#a6e22e">[which</span>(chicks<span style="color:#f92672">$</span>feed <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;horsebean&#34;</span>)])
+<span style="color:#75715e"># etc. - this method is easy but inelegant?</span>
+
+<span style="color:#75715e"># aggregate()</span>
+<span style="color:#f92672">?</span>aggregate
+
+<span style="color:#75715e"># mean</span>
+<span style="color:#a6e22e">aggregate</span>(x <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight, by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(chicks<span style="color:#f92672">$</span>feed), FUN <span style="color:#f92672">=</span> mean)
+
+<span style="color:#75715e"># standard deviation</span>
+<span style="color:#a6e22e">aggregate</span>(x <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight, by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(chicks<span style="color:#f92672">$</span>feed), FUN <span style="color:#f92672">=</span> sd)
+
+<span style="color:#75715e"># You can make your own function for the FUN argument</span>
+<span style="color:#75715e"># stadard error of mean, SEM = standard deviation / square root of sample size</span>
+<span style="color:#a6e22e">aggregate</span>(x <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight, by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(chicks<span style="color:#f92672">$</span>feed), 
+          FUN <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x){ <span style="color:#a6e22e">sd</span>(x)<span style="color:#f92672">/</span><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">length</span>(x)) })
+
+<span style="color:#75715e"># You can apply several functions and name them!</span>
+<span style="color:#a6e22e">aggregate</span>(x <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight, by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(feed <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>feed), 
+          FUN <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x){ <span style="color:#a6e22e">c</span>(mean <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(x), 
+                               sd <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(x),  
+                               SEM <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(x)<span style="color:#f92672">/</span><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">length</span>(x)))})
+
+
+</code></pre></div><h1 id="anchor-3"></h1>
+<p> </p>
+<p> </p>
+<h3 id="213-variables-and-graphing">2.1.3 Variables and graphing</h3>
+<p> </p>
+<blockquote>
+<p>A good graph usually tells the whole story, but a bad graph is worse than no graph at all.</p>
+</blockquote>
+<p> </p>
+<p><a href="https://xkcd.com">XKCD</a> You convinced me</p>
+<p><img src="https://imgs.xkcd.com/comics/convincing.png" alt="XKCD convincing"></p>
+<p> </p>
+<p>There are a few topics in graphing data that are important to consider here, but the topic is wide and deep, analytical, creative and even artistic.  We make a distinction between <strong>graphs used to explore data during EDA</strong> (meant to be &ldquo;consumed&rdquo; only by the data scientist who made them and are of no use to document a pattern to others) and <strong>graphs indended to document information</strong>. For both kinds of graphs, best practice is develop best practice principles.</p>
+<p> </p>
+<p>Scientific graphs:</p>
+<ul>
+<li>
+<p>Must convey the relevant information</p>
+</li>
+<li>
+<p>Should be consistent in aesthetics</p>
+</li>
+<li>
+<p>Must be self-contained (meaning is contained 100% within the figure and legend)</p>
+</li>
+<li>
+<p>Should reflect a hypothesis or statistical concept (if not purely descriptive)</p>
+</li>
+<li>
+<p>Should be appropriate to the data</p>
+</li>
+</ul>
+<p> </p>
+<p>You can think of R graphics as a way to &ldquo;build up information in layers&rdquo; onto a graph.  There are many aesthetic features of graph that can be controlled, like adding colors, text, lines, legends, etc.  The R graphics system is very simple to use, but can also be very powerful (mastering this takes practice).  We make a distinction here between R <strong>base graphics</strong> and packages that can be used to make specialized and varied graphs (like the powerful and popular package {<strong>ggplot</strong>})</p>
+<p><strong>Layering information</strong></p>
+<p>We can look at graphing the chicks data in a few different ways.  We will try a few different graphs in this way, building up features.  We might build up features on a graph using <strong>arguments</strong> in a particular graph function (like the main title with the argument <code>main</code>, or the x axis title with the argument <code>xlab</code>), or by adding features with additional function to &ldquo;layer&rdquo; onto the base graph (like adding lines with the functions <code>abline()</code> or <code>lines()</code>).</p>
+<p>Typically you would choose the type of graph that both fits the type of data you have and that conveys the information you wish to examine or showcase.  E.g., for a single numeric variable, you might wish to show:</p>
+<ul>
+<li>
+<p>The distribution of data with a <strong>histogram</strong>: <code>hist()</code></p>
+</li>
+<li>
+<p>The central tendency relative to a factor with a <strong>boxplot</strong>: <code>boxplot()</code></p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Histogram of the <code>chicks</code> data</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># The least you can do</span>
+<span style="color:#a6e22e">help</span>(hist)
+<span style="color:#a6e22e">hist</span>(x <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight)
+</code></pre></div><p><img src="/img/2.1-hist1.png" alt=" "></p>
+<p> </p>
+<p><strong>Add a title with <code>main</code></strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Argument main</span>
+<span style="color:#a6e22e">hist</span>(x <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Distribution of chick weights (all feeds)&#34;</span>)
+</code></pre></div><p><img src="/img/2.1-hist2.png" alt=" "></p>
+<p> </p>
+<p><strong>Add an x axis title with <code>xlab</code></strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># x axis title</span>
+<span style="color:#a6e22e">hist</span>(x <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Distribution of chick weights (all feeds)&#34;</span>,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Chick weight (grams)&#34;</span>)
+</code></pre></div><p><img src="/img/2.1-hist3.png" alt=" "></p>
+<p> </p>
+<p><strong>Add a vertical line for the weight mean with <code>abline()</code></strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Add vertical line for mean weight</span>
+<span style="color:#a6e22e">hist</span>(x <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Distribution of chick weights (all feeds)&#34;</span>,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Chick weight (grams)&#34;</span>)
+
+<span style="color:#a6e22e">help</span>(abline)
+<span style="color:#a6e22e">abline</span>(v <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(chicks<span style="color:#f92672">$</span>weight), col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>, lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+</code></pre></div><p><img src="/img/2.1-hist4.png" alt=" "></p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try a boxplot</span>
+<span style="color:#a6e22e">help</span>(boxplot)
+<span style="color:#a6e22e">boxplot</span>(x <span style="color:#f92672">=</span> chicks<span style="color:#f92672">$</span>weight)
+<span style="color:#75715e"># I have seen worse graphs, but I can&#39;t remember when.</span>
+<span style="color:#75715e"># Flash challenge: Fix. It.</span>
+</code></pre></div><p><img src="/img/2.1-box1.png" alt=" "></p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># weight as a function of feed</span>
+<span style="color:#a6e22e">boxplot</span>(formula <span style="color:#f92672">=</span> weight <span style="color:#f92672">~</span> feed,
+        data <span style="color:#f92672">=</span> chicks)
+<span style="color:#75715e"># This is probably a good representation of our hypothesis</span>
+<span style="color:#75715e"># Flash challenge: Fix the graph...</span>
+</code></pre></div><p><img src="/img/2.1-box2.png" alt=" "></p>
+<h1 id="anchor-4"></h1>
+<p> </p>
+<p> </p>
+<h3 id="214-analysis-versus-eda">2.1.4 &ldquo;Analysis&rdquo; versus &ldquo;EDA&rdquo;</h3>
+<p>Although you could consider Exploratory Data Analysis, EDA, as an important part of the complete process of data analysis, we might make a distinction between &ldquo;Analysis&rdquo; the part of analysis that generates <strong>Evidence</strong>, and that of EDA that is used to explore data and test assumptions.</p>
+<p> </p>
+<p><strong>Analysis</strong></p>
+<ul>
+<li>
+<p>Designed to fit a specific question or hypothesis</p>
+</li>
+<li>
+<p>Part of a workflow: Informal hypothesis statement (in plain language) &gt; Statistical hypothesis (specifies a or implies a statistical test) &gt; Evidence (the specific results)</p>
+</li>
+<li>
+<p>Designed and usually formatted to present to others, such as in a report or a scientific manuscript</p>
+</li>
+<li>
+<p>Contains only bare essentials as relates to the initial hypothesis (e.g. a good graph, the summary of a statistical analysis)</p>
+</li>
+<li>
+<p>Should strictly be reproducible via a script and archived data</p>
+</li>
+<li>
+<p>Dome only after EDA</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>EDA</strong></p>
+<ul>
+<li>
+<p>Informal and may be haphazard</p>
+</li>
+<li>
+<p>Designed to explore or gain understanding of data</p>
+</li>
+<li>
+<p>Assumptiuons testing</p>
+</li>
+<li>
+<p>Usually not designed to document or show to others</p>
+</li>
+<li>
+<p>Occurs primarily before (every) analysis</p>
+</li>
+<li>
+<p>May or may not be documented to be reproducible</p>
+</li>
+<li>
+<p>Done before the final, evidence-generating Analysis</p>
+</li>
+</ul>
+<p> </p>
+<p>We can keep this concept of EDA versus Analysis in our mind while we discuss the Statistical Analysis Plan.</p>
+<p> </p>
+<h1 id="anchor-5"></h1>
+<p> </p>
+<p> </p>
+<h3 id="215-statistical-analysis-plan-the-concept">2.1.5 Statistical Analysis Plan: the concept</h3>
+<blockquote>
+<p>I have a cunning (statistical analysis) plan -Baldrick</p>
+</blockquote>
+<p>A <strong>Statistical Analysis Plan</strong> (SAP) is a formal document that should be used to design data analysis.  One of the most important functions of the SAP is to make a formal connection between the hypothesis, the data collected and and the method of analysis that will be used to generate evidence to support or refute the hypothesis.  The components of a basic SAP are:</p>
+<ol>
+<li>
+<p>The <strong>hypotheses stated in plain language</strong></p>
+</li>
+<li>
+<p>Each hypothesis translated into a <strong>specific statistical model</strong></p>
+</li>
+<li>
+<p>Specification of <strong>data and and data collection methods</strong></p>
+</li>
+<li>
+<p>Specification of <strong>effect size</strong></p>
+</li>
+<li>
+<p><strong>Justification of sample size</strong> through power analysis or other means</p>
+</li>
+</ol>
+<p> </p>
+<p>Definition of all of these components is beyond the boundaries of this Bootcamp, however the explicit connection of hypotheses with a statistical model is one of the very basic elements of best practice in science.</p>
+<p> </p>
+<p><strong>The scientific method Classic</strong></p>
+<p>We usually learn  the scientific method as a cycle where we conceive a problem, form a hypothesis, conduct an experiment, evaluate the result and so on. We teach this as a literal cycle.</p>
+<p> </p>
+<p><strong>Scientific Process 1</strong>
+<img src="/img/2.1-sci-proc1.png" alt=" "></p>
+<p> </p>
+<p>This classic view of the scientific process implies that we plan the analysis only after we conduct the experiment and collect data.  While many data scientists or statisticians would agree that this model is widely used in science, it is considered very poor practice for several reasons.</p>
+<ul>
+<li>
+<p>The expected difference or relationship (i.e., the <a href="https://en.wikipedia.org/wiki/Effect_size"><strong>effect size</strong></a>) should explicitly be part of the hypothesis and quantified BEFORE collecting data</p>
+</li>
+<li>
+<p>The statistical test must be chosen prior to collect the data to insure the evidence matches the expectation</p>
+</li>
+<li>
+<p>The <a href="https://en.wikipedia.org/wiki/Sample_size_determination"><strong>sample size should be justified</strong></a>, using power analysis or a less formal means. Collecting too little data will likely result in failing to detect a difference (if if your hypothesis is correct!); Collecting too much data is simply a waste of resources.</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Scientific Process 2</strong>
+<img src="/img/2.1-sci-proc2.png" alt=" "></p>
+<p> </p>
+<p><strong>Best practice scientific process</strong></p>
+<p>The traditional view of the scientific method should probably be adjusted to explicitly accomodate planning the analysis at the same time as the hypothesis formulation stage.  Likewise, the analysis plan should specifically influence the design of the data collection for the experiment.</p>
+<p> </p>
+<p><strong>Modern scientific process</strong>
+<img src="/img/2.1-sci-proc3.png" alt=" "></p>
+<p> </p>
+<p>A modern view of best practice of scientific endeavor incudes an experimental design phase, that includes consideration of <strong>effect size</strong> and <strong>power analysis</strong>, and the production of a <strong>statistical analysis plan</strong> that contains a formal statistical hypothesis.  All off this happens prior to any data collection.</p>
+<h1 id="anchor-6"></h1>
+<p> </p>
+<p> </p>
+<h3 id="216-practice-exercises">2.1.6 Practice exercises</h3>
+<p>For the following questions, use the <a href="/data/field-trial.xlsx">field-trial.xlsx dataset</a>.  This is real data in Tidy Data format, but our information for these exercises is limited precisely to the contents of the file, including the data dictionary.  In this experiment, seeds were raised under field trial conditions for 2 weeks to look at the effect of different treatment conditions on mass gain during germination.  There are several measured variables, with the calculated <code>pct</code> variable probably intended to be the dependent variable, with the factor <code>treatment</code> being the main explanatory variable for variation in <code>pct</code>.</p>
+<p> </p>
+<p><strong>1</strong> Show code to set up an R analysis file with a header, table of contents, and a setup section that sets your working directory, loads any required libraries and reads in the data. Call the data.frame object you create <code>seed</code>.</p>
+<p> </p>
+<p><strong>2</strong>  <code>pct</code>, <code>wet</code> and <code>dry</code> should be numeric; <code>block</code> and <code>trial</code> should be factors, and <code>treatment</code> should be a factor with the level &ldquo;Control&rdquo; set as the reference.  Should the code to do this.</p>
+<p> </p>
+<p><strong>3</strong> Use <code>aggregate()</code> to calculate the mean, standard deviation, standard error, and the count (e.g. <code>length()</code>) of <code>pct</code> for each level of <code>treatment</code>.  Show the code.</p>
+<p> </p>
+<p><strong>4</strong> Make a fully labelled boxplot of the <code>pct</code> as a function of <code>treatment</code>.  Add a horizontal line (red and dashed) for the overall mean of pct, and 2 horizontal lines (gray, dotted) for the overall mean of <code>pct</code> +/- 1 standard deviation.</p>
+<p> </p>
+<p><strong>5</strong> (hard: may require tinkering and problem solving) Experiment making a boxplot showing <code>pct ~ treatment</code> separated for each ```trial</p>
+<p> </p>
+<p><strong>6</strong> Write a plausible practice question involving <code>aggregate()</code> and <code>boxplot()</code> in-built R dataset <code>iris</code>.</p>
+</div>
+
+</main>
+
+        <footer>
+            <p class="copyright text-muted">© All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a>.</p>
+        </footer>
+
+        
+
+        
+    </body>
+
+</html>
+

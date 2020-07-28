@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>2.4 Simple linear regression</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: white;
+    }
+
+    :root {
+        --accent: green;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/haskell.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/swift.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.72.0" />
+        
+
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+
+    </head>
+
+    <body>
+        
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">2.4 Simple linear regression</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/bootcamp/">Bootcamp</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="https://join.slack.com/t/hadatascience/shared_invite/zt-ekigo1t3-0ADgafsF6zTDwJ9SxIws9w"><i class="fa fa-slack"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://twitter.com/adams_data/"><i class="fa fa-twitter"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.youtube.com/channel/UCOEuOH6cY8yisodud25hb7w"><i class="fa fa-youtube"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+<main>
+
+    <div>
+        <h2>2.4 Simple linear regression</h2>
+        <h5></h5>
+        
+<a href="/tags/bootcamp"><kbd class="item-tag">Bootcamp</kbd></a>
+
+<a href="/tags/r"><kbd class="item-tag">R</kbd></a>
+
+<a href="/tags/statistics"><kbd class="item-tag">Statistics</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p><img src="/img/bird-line.png" alt=" "></p>
+<p> </p>
+<p> </p>
+<h2 id="question-explore-analyze-a-workflow-for-data-science">Question, explore, analyze (a workflow for data science)</h2>
+<p> </p>
+<p>VIDEO 2.4</p>
+<p><a href="/scripts/script-2.4.R">SCRIPT 2.4</a> Use this to follow along on this page and for the Practice exercises below.</p>
+<p> </p>
+<p><strong>Overview</strong></p>
+<blockquote>
+<p>A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description.  Likewise, it may contain wonderful knowledge, there to discover.  Either way, your first task is to weigh the pig.</p>
+</blockquote>
+<p>The very first task for any data analysis is to gain an understanding of the data itself.  This typically involves examining the variables (Are they as we expect? Do we need to adjust the variable types?), graphing the data, and possibly examining numerical summaries and statistical assumptions.  Further, it is necessary to look for errors in the data both trivial (e.g. misspelling  factor level names like &ldquo;control&rdquo; with an extra space &ldquo;control &ldquo;), and more serious such as numerical typographical errors (e.g. misplacing a decimal point is a classic: height of 5 men in feet: c(5.5, 5.8, 6.1, 5.9, 52)&hellip; ). In total, this part of data analysis is sometimes referred to as <strong>Exploratory Data Analysis</strong>.</p>
+<p><strong>Exploratory Data Analysis</strong> (EDA) is part practical and part philosophical in that is requires skill, but is also subjective. Think of it as a step that might take a long while, where the data scientists decides what the analysis is that will be applied to the data, that the analysis is correct and appropriate.  Ironically, while EDA is considered very important and can take a large proportion of the total time spent analysing data, it is usually only reported on very briefly if at all.</p>
+<p> </p>
+<p><strong>Contents</strong></p>
+<p><a href="#anchor-1">2.4.1 The question of simple regression</a></p>
+<p><a href="#anchor-2">2.4.2 Data and assumptions</a></p>
+<p><a href="#anchor-3">2.4.3 Graphing</a></p>
+<p><a href="#anchor-4">2.4.4 Test and alternatives</a></p>
+<p><a href="#anchor-5">2.4.5 Practice exercises</a></p>
+<h1 id="anchor-1"></h1>
+<p> </p>
+<p> </p>
+<h3 id="241-the-question-of-simple-regression">2.4.1 The question of simple regression</h3>
+<p> </p>
+<h1 id="anchor-3"></h1>
+<p> </p>
+<p> </p>
+<h3 id="242-data-and-assumptions">2.4.2 Data and assumptions</h3>
+<p> </p>
+<h1 id="anchor-3"></h1>
+<p> </p>
+<p> </p>
+<h3 id="243-graphing">2.4.3 Graphing</h3>
+<p> </p>
+<h1 id="anchor-4"></h1>
+<p> </p>
+<p> </p>
+<h3 id="244-test-and-alternatives">2.4.4 Test and alternatives</h3>
+<p> </p>
+<h1 id="anchor-5"></h1>
+<p> </p>
+<p> </p>
+<h3 id="245-practice-exercises">2.4.5 Practice exercises</h3>
+<p>For the following exercises, use the trees dataset, which has Girth, Height and Volume variables for 31 Black Cherry trees.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Examine the data</span>
+<span style="color:#a6e22e">help</span>(trees)
+<span style="color:#a6e22e">data</span>(trees)
+<span style="color:#a6e22e">str</span>(trees)
+</code></pre></div><p> </p>
+<p><strong>1</strong> Show code to calculate the mean Girth of Black Cherry trees with Height less than 75 ft.</p>
+<p> </p>
+<p><strong>2</strong> Use <code>help(cut)</code> and use the <code>cut()</code> function to create a new factor variable based on the <code>Height</code> numeric variable in the <code>trees</code> dataset. Try setting the <code>break</code>s argument to 2 ro 3.  Rename the levels of your new factor to something meaningful.  Show the code.</p>
+<p> </p>
+<p><strong>3</strong> Using the new factor from question 2, use <code>aggregate()</code> to calculate the mean and standard deviation of all three variables in the <code>trees</code> data.  Show your code and report the results to 2 decimal points of accuracy.</p>
+<p> </p>
+<p><strong>4</strong> Show the code using which() and boolean phrases as appropriate to find the rows in the <code>trees</code> dataset where Girth is higher than 11 and Height is lower than 75.</p>
+<p> </p>
+<p><strong>5</strong> Run the following code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">data_1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(volume <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#66d9ef">NA</span>,<span style="color:#ae81ff">10</span>),
+           population <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,
+           <span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>))
+</code></pre></div><p>Use <code>aggregate()</code> to calculate the mean of volume for each population (hint: you may need to use help for the functions involved and pay close attention to your data frame&hellip;).</p>
+<p> </p>
+<p><strong>6</strong> Write a plausible practice question involving any aspect of using <code>which()</code>, boolean phrases and/or <code>aggregate()</code> involving the in-built R dataset <code>iris</code>.</p>
+<p> </p>
+</div>
+
+</main>
+
+        <footer>
+            <p class="copyright text-muted">© All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a>.</p>
+        </footer>
+
+        
+
+        
+    </body>
+
+</html>
+

@@ -38,6 +38,36 @@
   </url>
   
   <url>
+    <loc>/bootcamp/2.1-m2-question-explore-analyze/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bootcamp/2.2-m2-sampling-and-distributions/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bootcamp/2.3-m2-correlation/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bootcamp/2.4-m2-simple-linear-regression/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bootcamp/2.5-m2-t-test/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bootcamp/2.6-1-way-anova/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/bootcamp/3.1-m3-reproducible-research/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
@@ -89,6 +119,11 @@
   
   <url>
     <loc>/categories/r/</loc>
+    <lastmod>2020-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/statistics/</loc>
     <lastmod>2020-06-15T00:00:00+00:00</lastmod>
   </url>
   

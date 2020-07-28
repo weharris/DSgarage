@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics on Data Science Garage</title>
+    <link>/tags/statistics/</link>
+    <description>Recent content in Statistics on Data Science Garage</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/statistics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>2.1 Question, explore, analyze</title>
+      <link>/bootcamp/2.1-m2-question-explore-analyze/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/2.1-m2-question-explore-analyze/</guid>
+      <description>Question, explore, analyze (a workflow for data science)  VIDEO 2.1
+SCRIPT 2.1 Use this to follow along on this page and for the Practice exercises below.
+Optional reference to review key concepts: Danielle Navarro. 2019. Learning Statistics with R
+ Overview
+ A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description. Likewise, it may contain wonderful knowledge, there to discover.</description>
+    </item>
+    
+    <item>
+      <title>2.2 Sampling and distributions</title>
+      <link>/bootcamp/2.2-m2-sampling-and-distributions/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/2.2-m2-sampling-and-distributions/</guid>
+      <description>Question, explore, analyze (a workflow for data science)  VIDEO 2.2
+SCRIPT 2.2 Use this to follow along on this page and for the Practice exercises below.
+ Overview
+ Quote
+ Text
+ Contents
+2.2.1 Use of the histogram
+2.2.2 Gaussian: that ain&amp;rsquo;t normal
+2.2.3 Poisson
+2.2.4 Binomial
+2.2.5 Diagnosing the distribution
+2.1.6 Practice exercises
+   2.2.1 Use of the histogram     2.</description>
+    </item>
+    
+    <item>
+      <title>2.3 Correlation</title>
+      <link>/bootcamp/2.3-m2-correlation/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/2.3-m2-correlation/</guid>
+      <description>Question, explore, analyze (a workflow for data science)  VIDEO 2.3
+SCRIPT 2.3 Use this to follow along on this page and for the Practice exercises below.
+ Overview
+ A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description. Likewise, it may contain wonderful knowledge, there to discover. Either way, your first task is to weigh the pig.</description>
+    </item>
+    
+    <item>
+      <title>2.4 Simple linear regression</title>
+      <link>/bootcamp/2.4-m2-simple-linear-regression/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/2.4-m2-simple-linear-regression/</guid>
+      <description>Question, explore, analyze (a workflow for data science)  VIDEO 2.4
+SCRIPT 2.4 Use this to follow along on this page and for the Practice exercises below.
+ Overview
+ A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description. Likewise, it may contain wonderful knowledge, there to discover. Either way, your first task is to weigh the pig.</description>
+    </item>
+    
+    <item>
+      <title>2.5 T-test</title>
+      <link>/bootcamp/2.5-m2-t-test/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/2.5-m2-t-test/</guid>
+      <description>T-test (and related questions and tools)  VIDEO 2.5
+SCRIPT 2.5 Use this to follow along on this page and for the Practice exercises below.
+ Overview
+ A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description. Likewise, it may contain wonderful knowledge, there to discover. Either way, your first task is to weigh the pig.
+ The very first task for any data analysis is to gain an understanding of the data itself.</description>
+    </item>
+    
+    <item>
+      <title>2.6 1-way ANOVA</title>
+      <link>/bootcamp/2.6-1-way-anova/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/2.6-1-way-anova/</guid>
+      <description>1-way ANOVA (and related questions and tools)  VIDEO 2.6
+SCRIPT 2.6 Use this to follow along on this page and for the Practice exercises below.
+ Overview
+ Text
+ Text
+ Contents
+2.6.1 The question of 1-way ANOVA
+2.6.2 Data and assumptions
+2.6.3 Graphing
+2.6.4 Test and alternatives
+2.6.5 Practice exercises
+   2.6.1 The question of 1-way ANOVA     2.6.2 Data and assumptions     2.</description>
+    </item>
+    
+  </channel>
+</rss>
