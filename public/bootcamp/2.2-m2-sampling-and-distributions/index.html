@@ -135,19 +135,24 @@
 
     </div>
 
-    <div align="start" class="content"><p><img src="/img/unsplash-bull.png" alt=" "></p>
+    <div align="start" class="content"><p> </p>
+<p><img src="/img/unsplash-bull.png" alt=" "></p>
 <p> </p>
 <p> </p>
-<h2 id="question-explore-analyze-a-workflow-for-data-science">Question, explore, analyze (a workflow for data science)</h2>
+<h2 id="sampling-and-distributions">Sampling and distributions</h2>
 <p> </p>
 <p>VIDEO 2.2</p>
 <p><a href="/scripts/script-2.2.R">SCRIPT 2.2</a> Use this to follow along on this page and for the Practice exercises below.</p>
+<p>Optional reference to reinforce key concepts: <a href="https://learningstatisticswithr.com/book/">Rafael Irizarry. 2020. Introduction to Data Science (Chs 13-16)</a></p>
 <p> </p>
 <p><strong>Overview</strong></p>
 <blockquote>
-<p>Quote</p>
+<p>I. A curve has been found representing the frequency distribution of standard deviations of samples drawn from a normal population.<br>
+II. A curve has been found representing the frequency distribution of values of the means of such samples, when these values are measured from the mean of the population in terms of the standard deviation of the sample…<br>
+-Gosset. 1908, Biometrika 6:25.</p>
 </blockquote>
-<p>Text</p>
+<p>The idea of sampling underpins traditional statistics and is fundamental to the practice of statistics.  The basic idea is usually that there is a population of interest, which we cannot directly measure.  We sample the population in order to estimate the real measures of the population.  Because we merely take samples, there is error assiociated with our estimates and the error depends on both the real variation in the population, but also on chance to do with which subjects are actually in our sample, as well as the size of our sample.  Traditional statistical inference within Null Hypothesis Significance Testing (NHST) exploits our estimates of error associated with our samples. While this is an important concept, it is beyond the scope of this page to review it, but you may wish to refresh your knowledge by consulting a reference, such as <a href="https://learningstatisticswithr.com/book/">Irizarry 2020 Chs 13-16</a>.</p>
+<p>In this page, we will briefly look at some diagnostic tools in R for examining the distribution of data, and talk about a few important distributions that are common to encounter.</p>
 <p> </p>
 <p><strong>Contents</strong></p>
 <p><a href="#anchor-1">2.2.1 Use of the histogram</a></p>
@@ -160,52 +165,477 @@
 <p> </p>
 <p> </p>
 <h3 id="221-use-of-the-histogram">2.2.1 Use of the histogram</h3>
+<p>The histogram is a graph type that typically plots a numeric variable (either continuous numeric values, or integers) on the x axis, and has the frequency (i.e., the count) of observations on the y axis, or sometimes the proportion of observation on the y axis. If the histogram is plotting a continuous numeric variable</p>
 <p> </p>
-<h1 id="anchor-3"></h1>
+<p><strong>Typical histogram for continuous variable</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e"># Adult domestic cats weight approximately 4 Kg on average</span>
+<span style="color:#75715e"># with a standard deviation of approximately +/1 0.5 Kg</span>
+
+<span style="color:#75715e"># Let&#39;s simulate some fake weight data for 10,000 cats</span>
+<span style="color:#a6e22e">help</span>(rnorm) <span style="color:#75715e"># A very useful function</span>
+<span style="color:#a6e22e">help</span>(set.seed) <span style="color:#75715e"># If we use this, we can replicate &#34;random data&#34;</span>
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+cats <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(n <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>,  <span style="color:#75715e"># 10,000 cats</span>
+              mean <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>,   
+              sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>)
+
+cats[1<span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>] <span style="color:#75715e"># The first 10 cats</span>
+
+<span style="color:#a6e22e">help</span>(hist)
+<span style="color:#a6e22e">hist</span>(x <span style="color:#f92672">=</span> cats,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Cat weight (Kg)&#34;</span>)
+</code></pre></div><p><img src="/img/2.2-cats.png" alt=""></p>
+<p> </p>
+<p>Notice a few things:</p>
+<ul>
+<li>
+<p>The bars are the count of the number of cats at each weight on the y axis</p>
+</li>
+<li>
+<p>The width of each vertical column is a (non-overlapping) range of weights - these are called &ldquo;bins&rdquo; and can be defined, but usually are automatically determined based on the data</p>
+</li>
+<li>
+<p>For count data, each bar is usually one or more integer values, rather than a range of rcontinuous values</p>
+</li>
+<li>
+<p>The shape of a histogram can be used to infer the distribution of the data</p>
+</li>
+</ul>
+<p> </p>
+<p>Remember the concept of population versus sample?  Well, let&rsquo;s assume there are only 10,000 cats in the whole world and we just measured the whole population (usually not possible, remember).  What if we tried to estimate the real mean of our population from a sample? The theory is that our sample mean would be expected to differ from the real population mean randomly.  If we did a bunch of samples, most of the guesses would be close to the real population mean and less would be farther out, but all of these sample means would be expected to randomly vary, either less than or greater than the true populatiuon mean.  We can examine this with a <strong>simulation of samples</strong>.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+<span style="color:#75715e"># simulation of samples</span>
+
+<span style="color:#a6e22e">help</span>(sample) <span style="color:#75715e"># randomly sample the cats vector</span>
+<span style="color:#a6e22e">help</span>(vector) <span style="color:#75715e"># Initialize a variable to hold our sample means</span>
+
+<span style="color:#75715e"># We will do a &#34;for loop&#34; with for()</span>
+
+
+mymeans <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">vector</span>(mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;numeric&#34;</span>,
+                  length <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>)
+mymeans <span style="color:#75715e"># Empty</span>
+
+<span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>){
+  mysample <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(x <span style="color:#f92672">=</span> cats, <span style="color:#75715e"># Takes a random sample</span>
+                    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>)
+  
+  mymean[i] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mean</span>(mysample) <span style="color:#75715e"># stores sample mean in ith vector address</span>
+  }
+
+mymean <span style="color:#75715e"># Our samples</span>
+
+<span style="color:#a6e22e">hist</span>(x <span style="color:#f92672">=</span> mymean,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Mean of samples&#34;</span>,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;100 cat weight samples (n = 30/sample)&#34;</span>)
+<span style="color:#a6e22e">abline</span>(v <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(mymean), col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>, lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
+</code></pre></div><p><img src="/img/2.2-cats2.png" alt=""></p>
+<p> </p>
+<p>Notice a few things (NB your results might look slightly different to mine - remember these are random samples):</p>
+<ul>
+<li>
+<p>The samples vary around the true mean of 4.0 Kg</p>
+</li>
+<li>
+<p>Most of the samples are pretty close to 4.0, fewer are farther away</p>
+</li>
+<li>
+<p>The mean of the means is close to our true population mean</p>
+</li>
+</ul>
+<p>Try our simulation a few more times, but vary the settings.  How does adjusting the sample size (say up to 100 or down to 10)?  How about the number of samples (say up to 1000 or down to 10)?</p>
+<h1 id="anchor-2"></h1>
 <p> </p>
 <p> </p>
 <h3 id="222-gaussian-that-aint-normal">2.2.2 Gaussian: that ain&rsquo;t normal</h3>
+<blockquote>
+<p>The Gaussian ditribution is sometimes referred to as the Normal distribution.  This is not a good practice: do not refer to the Gaussian distribution as the Normal distribution.  Referring to the Gaussian distribution as the normal distribution implies that Gaussian is &ldquo;typical&rdquo;, which is patently untrue. &lt;said in the voice of The Comic Book Guy, The Simpsons&gt;</p>
+</blockquote>
+<p>The Gaussian distribution is the classic &ldquo;Bell curve&rdquo; shaped distribution. It is probably the most important distribution to master, because of its importance in several ways:</p>
+<ul>
+<li>
+<p>We expect <strong>coninuous numeric variables</strong> that &ldquo;measure&rdquo; things to be Gaussian (e.g., human height, lamb weight, songbird wing length, Nitrogen content in legumes, etc., etc.)</p>
+</li>
+<li>
+<p>Example data: length of chicken beaks in mm</p>
+</li>
+</ul>
+<p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"> [1] <span style="color:#ae81ff">19.1</span> <span style="color:#ae81ff">19.5</span> <span style="color:#ae81ff">16.5</span> <span style="color:#ae81ff">20.9</span> <span style="color:#ae81ff">18.7</span> <span style="color:#ae81ff">20.9</span> <span style="color:#ae81ff">21.4</span> <span style="color:#ae81ff">22.1</span> <span style="color:#ae81ff">18.8</span> <span style="color:#ae81ff">21.0</span> <span style="color:#ae81ff">16.6</span> <span style="color:#ae81ff">18.4</span> <span style="color:#ae81ff">18.3</span> <span style="color:#ae81ff">15.2</span> <span style="color:#ae81ff">20.1</span> <span style="color:#ae81ff">20.4</span>
+[17] <span style="color:#ae81ff">19.3</span> <span style="color:#ae81ff">21.5</span> <span style="color:#ae81ff">18.5</span> <span style="color:#ae81ff">17.3</span>
+</code></pre></div><ul>
+<li>
+<p>For linear models like regression and ANOVA, we assume the <em>residuals</em> (the difference between each observation and the mean) to be Gaussian and we often must test and evaluate this assumption</p>
+</li>
+<li>
+<p>The Gaussian is described by 2 quantities: the <strong>mean</strong> and the <strong>variance</strong></p>
+</li>
+</ul>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Data</span>
+(myvar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>))
+
+<span style="color:#75715e"># Mean the &#34;hard&#34; way</span>
+(myvar.mean <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sum</span>(myvar)<span style="color:#f92672">/</span><span style="color:#a6e22e">length</span>(myvar))
+
+<span style="color:#75715e"># Mean the easy way</span>
+<span style="color:#a6e22e">mean</span>(myvar)
+
+<span style="color:#75715e"># Variance the &#34;hard&#34; way </span>
+<span style="color:#75715e"># (NB this is the sample variance with [n-1])</span>
+(<span style="color:#a6e22e">sum</span>((myvar<span style="color:#f92672">-</span>myvar.mean)^2 <span style="color:#f92672">/</span> (<span style="color:#a6e22e">length</span>(myvar)<span style="color:#ae81ff">-1</span>)))
+
+<span style="color:#75715e"># Variance the easy way </span>
+<span style="color:#a6e22e">var</span>(myvar)
+
+<span style="color:#75715e"># Std dev the easy way</span>
+<span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">var</span>(myvar))
+</code></pre></div><p> </p>
+<p><strong>Gaussian histograms</strong></p>
+<p>We can describe the expected perfect (i.e., theoretical) Gaussian distribution based just on the mean and variance.  The value of this mean and variance control the shape of the distribution.</p>
+<p><img src="/img/2.2-gaussian.png" alt=""></p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Gaussian variations ####</span>
+<span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e"># 4 means</span>
+(meanvec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>))
+
+<span style="color:#75715e"># 4 standard deviations</span>
+(sdvec <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>))
+
+<span style="color:#75715e"># Make a baseline plot</span>
+x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">20</span>, by <span style="color:#f92672">=</span> <span style="color:#ae81ff">.1</span>)
+
+<span style="color:#75715e"># Probabilities for our first mean and sd</span>
+y1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dnorm</span>(x <span style="color:#f92672">=</span> x, 
+            mean <span style="color:#f92672">=</span> meanvec[1],
+            sd <span style="color:#f92672">=</span> sdvec[1])
+
+<span style="color:#75715e"># Baseline plot of 1st mean and sd</span>
+<span style="color:#a6e22e">plot</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y1, ylim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">.4</span>),
+     col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;goldenrod&#34;</span>,
+     lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;l&#34;</span>,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gaussian fun 
+</span><span style="color:#e6db74">     \n mean -&gt; curve position; sd -&gt; shape&#34;</span>,
+     ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Density&#34;</span>,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(Arbitrary) Measure&#34;</span>)
+
+<span style="color:#75715e"># Make distribution lines</span>
+mycol <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>)
+<span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>){
+  y <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dnorm</span>(x <span style="color:#f92672">=</span> x, 
+                mean <span style="color:#f92672">=</span> meanvec[i<span style="color:#ae81ff">+1</span>],
+                sd <span style="color:#f92672">=</span> sdvec[i<span style="color:#ae81ff">+1</span>])
+  <span style="color:#a6e22e">lines</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, 
+        col <span style="color:#f92672">=</span> mycol[i],
+        lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;l&#34;</span>)
+}
+
+<span style="color:#75715e"># Add a legend</span>
+<span style="color:#a6e22e">legend</span>(title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mean (sd)&#34;</span>,
+       legend <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;10 (2)&#34;</span>, <span style="color:#e6db74">&#34;  7 (2)&#34;</span>, 
+                  <span style="color:#e6db74">&#34;10 (1)&#34;</span>, <span style="color:#e6db74">&#34;10 (3)&#34;</span>),
+       lty <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>), lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+       col <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;goldenrod&#34;</span>, <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>),
+       x <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">.35</span>)
+
+</code></pre></div><p><img src="/img/2.2-fig-gauss.png" alt=""></p>
+<p> </p>
+<p><strong>Q-Q plots</strong></p>
+<p>It is very often that you might want a peek or even test whether data are Gaussian.  This might be in a situation when looking at, for example, the residuals for a linear model to test whether they adhere to the assumption of a Gaussian distribution.  In that case, a common diagnostic graph to construct is the quantile-quantile, or <a href="https://data.library.virginia.edu/understanding-q-q-plots">&ldquo;q-q&rdquo;&rdquo; Gaussian plot</a>.</p>
+<p>The q-q Gaussian plot your data again the theoretical expectation of the &ldquo;quantile&rdquo;, or percentile, were your data perfectly Gaussian (a straight, diagonal line).  Remember, samples are not necessarily expected to perfectly conform to Gaussian (due to sampling error), even if the population from which the sample was taken were to be perfectly Gaussian.  Thus, this is a way to <strong>confront your data with a model</strong>, to help be completely informed.  The degree to which your data deviates from the line (especially systematic deviation at the ends of the line of expectation), is the degree to which is deviates from Gaussian.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## q-q- Gaussian ####</span>
+
+<span style="color:#75715e"># Try This:</span>
+
+<span style="color:#a6e22e">library</span>(car) <span style="color:#75715e"># Might need to install {car}</span>
+
+<span style="color:#75715e"># Set graph output to 2 x 2 grid</span>
+<span style="color:#75715e"># (we will set it back to 1 x 1 later)</span>
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)) 
+
+<span style="color:#75715e"># Small Gaussian sample</span>
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+sm.samp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(n <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, 
+                 mean <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
+
+<span style="color:#a6e22e">qqPlot</span>(x <span style="color:#f92672">=</span> sm.samp, 
+       dist <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;norm&#34;</span>, <span style="color:#75715e"># C&#39;mon guys, Gaussian ain&#39;t normal!</span>
+       main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Small sample Gaussian&#34;</span>)
+
+<span style="color:#75715e"># Large Gaussian sample</span>
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+lg.samp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(n <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>, 
+                 mean <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, sd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)
+
+<span style="color:#a6e22e">qqPlot</span>(x <span style="color:#f92672">=</span> lg.samp, 
+       dist <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;norm&#34;</span>, 
+       main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Large sample Gaussian&#34;</span>)
+
+<span style="color:#75715e"># Non- Gaussian sample</span>
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+uni <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">runif</span>(n <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>, 
+                 min <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, max <span style="color:#f92672">=</span> <span style="color:#ae81ff">17</span>)
+
+<span style="color:#a6e22e">qqPlot</span>(x <span style="color:#f92672">=</span> uni, 
+       dist <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;norm&#34;</span>, 
+       main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Big deviation at top&#34;</span>)
+
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))
+</code></pre></div><p> </p>
+<p><img src="/img/2.2-qqplot.png" alt=""></p>
 <p> </p>
 <h1 id="anchor-3"></h1>
 <p> </p>
 <p> </p>
 <h3 id="223-poisson">2.2.3 Poisson</h3>
+<blockquote>
+<p>Life is good for only two things, discovering mathematics and teaching mathematics. -Siméon-Denis Poisson</p>
+</blockquote>
+<p>The description of <strong>Poisson distribution</strong> was credited to Siméon-Denis Poisson, was a (very, very) passionate theoretical mathemetician.  The classic example for use is for count data, where famously it was exemplified by the number of Prussian soldiers who were killed by being kicked by a horse in a particular year.</p>
+<p> </p>
+<p><strong>The Poisson distribution:</strong></p>
+<ul>
+<li>
+<p>Count data of discrete events, objects, etc.</p>
+</li>
+<li>
+<p>Integers, for example the number of beetles caught each day in a pitfall trap:</p>
+</li>
+</ul>
+<p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">rpois</span>(<span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">4</span>)
+ [1] <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">0</span>
+</code></pre></div><ul>
+<li>
+<p>Typically skewed to the right</p>
+</li>
+<li>
+<p>Described by a single parameter, lambda, which describes the mean <strong>and</strong> the variance</p>
+</li>
+</ul>
+<p> </p>
+<p>The Poisson parameter:</p>
+<p><img src="/img/2.2-poisson.png" alt=""></p>
+<p> </p>
+<p><strong>Example Poisson data</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e"># E.g. (simulated) Number of ewes giving birth to triplets</span>
+<span style="color:#75715e"># The counts were made in one year 1n 100 similar flocks (&lt;20 ewes)</span>
+
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+mypois <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rpois</span>(n <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>, lambda <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#a6e22e">hist</span>(mypois,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Ewes with triplets&#34;</span>,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Count of Triplets&#34;</span>)
+</code></pre></div><p><img src="/img/2.2-triplets.png" alt=""></p>
+<p> </p>
+<p><strong>Density plot for different Poisson lambda</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+<span style="color:#75715e"># 3 lambdas</span>
+(lambda <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>))
+
+<span style="color:#75715e"># Make a baseline plot</span>
+x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">15</span>, by <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+
+<span style="color:#75715e"># Probabilities for our first lambda</span>
+y1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dpois</span>(x <span style="color:#f92672">=</span> x, 
+            lambda <span style="color:#f92672">=</span> lambda[1])
+
+<span style="color:#75715e"># Baseline plot Pois</span>
+<span style="color:#a6e22e">plot</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y1, ylim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">.4</span>),
+     col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;goldenrod&#34;</span>,
+     lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;b&#34;</span>,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Poisson fun&#34;</span>,
+     ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Density&#34;</span>,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(Arbitrary) Count&#34;</span>)
+
+<span style="color:#75715e"># Make distribution lines</span>
+mycol <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>)
+<span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span>){
+  y <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dpois</span>(x <span style="color:#f92672">=</span> x, 
+             lambda <span style="color:#f92672">=</span> lambda[i<span style="color:#ae81ff">+1</span>])
+  <span style="color:#a6e22e">lines</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, 
+        col <span style="color:#f92672">=</span> mycol[i],
+        lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;b&#34;</span>)
+}
+
+<span style="color:#75715e"># Add a legend</span>
+<span style="color:#a6e22e">legend</span>(title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lambda&#34;</span>,
+       legend <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;3&#34;</span>, <span style="color:#e6db74">&#34;5&#34;</span>),
+       lty <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>), lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+       col <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;goldenrod&#34;</span>, <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>),
+       x <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">.35</span>)
+</code></pre></div><p><img src="/img/2.2-pois-density.png" alt=""></p>
 <p> </p>
 <h1 id="anchor-4"></h1>
 <p> </p>
 <p> </p>
 <h3 id="224-binomial">2.2.4 Binomial</h3>
+<blockquote>
+<p>When faced with 2 choices, simply toss a coin. It works not because it settles the question for you. But because in that brief moment when the coin is in the air you suddenly know what you are hoping for.</p>
+</blockquote>
+<p>The <strong>Binomial distribution</strong> describes data that has exactly 2 outcomes: 0 and 1, Yes and No, True and False, etc. (you get the idea).  Examples of this kind of data include things like flipping a coin (heads or tails), successful germination of seeds (success or failure), or binary behavioral decisions (remain or disperse)</p>
+<p> </p>
+<p><strong>The Binomial distribution:</strong></p>
+<ul>
+<li>
+<p>Data are the count of &ldquo;successes&rdquo;&rdquo; in (binary) outcomes of a series of independent events</p>
+</li>
+<li>
+<p>Data coding can be variable, but an example would be success for failure while surveying for wildlife: check this nestbox; <a href="https://nbn.org.uk/biological-recording-scheme/the-national-dormouse-monitoring-programme-ndmp/">is there at least one dormouse (<em>Muscardinus avellanarius</em>) in it?</a>.  Let&rsquo;s say you check 50 nest boxes, there is exactly 1 outcome, and the probability of occupancy is 30%.</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e"># dormouse presence:</span>
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+<span style="color:#a6e22e">rbinom</span>(n <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>, <span style="color:#75715e"># Number of &#34;experiments&#34;, here nestboxes checked</span>
+       size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#75715e"># Number of checks, one check per nestbox</span>
+       prob <span style="color:#f92672">=</span> <span style="color:#ae81ff">.3</span>) <span style="color:#75715e"># Probability of presence</span>
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"> [1] <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span>
+[38] <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span>
+</code></pre></div><p> </p>
+<ul>
+<li>Flipping a coin: 20 people 10 times each</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+<span style="color:#75715e"># Flip a fair coin:</span>
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+<span style="color:#a6e22e">rbinom</span>(n <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>, <span style="color:#75715e"># Number of &#34;experiments&#34;, 20 people flipping a coin</span>
+       size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, <span style="color:#75715e"># Number of coin flips landing on &#34;heads&#34; out of 10 flips per person</span>
+       prob <span style="color:#f92672">=</span> <span style="color:#ae81ff">.5</span>) <span style="color:#75715e"># Probability of &#34;heads&#34;</span>
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"> [1] <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">5</span>
+</code></pre></div><p> </p>
+<ul>
+<li>Described by 2 parameters, The number of trials with a binary outcome in a single &ldquo;experiment&rdquo; (<em><strong>n</strong></em>), and the probability of success for each binary outcome (<em><strong>p</strong></em>).</li>
+</ul>
+<p> </p>
+<p>The Binomial parameters:</p>
+<p><img src="/img/2.2-binomial.png" alt=""></p>
+<p> </p>
+<p><strong>Density plot for differrent Binomial parameters</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e"># Binomial parameters</span>
+<span style="color:#75715e"># 3 n of trial values</span>
+(n <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>))
+
+<span style="color:#75715e"># 3 probability values</span>
+(p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">.5</span>, <span style="color:#ae81ff">.8</span>, <span style="color:#ae81ff">.5</span>))
+
+<span style="color:#75715e"># Make a baseline plot</span>
+x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">20</span>, by <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+
+<span style="color:#75715e"># Probabilities for our first set of parameters</span>
+y1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dbinom</span>(x <span style="color:#f92672">=</span> x, 
+            size <span style="color:#f92672">=</span> n[1],
+            prob <span style="color:#f92672">=</span> p[1])
+
+<span style="color:#75715e"># Baseline plot Binom</span>
+<span style="color:#a6e22e">plot</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y1, ylim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">.4</span>),
+     col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;goldenrod&#34;</span>,
+     lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;b&#34;</span>,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Binomial fun&#34;</span>,
+     ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Density&#34;</span>,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(Arbitrary) # \&#34;Successes\&#34;&#34;</span>)
+
+<span style="color:#75715e"># Make distribution lines</span>
+mycol <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>)
+<span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span>){
+  y <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dbinom</span>(x <span style="color:#f92672">=</span> x, 
+             size <span style="color:#f92672">=</span> n[i<span style="color:#ae81ff">+1</span>],
+             prob <span style="color:#f92672">=</span> p[i<span style="color:#ae81ff">+1</span>])
+  <span style="color:#a6e22e">lines</span>(x <span style="color:#f92672">=</span> x, y <span style="color:#f92672">=</span> y, 
+        col <span style="color:#f92672">=</span> mycol[i],
+        lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;b&#34;</span>)
+}
+
+<span style="color:#75715e"># Add a legend</span>
+<span style="color:#a6e22e">legend</span>(title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Parameters&#34;</span>,
+       legend <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;n = 10, p = 0.50&#34;</span>, 
+                  <span style="color:#e6db74">&#34;n = 10, p = 0.80&#34;</span>,
+                  <span style="color:#e6db74">&#34;n = 20, p = 0.50&#34;</span>),
+       lty <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>), lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+       col <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;goldenrod&#34;</span>, <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>),
+       x <span style="color:#f92672">=</span> <span style="color:#ae81ff">13</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">.35</span>)
+</code></pre></div><p> </p>
+<p><img src="/img/2.2-binom-density.png" alt=""></p>
+<p> </p>
 <p> </p>
 <h1 id="anchor-5"></h1>
 <p> </p>
 <p> </p>
 <h3 id="225-diagnosing-the-distribution">2.2.5 Diagnosing the distribution</h3>
+<blockquote>
+<p>A very common task faced when handling data is &ldquo;diagnosing the distribution&rdquo;. Just like a human doctor diagnosing an ailment, you examine the evidence, consider the alternatives, judge the context, and take a guess.</p>
+</blockquote>
+<p>There are statistical tests to compare data to a theoretical model, and they can be useful, but diagnosing a statistical distribution is principally a subjective endeavor.  A common situtuation would be to examine the residual distribution for a regression model compared to the expected Gaussian distribution. Good practice is to have a set of steps to adhere to when diagnosing a distribution.</p>
+<ul>
+<li>
+<p>First, develop an <strong>expectation of the distribution</strong>, based on the type of data</p>
+</li>
+<li>
+<p>Second <strong>graph the data</strong>, almost always with a historgram, and a q-q plot with a theoretical quartile line for comparison</p>
+</li>
+<li>
+<p>Third, compare q-q plots with different distributions for comparison if in doubt, and if it makes sense to do so!</p>
+</li>
+<li>
+<p>If the assumption of a particular distribution is important (like Gaussian residuals), try transformation and compare, e.g., log(your-data), cuberoot(your-data), or others, to the Gaussian q-q expectation.</p>
+</li>
+</ul>
+<p> </p>
+<p>It is beyond the intention of this page to examine all the possibilties of examining and diagnosing data distributions, but instead the intention is to alert readers that this topic is wide and deep.  Here are a few good resources that can take you farther:</p>
+<p><a href="https://cran.r-project.org/doc/contrib/Ricci-distributions-en.pdf">Vitto Ricci, Fitting distributions with R</a></p>
+<p><a href="http://www.quantdec.com/envstats/misc/Fitting%20data%20to%20distributions.pdf">Bill Huber, Fitting distributions to data</a>
+<a href="https://www.statmethods.net/advgraphs/probability.html">Quick-R, Probability plots</a></p>
 <p> </p>
 <h1 id="anchor-6"></h1>
 <p> </p>
 <p> </p>
-<h3 id="216-practice-exercises">2.1.6 Practice exercises</h3>
-<p>For the following exercises, use the trees dataset, which has Girth, Height and Volume variables for 31 Black Cherry trees.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Examine the data</span>
-<span style="color:#a6e22e">help</span>(trees)
-<span style="color:#a6e22e">data</span>(trees)
-<span style="color:#a6e22e">str</span>(trees)
+<h3 id="226-practice-exercises">2.2.6 Practice exercises</h3>
+<p>For the following exercises, run the code below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># The code below loads and prints the data frame &#34;dat&#34;</span>
+
+<span style="color:#75715e"># Data dictionary for &#34;dat&#34;, a dataset with different measures of 20 sheep</span>
+<span style="color:#75715e"># weight - weight in Kg</span>
+<span style="color:#75715e"># ked - count of wingless flies</span>
+<span style="color:#75715e"># trough - 2 feed troughs, proportion of times &#34;Trough A&#34; fed from</span>
+<span style="color:#75715e"># shear - minutes taken to &#34;hand shear&#34; each sheep</span>
+
+(dat <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(
+  weight <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">44.1</span>, <span style="color:#ae81ff">38.3</span>, <span style="color:#ae81ff">41.1</span>, <span style="color:#ae81ff">41.9</span>, <span style="color:#ae81ff">41.2</span>, <span style="color:#ae81ff">39.7</span>, <span style="color:#ae81ff">44.5</span>, <span style="color:#ae81ff">39.7</span>, <span style="color:#ae81ff">46.1</span>, <span style="color:#ae81ff">39.8</span>, 
+    <span style="color:#ae81ff">43.9</span>, <span style="color:#ae81ff">46.9</span>, <span style="color:#ae81ff">35.8</span>, <span style="color:#ae81ff">39.2</span>, <span style="color:#ae81ff">39.6</span>, <span style="color:#ae81ff">41.9</span>, <span style="color:#ae81ff">39.1</span>, <span style="color:#ae81ff">32.0</span>, <span style="color:#ae81ff">32.7</span>, <span style="color:#ae81ff">44.0</span>),
+  
+  ked <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">11</span>,
+             <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">19</span>, <span style="color:#ae81ff">19</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">14</span>),
+  
+  trough <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.52</span>, <span style="color:#ae81ff">0.74</span>, <span style="color:#ae81ff">0.62</span>, <span style="color:#ae81ff">0.63</span>, <span style="color:#ae81ff">0.22</span>, <span style="color:#ae81ff">0.22</span>, <span style="color:#ae81ff">0.39</span>, <span style="color:#ae81ff">0.94</span>, <span style="color:#ae81ff">0.96</span>, <span style="color:#ae81ff">0.74</span>,
+              <span style="color:#ae81ff">0.73</span>, <span style="color:#ae81ff">0.54</span>, <span style="color:#ae81ff">0.00</span>, <span style="color:#ae81ff">0.61</span>, <span style="color:#ae81ff">0.84</span>, <span style="color:#ae81ff">0.75</span>, <span style="color:#ae81ff">0.45</span>, <span style="color:#ae81ff">0.54</span>, <span style="color:#ae81ff">0.54</span>, <span style="color:#ae81ff">0.00</span>),
+  
+  shear <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">14.0</span>, <span style="color:#ae81ff">8.0</span>, <span style="color:#ae81ff">14.0</span>, <span style="color:#ae81ff">11.0</span>, <span style="color:#ae81ff">14.0</span>, <span style="color:#ae81ff">5.0</span>, <span style="color:#ae81ff">9.5</span>, <span style="color:#ae81ff">11.0</span>, <span style="color:#ae81ff">6.5</span>, <span style="color:#ae81ff">11.0</span>, 
+            <span style="color:#ae81ff">18.5</span>, <span style="color:#ae81ff">11.0</span>, <span style="color:#ae81ff">18.5</span>, <span style="color:#ae81ff">8.0</span>, <span style="color:#ae81ff">8.0</span>, <span style="color:#ae81ff">6.5</span>, <span style="color:#ae81ff">18.5</span>, <span style="color:#ae81ff">15.5</span>, <span style="color:#ae81ff">14.0</span>, <span style="color:#ae81ff">8.0</span>)
+  ))
 </code></pre></div><p> </p>
-<p><strong>1</strong> Show code to calculate the mean Girth of Black Cherry trees with Height less than 75 ft.</p>
+<p><strong>1</strong> Do you expect &ldquo;weight&rdquo; to be Gaussian distributed?  How about &ldquo;ked&rdquo;?  Explain your answer for each.</p>
 <p> </p>
-<p><strong>2</strong> Use <code>help(cut)</code> and use the <code>cut()</code> function to create a new factor variable based on the <code>Height</code> numeric variable in the <code>trees</code> dataset. Try setting the <code>break</code>s argument to 2 ro 3.  Rename the levels of your new factor to something meaningful.  Show the code.</p>
+<p><strong>2</strong> Show the code to graphically diagnose and decide whether &ldquo;weight&rdquo; is Gaussian and explain your conclusion.</p>
 <p> </p>
-<p><strong>3</strong> Using the new factor from question 2, use <code>aggregate()</code> to calculate the mean and standard deviation of all three variables in the <code>trees</code> data.  Show your code and report the results to 2 decimal points of accuracy.</p>
+<p><strong>3</strong> Show the code to graphically diagnose and decide whether &ldquo;ked&rdquo; is Gaussian and explain your conclusion.  If you choose another likely distribution, test it as well and similarly diagnose.</p>
 <p> </p>
-<p><strong>4</strong> Show the code using which() and boolean phrases as appropriate to find the rows in the <code>trees</code> dataset where Girth is higher than 11 and Height is lower than 75.</p>
+<p><strong>4</strong> Explore whether &ldquo;trough&rdquo; is Gaussian, and explain whether you expect it to be so.  If not, does transforming the data &ldquo;persuade it&rdquo; to conform to Gaussian?  Discuss.</p>
 <p> </p>
-<p><strong>5</strong> Run the following code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">data_1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(volume <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#66d9ef">NA</span>,<span style="color:#ae81ff">10</span>),
-           population <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,
-           <span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>))
-</code></pre></div><p>Use <code>aggregate()</code> to calculate the mean of volume for each population (hint: you may need to use help for the functions involved and pay close attention to your data frame&hellip;).</p>
-<p> </p>
-<p><strong>6</strong> Write a plausible practice question involving any aspect of using <code>which()</code>, boolean phrases and/or <code>aggregate()</code> involving the in-built R dataset <code>iris</code>.</p>
+<p><strong>5</strong> Write a plausible practice question involving any aspect of graphical diagnosis of data distribution.</p>
 <p> </p>
 </div>
 

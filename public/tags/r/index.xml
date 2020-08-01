@@ -95,19 +95,12 @@ Optional reference to review key concepts: Danielle Navarro. 2019. Learning Stat
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.2-m2-sampling-and-distributions/</guid>
-      <description>Question, explore, analyze (a workflow for data science)  VIDEO 2.2
+      <description>Sampling and distributions  VIDEO 2.2
 SCRIPT 2.2 Use this to follow along on this page and for the Practice exercises below.
+Optional reference to reinforce key concepts: Rafael Irizarry. 2020. Introduction to Data Science (Chs 13-16)
  Overview
- Quote
- Text
- Contents
-2.2.1 Use of the histogram
-2.2.2 Gaussian: that ain&amp;rsquo;t normal
-2.2.3 Poisson
-2.2.4 Binomial
-2.2.5 Diagnosing the distribution
-2.1.6 Practice exercises
-   2.2.1 Use of the histogram     2.</description>
+ I. A curve has been found representing the frequency distribution of standard deviations of samples drawn from a normal population.
+II. A curve has been found representing the frequency distribution of values of the means of such samples, when these values are measured from the mean of the population in terms of the standard deviation of the sample…</description>
     </item>
     
     <item>
