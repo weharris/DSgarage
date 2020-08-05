@@ -59,7 +59,8 @@ SCRIPT 2.3 Use this to follow along on this page and for the Practice exercises 
       <description>Question, explore, analyze (a workflow for data science)  VIDEO 2.4
 SCRIPT 2.4 Use this to follow along on this page and for the Practice exercises below.
  Overview
- A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description. Likewise, it may contain wonderful knowledge, there to discover. Either way, your first task is to weigh the pig.</description>
+ &amp;ldquo;The general rule is straightforward but has surprising consequences: whenever the correlation between two scores is imperfect, there will be regression to the mean.&amp;rdquo; - Francis Galton
+ One of the most common and powerful tools in the statistical toolbox is linear regression.</description>
     </item>
     
     <item>

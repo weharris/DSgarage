@@ -145,10 +145,17 @@
 <p> </p>
 <p><strong>Overview</strong></p>
 <blockquote>
-<p>A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description.  Likewise, it may contain wonderful knowledge, there to discover.  Either way, your first task is to weigh the pig.</p>
+<p>&ldquo;The general rule is straightforward but has surprising consequences: whenever the correlation between two scores is imperfect, there will be regression to the mean.&rdquo; - Francis Galton</p>
 </blockquote>
-<p>The very first task for any data analysis is to gain an understanding of the data itself.  This typically involves examining the variables (Are they as we expect? Do we need to adjust the variable types?), graphing the data, and possibly examining numerical summaries and statistical assumptions.  Further, it is necessary to look for errors in the data both trivial (e.g. misspelling  factor level names like &ldquo;control&rdquo; with an extra space &ldquo;control &ldquo;), and more serious such as numerical typographical errors (e.g. misplacing a decimal point is a classic: height of 5 men in feet: c(5.5, 5.8, 6.1, 5.9, 52)&hellip; ). In total, this part of data analysis is sometimes referred to as <strong>Exploratory Data Analysis</strong>.</p>
-<p><strong>Exploratory Data Analysis</strong> (EDA) is part practical and part philosophical in that is requires skill, but is also subjective. Think of it as a step that might take a long while, where the data scientists decides what the analysis is that will be applied to the data, that the analysis is correct and appropriate.  Ironically, while EDA is considered very important and can take a large proportion of the total time spent analysing data, it is usually only reported on very briefly if at all.</p>
+<p>One of the most common and powerful tools in the statistical toolbox is <strong>linear regression</strong>.  The concept and basic toolset was created in conjunction with investigating the heritable basis of resenblance between children and their parents (e.g. height) by Francis Galton.  Exemplary of one of the greatest traditions in science, a scientist identified a problem, created a tool to solve the problem, and then immediately shared the tool for the greater good.  This is a slight digression from our purposes here, but you can learn more about it here:</p>
+<ul>
+<li>
+<p><a href="https://projecteuclid.org/download/pdf_1/euclid.ss/1177012580">Stigler 1989. Francis Galton&rsquo;s Account of the Invention of Correlation</a></p>
+</li>
+<li>
+<p><a href="https://amstat.tandfonline.com/doi/full/10.1080/10691898.2001.11910537">Stanton 2017. Galton, Pearson, and the Peas: A Brief History of Linear Regression for Statistics Instructors</a></p>
+</li>
+</ul>
 <p> </p>
 <p><strong>Contents</strong></p>
 <p><a href="#anchor-1">2.4.1 The question of simple regression</a></p>
@@ -160,47 +167,372 @@
 <p> </p>
 <p> </p>
 <h3 id="241-the-question-of-simple-regression">2.4.1 The question of simple regression</h3>
+<p>The essential motivation for simple linear regression is to relate the value of a numeric variable to that of another variable.  There may be several objectives to the analysis:</p>
+<ul>
+<li>
+<p><strong>Predict the value of a variable</strong> based on the value of another</p>
+</li>
+<li>
+<p><strong>Quantify variation</strong> observed in one variable attributable to another</p>
+</li>
+<li>
+<p><strong>Quantify the degree of change</strong> in one variable attributable to another</p>
+</li>
+<li>
+<p><strong>Null Hypothesis Significance Testing</strong> for aspects of these relationships</p>
+</li>
+</ul>
 <p> </p>
-<h1 id="anchor-3"></h1>
+<p><strong>A few definitions</strong></p>
+<p><img src="/img/2.4-regression.png" alt=""></p>
+<p><strong>Equation 1</strong> is the classic <strong>EQUATION</strong> for a linear regression model. (NB, EQUATION is emphasized here to make a sharp distinction between the equation representing the statistical model, and the R formula that we will use to implement it)</p>
+<ul>
+<li>
+<p>alpha (intercept) and beta (slope) are the regression parameters</p>
+</li>
+<li>
+<p>y and x are the dependent and predictor variables, repectively</p>
+</li>
+<li>
+<p>epsilon represent the &ldquo;residual error&rdquo; (basically the error not accounted for by the model)</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Equation 2</strong> is our assumption for the residual error</p>
+<ul>
+<li>Gaussian with a mean of 0 and a variance we estimate with our model</li>
+</ul>
+<p> </p>
+<p><strong>Equation 3</strong> is our sum of squares (SS) error for the residuals</p>
+<ul>
+<li>the <strong>variance of residuals is the SSres/(n-2)</strong>, where n is our sample size</li>
+</ul>
+<p> </p>
+<p><strong>Equation 4</strong> is our estimate of the slope</p>
+<p> </p>
+<p><strong>Equation 4</strong> is our estimate of the intercept</p>
+<p> </p>
+<h1 id="anchor-2"></h1>
 <p> </p>
 <p> </p>
 <h3 id="242-data-and-assumptions">2.4.2 Data and assumptions</h3>
+<p>We will explore the simple regression model in R using the <a href="/data/2.4-fish.xlsx">Kaggle fish market dataset</a>.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Download the fish data .xlsx file linked above and load it into R</span>
+<span style="color:#75715e"># (I named my data object &#34;fish&#34;) </span>
+<span style="color:#75715e"># Try this:</span>
+
+<span style="color:#a6e22e">names</span>(fish)
+<span style="color:#a6e22e">table</span>(fish<span style="color:#f92672">$</span>Species)
+
+<span style="color:#75715e"># slice out the rows for Perch</span>
+
+fish<span style="color:#f92672">$</span>Species<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Perch&#34;</span> <span style="color:#75715e">#just a reminder</span>
+perch <span style="color:#f92672">&lt;-</span> fish[fish<span style="color:#f92672">$</span>Species<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Perch&#34;</span> , ]
+<span style="color:#a6e22e">head</span>(perch)
+
+</code></pre></div><p> </p>
+<p>The principle assumptions of simple linear regression are:</p>
+<ul>
+<li>
+<p><strong>Linear relationship</strong> between variables</p>
+</li>
+<li>
+<p><strong>Numeric continuous data</strong> for the dependent variable (y); numeric continuous (or numeric ordinal) data on the for the predictor variable (x)</p>
+</li>
+<li>
+<p><strong>Independence of observations</strong> (We assume this for the different individual Perch in our data)</p>
+</li>
+<li>
+<p><strong>Gaussian distribution of residuals</strong> (NB this is not the same as assuming the raw data are Gaussian!  We shall diagnose this)</p>
+</li>
+<li>
+<p><strong>Homoscedasticity</strong> (this means the residual variance is approximately the same all along the x variable axis - we shall diagnose this)</p>
+</li>
+</ul>
 <p> </p>
 <h1 id="anchor-3"></h1>
 <p> </p>
 <p> </p>
 <h3 id="243-graphing">2.4.3 Graphing</h3>
+<p>The traditional way to graph the simple linear regression is with a scatterplot, with the dependent variable on the y axis and the predictor variable on the x axis.  The regression equation above can be used to estimate the <strong>line of best fit</strong> for the sample data, which is predicted value of y.  Thus, <strong>prediction</strong> is one of the functions here (as in predicting the value of y given a certain value of x if there were to be further data collection).  This regression line is often incorporated in plots representing regression.</p>
+<p>The simple regression function in R is <code>lm()</code> (for linear model).  In order to estimate the line of best fit and the regression coefficients, we will make use of it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+<span style="color:#75715e"># A simple regression of perch Height as the predictor variable (x)</span>
+<span style="color:#75715e"># and Width as the dependent (y) variable</span>
+
+<span style="color:#75715e"># First make a plot</span>
+<span style="color:#a6e22e">plot</span>(y <span style="color:#f92672">=</span> perch<span style="color:#f92672">$</span>Height, x <span style="color:#f92672">=</span> perch<span style="color:#f92672">$</span>Width,
+     ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height&#34;</span>, xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Width&#34;</span>,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;My perch regression plot&#34;</span>,
+     pch <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>, cex <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+
+<span style="color:#75715e"># Does it look there is a strong linear relationship</span>
+<span style="color:#75715e"># (it looks very strong to me)</span>
+
+<span style="color:#75715e"># In order to draw on the line of best fit we must calculate the regression</span>
+
+<span style="color:#f92672">?</span>lm <span style="color:#75715e"># NB the formula argument...</span>
+
+<span style="color:#75715e"># We usually would store the model output in an object</span>
+
+mylm <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(formula <span style="color:#f92672">=</span> Height <span style="color:#f92672">~</span> Width, <span style="color:#75715e"># read y &#34;as a function of&#34; x </span>
+           data <span style="color:#f92672">=</span>  perch)
+mylm <span style="color:#75715e"># NB the intercept (0.30), and the slope (1.59)</span>
+
+<span style="color:#75715e"># We use the abline() function to draw the regression line onto our plot</span>
+<span style="color:#75715e"># NB the </span>
+
+<span style="color:#f92672">?</span>abline
+<span style="color:#a6e22e">abline</span>(reg <span style="color:#f92672">=</span> mylm) <span style="color:#75715e"># Not bad</span>
+
+<span style="color:#75715e"># Some people like to summarize the regression equation on their plot</span>
+<span style="color:#75715e"># We can do that with the text() function</span>
+<span style="color:#75715e"># y = intercept + slope * x</span>
+<span style="color:#f92672">?</span>text
+<span style="color:#a6e22e">text</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,    <span style="color:#75715e"># x axis placement</span>
+     y <span style="color:#f92672">=</span> <span style="color:#ae81ff">11</span>,   <span style="color:#75715e"># y axis placement</span>
+     labels <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y = 0.30 + (1.59) * x&#34;</span>)
+</code></pre></div><p> </p>
+<p><img src="/img/2.4-perch.png" alt=""></p>
 <p> </p>
+<p><strong>Testing the assumptions</strong></p>
+<p>The data scientists must trake responsibility for the assumptions of their analyses, and for <strong>validating the statistical model</strong>.  A basic part of Exploratory Data Analysis (EDA) is to fomally test and visualise the assumptions.  We will briefly do this in a few ways.  Before we begin it is important to acknowledge that this part of the analysis is <strong>subjective</strong> and it is <strong>subtle</strong>, which is to say that it is hard to perform without practice.  As much as we wish that Null Hypothesis Significance Testing is totally objective, the opposite is true, and the practice of data analysis requires experience.</p>
+<p>Here, we will specifically test 2 of the assumption mentioned above, that of Gaussian residual distribution, and that of homoscedasticity.  We will examin both graphically, and additionally we will formally test the assumption of Gaussian residuals.</p>
+<p>To start with, let&rsquo;s explicitly visualize the residuals.  This is a step that might be unusual for a standard exploration of regresssion assumptions, but for our purposes here it will serve to be explicit about <strong>what the residuals actually are</strong>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Test assumptions ####</span>
+<span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e"># Test Gaussian residuals</span>
+
+<span style="color:#75715e"># Make our plot and regression line again</span>
+<span style="color:#a6e22e">plot</span>(y <span style="color:#f92672">=</span> perch<span style="color:#f92672">$</span>Height, x <span style="color:#f92672">=</span> perch<span style="color:#f92672">$</span>Width,
+     ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height&#34;</span>, xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Width&#34;</span>,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;My perch RESIDUAL plot&#34;</span>,
+     pch <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>, cex <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#a6e22e">abline</span>(reg <span style="color:#f92672">=</span> mylm)
+
+<span style="color:#75715e"># We can actually &#34;draw on&#34; the magnitude of residuals</span>
+<span style="color:#a6e22e">arrows</span>(x0 <span style="color:#f92672">=</span> perch<span style="color:#f92672">$</span>Width,
+       x1 <span style="color:#f92672">=</span> perch<span style="color:#f92672">$</span>Width,
+       y0 <span style="color:#f92672">=</span> <span style="color:#a6e22e">predict</span>(mylm), <span style="color:#75715e"># start residual line on PREDICTED values</span>
+       y1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">predict</span>(mylm) <span style="color:#f92672">+</span> <span style="color:#a6e22e">residuals</span>(mylm), <span style="color:#75715e"># length of residual</span>
+       length <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># makes arrowhead length zero (or it looks weird here)</span>
+</code></pre></div><p><img src="/img/2.4-perch-res.png" alt=""></p>
+<ul>
+<li>
+<p>Note the residuals are perpindicular the the x-axis.  This is because <strong>residuals represent DEVIATION of each OBSERVED y from the PREDICTED y for a GIVEN x</strong>.</p>
+</li>
+<li>
+<p>The Gaussian assumption is that relative to the regression line, the <strong>residual values should be, well, Gaussian</strong> (with mean of 0 and a variance we estimate)!  There should be more dots close to the line with small distance from the regression line, and few residuals farther away</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Closer look at the residual distribution</strong></p>
+<p>Remember how we visually examine distributions?  With a frequency histogram and possibly a q-q plot right?  Here we will do those for a peek, but we will also add a formal, objective test of deviation from normality.  This part of exploratory data analysis is subtle and requires experience (i.e. it is hard), and there are many approaches.  Our methods here are a starting point.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># residual distribution</span>
+<span style="color:#75715e"># Try this:</span>
+
+<span style="color:#a6e22e">library</span>(car) <span style="color:#75715e"># for qqPlot()</span>
+
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>)) <span style="color:#75715e"># Print graphs into 1x2 grid (row,column)</span>
+
+<span style="color:#a6e22e">hist</span>(<span style="color:#a6e22e">residuals</span>(mylm), main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>)
+<span style="color:#a6e22e">qqPlot</span>(<span style="color:#a6e22e">residuals</span>(mylm))
+
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>)) <span style="color:#75715e"># Set back to 1x1</span>
+</code></pre></div><p><img src="/img/2.4-diagnose.png" alt=""></p>
+<p><strong>Diagnosis</strong></p>
+<ul>
+<li>
+<p>The historgram is &ldquo;shaped a little funny&rdquo; for Gaussian</p>
+</li>
+<li>
+<p>Slightly too many points in the middle, slightly too few between the mean and the extremes in the histogram</p>
+</li>
+<li>
+<p>Very slight right skew in the histogram</p>
+</li>
+<li>
+<p>Most points are very close to the line on the q-q plot, but there are a few at the extremes that veer off</p>
+</li>
+<li>
+<p>Two points are tagged as outliers a little outside the error boundaries on the q-q plot (rows 118 and 124, larger than expected observations)</p>
+</li>
+</ul>
+<p> </p>
+<blockquote>
+<p>It is your job as a data scientist to be skeptical of data, assumptions, and conclusions. Do not pussyfoot this.</p>
+</blockquote>
+<p>It is not good enough to merely make these diagnostic graphs robotically; the whole point is to <strong>judge</strong> whether the the assumptions have been violated.  This is important (and remember, hard) because if the assumptions are not met it is unlikely that the dependent statistical model is valid. Here, we can look a little closer at the histogram and the <strong>expected</strong> Gaussian distribution, and we can also perform a formal statsitical test to help us decide.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Gussie up the histogram ####</span>
+
+<span style="color:#75715e"># Make a new histogram</span>
+<span style="color:#a6e22e">hist</span>(<span style="color:#a6e22e">residuals</span>(mylm), 
+     xlim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-2</span>, <span style="color:#ae81ff">2</span>), ylim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">.9</span>),
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+     prob <span style="color:#f92672">=</span> T) <span style="color:#75715e"># We want probability density this time (not frequency)</span>
+
+<span style="color:#75715e"># Add a density line to just help visualize &#34;where the data are&#34;</span>
+<span style="color:#a6e22e">lines</span>(                       <span style="color:#75715e"># lines() function</span>
+  <span style="color:#a6e22e">density</span>(<span style="color:#a6e22e">residuals</span>(mylm)),   <span style="color:#75715e"># density() function</span>
+  col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;green4&#34;</span>, lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>) <span style="color:#75715e"># Mere vanity</span>
+
+<span style="color:#75715e"># Make x points for theoretical Gaussian</span>
+x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-1</span>,<span style="color:#ae81ff">+1</span>,by<span style="color:#f92672">=</span><span style="color:#ae81ff">0.02</span>) 
+
+<span style="color:#75715e"># Draw on theoretical Gaussian for our residual parameters</span>
+<span style="color:#a6e22e">curve</span>(<span style="color:#a6e22e">dnorm</span>(x, mean <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(<span style="color:#a6e22e">residuals</span>(mylm)),
+            sd <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(<span style="color:#a6e22e">residuals</span>(mylm))),
+      add <span style="color:#f92672">=</span> T,
+      col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>, lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>) <span style="color:#75715e"># mere vanity</span>
+
+<span style="color:#75715e"># Draw on expected mean</span>
+<span style="color:#a6e22e">abline</span>(v <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#75715e"># vertical line at the EXPECTED resid. mean = 0</span>
+       freq <span style="color:#f92672">=</span> F,
+       col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>, lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>) <span style="color:#75715e"># mere vanity</span>
+
+<span style="color:#75715e"># Add legend</span>
+<span style="color:#a6e22e">legend</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">.6</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">.9</span>,
+       legend <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Our residuals&#34;</span>, <span style="color:#e6db74">&#34;Gaussian&#34;</span>, <span style="color:#e6db74">&#34;Mean&#34;</span>),
+       lty <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>),
+       col <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;green4&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>,<span style="color:#e6db74">&#34;red&#34;</span>), lwd <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>))
+</code></pre></div><p><img src="/img/2.4-hist2.png" alt=""></p>
+<p><strong>Diagnosis</strong></p>
+<ul>
+<li>
+<p>Near the mean, our residuals density is slightly higher than expected under theoretical Gaussian</p>
+</li>
+<li>
+<p>Between -0.5 and -1 and also between 0.5 and +1 our residual density is lower than expected under theoretical Gaussian</p>
+</li>
+<li>
+<p>Overall the differences are not very extreme</p>
+</li>
+<li>
+<p>The distribution is mostly symmetrical around the mean</p>
+</li>
+</ul>
+<p> </p>
+<p>Finally, let&rsquo;s perform a statistical test of whether there is evidence our residuals deviate from Gaussian.  There are a lot of options for this, but we will only consider one here for illustration, in the interest of brevity. We will (somewhat arbitrarily) use the <a href="https://statisticaloddsandends.wordpress.com/2019/08/13/what-is-the-shapiro-wilk-test/">Shapiro-Wilk test for Gaussian</a>.</p>
+<p>Side note: Tests like this are a bit atypical within the NHST framework, in that usually when we perform a statistical test we have a hypothesis WE BELIEVE TO BE TRUE that there is a difference (say between the regression slope and zero, or maybe between 2 means for a different test), and we are testing against the null of NO DIFFERENCE.  When we perform such a test and examine the p-value, we compare the p-value to our <strong>alpha value</strong>.</p>
+<p> </p>
+<p><strong>The tyranny of the p-value</strong></p>
+<p>The rule we traditionally use is that we reject the null of no difference if our calculated p-value is lower than our chosen alpha (usually 0.05**).  <strong>When testing assumptions of no difference we believe to be true</strong>, like here, we still typically use the 0.05 alpha threshold.  In this case, when p &gt; 0.05, we can take it as a lack of evidence that there is a difference. NB this is slightly different than consituting EVIDENCE that there is NO DIFFERENCE!</p>
+<p>**<strong>The good old p-value</strong> is sometimes misinterpreted, or relied on &ldquo;too heavily&rdquo;.  Read more about this important idea in <a href="https://www.nature.com/articles/nmeth.4210">Altman and Krzywinski 2017</a>.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Shapiro test ####</span>
+<span style="color:#75715e"># Try this:</span>
+  
+<span style="color:#a6e22e">shapiro.test</span>(<span style="color:#a6e22e">residuals</span>(mylm))
+</code></pre></div><p><code>R output</code></p>
+<p><img src="/img/2.4-sw-test.png" alt=""></p>
+<p> </p>
+<p><strong>Reporting the test of assumptions</strong></p>
+<p>The reporting of evidence supporting claims that assumptions underlying statistical tests have been tested and are &ldquo;OK&rdquo;, etc., are often understated even though they are a very important part of the practice of statistics.  Based on the results of our Shapiro-Wilk test, we might report our findings in this way in a report (in a Methods section), prior to reporting the results of our regression (in the Results section):</p>
+<blockquote>
+<p>We found no evidence our assumption of Gaussian residual distribution was violated (Shapiro-Wilk: W = 0.97, n = 56, p = 0.14)</p>
+</blockquote>
+<p> </p>
+<p><strong>Diagnostic plots and heteroscedasticity</strong></p>
+<p>Despite being challenging to pronounce and spell <strong>heteroscedasticiy</strong>, (<a href="https://www.youtube.com/watch?v=TqvPXvHR9nw">help pronouncing here</a>, <a href="http://jiayinggu.weebly.com/uploads/3/8/9/3/38937991/mcculloch.pdf">strong opinion about spelling it here</a>), the concept of heteroscedasticity is simple - the that variance of the residuals should be constant across the predicted values.  We usually examine this visually, which is easy to do in R.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Heteroscadsticity ####</span>
+
+<span style="color:#75715e"># Try this:</span>
+<span style="color:#a6e22e">plot</span>(y <span style="color:#f92672">=</span> <span style="color:#a6e22e">residuals</span>(mylm), x <span style="color:#f92672">=</span> <span style="color:#a6e22e">fitted</span>(mylm),
+     pch <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>, cex <span style="color:#f92672">=</span> <span style="color:#ae81ff">.8</span>) 
+
+<span style="color:#75715e"># There is a lot hidden inside our regression object</span>
+<span style="color:#a6e22e">summary</span>(mylm)<span style="color:#f92672">$</span>sigma <span style="color:#75715e"># Voila: The residual standard error</span>
+
+(uci <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">summary</span>(mylm)<span style="color:#f92672">$</span>sigma<span style="color:#f92672">*</span><span style="color:#ae81ff">1.96</span>) <span style="color:#75715e"># upper 95% confidence interval</span>
+(lci <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">summary</span>(mylm)<span style="color:#f92672">$</span>sigma<span style="color:#f92672">*</span><span style="color:#ae81ff">1.96</span>) <span style="color:#75715e"># upper 95% confidence interval</span>
+
+<span style="color:#75715e"># Add lines for mean and upper and lower 95% CI</span>
+<span style="color:#a6e22e">abline</span>(h <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>, uci, lci),
+       lwd <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>),
+       lty <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>),
+       col <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;red&#34;</span>))
+</code></pre></div><p><img src="/img/2.4-hetero.png" alt=""></p>
+<p> </p>
+<p>What we are looking for in this graph, ideally, is <strong>an even spread of residuals across the x-axis</strong> representing our fitted values. Remember, the x axis here represent perch Width, and each data point is a single observation of perch Height.  The blue reference line is the mean PREDICTED perch Height for each value of Width.  The difference between each data point and the horizontal line at zero is the residual difference, or residual error.</p>
+<p>We are also looing for an absence of any systematic pattern in the data, that might suggest a lack of independence.</p>
+<p> </p>
+<p><strong>Diagnosis</strong></p>
+<ul>
+<li>
+<p>There is not a perfect spread of residual variation across the whole length of the fitted values.  Because our sample size is relatively small, it is a matter of opinion whether this is &ldquo;okay&rdquo; or &ldquo;not okay&rdquo;.</p>
+</li>
+<li>
+<p>There seem to bee two groupings of values along the x-axis.  This is an artefact of the data we have to work with (but could be important biologically or practically).  For each of these groups, the residual spread appears similar.</p>
+</li>
+<li>
+<p>The left hand side of the graph appears to have very low residual variance, but then there are only a few data points there and we expect most of the points to be near the line prediction anyway.</p>
+</li>
+<li>
+<p>All things considered, one might be inclined to proceed, concluding there is no strong evidence of heteroscedasticity.</p>
+</li>
+</ul>
 <h1 id="anchor-4"></h1>
 <p> </p>
 <p> </p>
 <h3 id="244-test-and-alternatives">2.4.4 Test and alternatives</h3>
+<p>You have examined your data and tested assumption of simple linear regression, and are happy to proceed.  Let&rsquo;s look at the main results of regression.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Regression results ####</span>
+<span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e"># Full results summary</span>
+<span style="color:#a6e22e">summary</span>(mylm)
+</code></pre></div><p><code>R Output</code></p>
+<p><img src="/img/2.4-reg-sum.png" alt=""></p>
+<p>This fully results summary (NB the <code>summary()</code> function will produce different output depending on the class() and kind of object passed to it) is important to understand.</p>
+<ul>
+<li>
+<p><strong>Call</strong> This is the R formula representing the simple regression statistical model</p>
+</li>
+<li>
+<p><strong>Residuals</strong> This is summary statistics of the residuals.  Nice, but typically we would go beyond this in our EDA like we did above.</p>
+</li>
+<li>
+<p><strong>Coefficients</strong> in &ldquo;ANOVA&rdquo; table format.  This has the estimate and standard erropr of the estimates for your regression coefficients, for the intercept <code>(Intercept)</code> and for the slope for you dependent variable <code>Width</code>.  Here, the <strong>y-intercept coefficient is 0.30</strong> and the <strong>slope is 1.59</strong>.</p>
+</li>
+<li>
+<p>The <strong>P-values</strong> in simple regression are associated with the parameter estimates (i.e., are they different to zero).  If the P-value is much less than zero, standard R output converts it to scientific notation. Here, the P-value is reported in the column called <code>Pr(&gt;|t|)</code>.  The <strong>intercept P-value is 0.16</strong> ( which is greater than alpha = 0.05, so we conclude there is no evidence of difference to 0 for the intercept).  The slope P-value is output as <code>&lt;2e-16</code>, which is 0.00..&lt;11 more zeros&gt;..002.  <strong>We would typically report P-values less than 0.0001 as P &lt; 0.0001</strong></p>
+</li>
+<li>
+<p><strong>Multiple R-Squared</strong> The simple regression test statistics is typically reported as the R-squared value, which can be interpreted as the proportion of variance in the dependent variable explained by our model.  This is very high for our model, 0.97 (i.e. 97% of the variation in perch Width is explained by perch Height).</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Reporting results</strong></p>
+<p>A typical way to report results for our regression model might be: We found a significant linear relationship for Height predicting Weight in perch (regression: R-squared = 0.97, df = 1,54, P &lt; 0.0001).  Of course, this would be accompannied by an appropriate graph if important and relevant in the context of other results.</p>
+<p>As usual, reporting copied and pasted results that have not been summarised appropriately is regarded as very poor practice, even for beginning students.</p>
+<p> </p>
+<p><strong>Alternatives to regression</strong></p>
+<p>There are actually a large number of alternatives to simple linear regression in case our data do not conform to the assumptions.  Some of thesea are quite advanced and beyond the scope of this bootcamp (like weighted regression, or specifically modelling the variance in some way).  The most reasonable solutions to try first would be <strong>data transformation</strong>, or possibly if it were adequate to merely demonstrate a relationship between the variables, <strong>Spearman Rank correlation</strong>.  A final alternative of intermediate difficulty, might be to try nonparametric regression, like implemented in <a href="https://rcompanion.org/handbook/F_12.html"><strong>Kendal-Theil-Siegel nonparametric regression</strong></a>.</p>
 <p> </p>
 <h1 id="anchor-5"></h1>
 <p> </p>
 <p> </p>
 <h3 id="245-practice-exercises">2.4.5 Practice exercises</h3>
-<p>For the following exercises, use the trees dataset, which has Girth, Height and Volume variables for 31 Black Cherry trees.</p>
+<p>For the following exercises, we continue to use the <a href="/data/2.3-fish.xlsx">fish dataset</a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Examine the data</span>
 <span style="color:#a6e22e">help</span>(trees)
 <span style="color:#a6e22e">data</span>(trees)
 <span style="color:#a6e22e">str</span>(trees)
 </code></pre></div><p> </p>
-<p><strong>1</strong> Show code to calculate the mean Girth of Black Cherry trees with Height less than 75 ft.</p>
+<p><strong>1</strong> Test whether the assumption of Gaussian residuals holds for the R formula Weight ~ Length1 for perch in the fish dataset.  Describe the evidence for why or why not; show your code.</p>
 <p> </p>
-<p><strong>2</strong> Use <code>help(cut)</code> and use the <code>cut()</code> function to create a new factor variable based on the <code>Height</code> numeric variable in the <code>trees</code> dataset. Try setting the <code>break</code>s argument to 2 ro 3.  Rename the levels of your new factor to something meaningful.  Show the code.</p>
+<p><strong>2</strong>  Perform the regression for Weight ~ Height for the species Bream.  Assess whether the residuals fit the Gaussian assumption.  Present any graphical tests or other results and your conclusion in the scientific style.</p>
 <p> </p>
-<p><strong>3</strong> Using the new factor from question 2, use <code>aggregate()</code> to calculate the mean and standard deviation of all three variables in the <code>trees</code> data.  Show your code and report the results to 2 decimal points of accuracy.</p>
+<p><strong>3</strong> For the analysis in #2 above present the results of your linear regression (if the residuals fit the Gaussian assumption) or a Spearman rank correlation (if they did not).</p>
 <p> </p>
-<p><strong>4</strong> Show the code using which() and boolean phrases as appropriate to find the rows in the <code>trees</code> dataset where Girth is higher than 11 and Height is lower than 75.</p>
+<p><strong>4</strong> Plot <code>perch$Weight ~ perch$Length2</code>.  The relationship is obviously not linear but curved.  Devise and execute a solution to enable the use of linear regression, possibly by transforming the data.  Show any relevant code and briefly explain your results and conclusions.</p>
 <p> </p>
-<p><strong>5</strong> Run the following code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">data_1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(volume <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#66d9ef">NA</span>,<span style="color:#ae81ff">10</span>),
-           population <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,
-           <span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>))
-</code></pre></div><p>Use <code>aggregate()</code> to calculate the mean of volume for each population (hint: you may need to use help for the functions involved and pay close attention to your data frame&hellip;).</p>
+<p><strong>5</strong> Explore the data for perch and describe the covariance of all of the morphological, numeric variables using all relevant means, while being as concise as possible.  Show your code.</p>
 <p> </p>
-<p><strong>6</strong> Write a plausible practice question involving any aspect of using <code>which()</code>, boolean phrases and/or <code>aggregate()</code> involving the in-built R dataset <code>iris</code>.</p>
+<p><strong>6</strong> Write a plausible practice question involving the the exploration or analysis of regression  Make use of the fish data from any species except for Perch.</p>
 <p> </p>
 </div>
 
