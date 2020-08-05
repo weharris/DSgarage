@@ -297,7 +297,7 @@ mylm <span style="color:#75715e"># NB the intercept (0.30), and the slope (1.59)
 <p><img src="/img/2.4-perch.png" alt=""></p>
 <p> </p>
 <p><strong>Testing the assumptions</strong></p>
-<p>The data scientists must trake responsibility for the assumptions of their analyses, and for <strong>validating the statistical model</strong>.  A basic part of Exploratory Data Analysis (EDA) is to fomally test and visualise the assumptions.  We will briefly do this in a few ways.  Before we begin it is important to acknowledge that this part of the analysis is <strong>subjective</strong> and it is <strong>subtle</strong>, which is to say that it is hard to perform without practice.  As much as we wish that Null Hypothesis Significance Testing is totally objective, the opposite is true, and the practice of data analysis requires experience.</p>
+<p>The data scientist must take responsibility for the assumptions of their analyses, and for <strong>validating the statistical model</strong>.  A basic part of Exploratory Data Analysis (EDA) is to fomally test and visualise the assumptions.  We will briefly do this in a few ways.  Before we begin it is important to acknowledge that this part of the analysis is <strong>subjective</strong> and it is <strong>subtle</strong>, which is to say that it is hard to perform without practice.  As much as we wish that Null Hypothesis Significance Testing is totally objective, the opposite is true, and the practice of data analysis requires experience.</p>
 <p>Here, we will specifically test 2 of the assumption mentioned above, that of Gaussian residual distribution, and that of homoscedasticity.  We will examin both graphically, and additionally we will formally test the assumption of Gaussian residuals.</p>
 <p>To start with, let&rsquo;s explicitly visualize the residuals.  This is a step that might be unusual for a standard exploration of regresssion assumptions, but for our purposes here it will serve to be explicit about <strong>what the residuals actually are</strong>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Test assumptions ####</span>
@@ -365,7 +365,7 @@ mylm <span style="color:#75715e"># NB the intercept (0.30), and the slope (1.59)
 <blockquote>
 <p>It is your job as a data scientist to be skeptical of data, assumptions, and conclusions. Do not pussyfoot this.</p>
 </blockquote>
-<p>It is not good enough to merely make these diagnostic graphs robotically; the whole point is to <strong>judge</strong> whether the the assumptions have been violated.  This is important (and remember, hard) because if the assumptions are not met it is unlikely that the dependent statistical model is valid. Here, we can look a little closer at the histogram and the <strong>expected</strong> Gaussian distribution, and we can also perform a formal statsitical test to help us decide.</p>
+<p>It is not good enough to merely make these diagnostic graphs robotically; the whole point is to <strong>judge</strong> whether the the assumptions have been violated.  This is important (and remember, hard) because if the assumptions are not met it is unlikely that the dependent statistical model is valid. Here, we can look a little closer at the histogram and the <strong>expected</strong> Gaussian distribution, and we can also perform a formal statistical test to help us decide.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Gussie up the histogram ####</span>
 
 <span style="color:#75715e"># Make a new histogram</span>
@@ -402,7 +402,7 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span
 <p><strong>Diagnosis</strong></p>
 <ul>
 <li>
-<p>Near the mean, our residuals density is slightly higher than expected under theoretical Gaussian</p>
+<p>Near the mean, our residual density is slightly higher than expected under theoretical Gaussian</p>
 </li>
 <li>
 <p>Between -0.5 and -1 and also between 0.5 and +1 our residual density is lower than expected under theoretical Gaussian</p>
@@ -416,7 +416,7 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span
 </ul>
 <p> </p>
 <p>Finally, let&rsquo;s perform a statistical test of whether there is evidence our residuals deviate from Gaussian.  There are a lot of options for this, but we will only consider one here for illustration, in the interest of brevity. We will (somewhat arbitrarily) use the <a href="https://statisticaloddsandends.wordpress.com/2019/08/13/what-is-the-shapiro-wilk-test/">Shapiro-Wilk test for Gaussian</a>.</p>
-<p>Side note: Tests like this are a bit atypical within the NHST framework, in that usually when we perform a statistical test we have a hypothesis WE BELIEVE TO BE TRUE that there is a difference (say between the regression slope and zero, or maybe between 2 means for a different test), and we are testing against the null of NO DIFFERENCE.  When we perform such a test and examine the p-value, we compare the p-value to our <strong>alpha value</strong>.</p>
+<p>Side note: Tests like this are a bit atypical within the NHST framework, in that usually when we perform a statistical test, we have a hypothesis WE BELIEVE TO BE TRUE that there is a difference (say between the regression slope and zero, or maybe between 2 means for a different test). In this typical case we are testing against the null of NO DIFFERENCE.  When we perform such a test and examine the p-value, we compare the p-value to our <strong>alpha value</strong>.</p>
 <p> </p>
 <p><strong>The tyranny of the p-value</strong></p>
 <p>The rule we traditionally use is that we reject the null of no difference if our calculated p-value is lower than our chosen alpha (usually 0.05**).  <strong>When testing assumptions of no difference we believe to be true</strong>, like here, we still typically use the 0.05 alpha threshold.  In this case, when p &gt; 0.05, we can take it as a lack of evidence that there is a difference. NB this is slightly different than consituting EVIDENCE that there is NO DIFFERENCE!</p>
@@ -436,7 +436,7 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span
 </blockquote>
 <p> </p>
 <p><strong>Diagnostic plots and heteroscedasticity</strong></p>
-<p>Despite being challenging to pronounce and spell <strong>heteroscedasticiy</strong>, (<a href="https://www.youtube.com/watch?v=TqvPXvHR9nw">help pronouncing here</a>, <a href="http://jiayinggu.weebly.com/uploads/3/8/9/3/38937991/mcculloch.pdf">strong opinion about spelling it here</a>), the concept of heteroscedasticity is simple - the that variance of the residuals should be constant across the predicted values.  We usually examine this visually, which is easy to do in R.</p>
+<p>Despite being challenging to pronounce and spell <strong>heteroscedasticiy</strong>, (<a href="https://www.youtube.com/watch?v=TqvPXvHR9nw">help pronouncing it here</a>; <a href="http://jiayinggu.weebly.com/uploads/3/8/9/3/38937991/mcculloch.pdf">strong opinion about spelling it here</a>), the concept of heteroscedasticity is simple - the that variance of the residuals should be constant across the predicted values.  We usually examine this visually, which is easy to do in R.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Heteroscadsticity ####</span>
 
 <span style="color:#75715e"># Try this:</span>
@@ -457,7 +457,7 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span
 </code></pre></div><p><img src="/img/2.4-hetero.png" alt=""></p>
 <p> </p>
 <p>What we are looking for in this graph, ideally, is <strong>an even spread of residuals across the x-axis</strong> representing our fitted values. Remember, the x axis here represent perch Width, and each data point is a single observation of perch Height.  The blue reference line is the mean PREDICTED perch Height for each value of Width.  The difference between each data point and the horizontal line at zero is the residual difference, or residual error.</p>
-<p>We are also looing for an absence of any systematic pattern in the data, that might suggest a lack of independence.</p>
+<p>We are also looking for an absence of any systematic pattern in the data, that might suggest a lack of independence.</p>
 <p> </p>
 <p><strong>Diagnosis</strong></p>
 <ul>
@@ -465,7 +465,7 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span
 <p>There is not a perfect spread of residual variation across the whole length of the fitted values.  Because our sample size is relatively small, it is a matter of opinion whether this is &ldquo;okay&rdquo; or &ldquo;not okay&rdquo;.</p>
 </li>
 <li>
-<p>There seem to bee two groupings of values along the x-axis.  This is an artefact of the data we have to work with (but could be important biologically or practically).  For each of these groups, the residual spread appears similar.</p>
+<p>There seem to be two groupings of values along the x-axis.  This is an artefact of the data we have to work with (but could be important biologically or practically).  For each of these groups, the residual spread appears similar.</p>
 </li>
 <li>
 <p>The left hand side of the graph appears to have very low residual variance, but then there are only a few data points there and we expect most of the points to be near the line prediction anyway.</p>
@@ -486,7 +486,7 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span
 <span style="color:#a6e22e">summary</span>(mylm)
 </code></pre></div><p><code>R Output</code></p>
 <p><img src="/img/2.4-reg-sum.png" alt=""></p>
-<p>This fully results summary (NB the <code>summary()</code> function will produce different output depending on the class() and kind of object passed to it) is important to understand.</p>
+<p>This full results summary is important to understand (NB the <code>summary()</code> function will produce different output depending on the class() and kind of object passed to it).</p>
 <ul>
 <li>
 <p><strong>Call</strong> This is the R formula representing the simple regression statistical model</p>
@@ -510,18 +510,14 @@ x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span
 <p>As usual, reporting copied and pasted results that have not been summarised appropriately is regarded as very poor practice, even for beginning students.</p>
 <p> </p>
 <p><strong>Alternatives to regression</strong></p>
-<p>There are actually a large number of alternatives to simple linear regression in case our data do not conform to the assumptions.  Some of thesea are quite advanced and beyond the scope of this bootcamp (like weighted regression, or specifically modelling the variance in some way).  The most reasonable solutions to try first would be <strong>data transformation</strong>, or possibly if it were adequate to merely demonstrate a relationship between the variables, <strong>Spearman Rank correlation</strong>.  A final alternative of intermediate difficulty, might be to try nonparametric regression, like implemented in <a href="https://rcompanion.org/handbook/F_12.html"><strong>Kendal-Theil-Siegel nonparametric regression</strong></a>.</p>
+<p>There are actually a large number of alternatives to simple linear regression in case our data do not conform to the assumptions.  Some of these are quite advanced and beyond the scope of this bootcamp (like weighted regression, or else specifically modelling the variance in some way).  The most reasonable solutions to try first would be <strong>data transformation</strong>, or possibly if it were adequate to merely demonstrate a relationship between the variables, <strong>Spearman Rank correlation</strong>.  A final alternative of intermediate difficulty, might be to try nonparametric regression, like implemented in <a href="https://rcompanion.org/handbook/F_12.html"><strong>Kendal-Theil-Siegel nonparametric regression</strong></a>.</p>
 <p> </p>
 <h1 id="anchor-5"></h1>
 <p> </p>
 <p> </p>
 <h3 id="245-practice-exercises">2.4.5 Practice exercises</h3>
 <p>For the following exercises, we continue to use the <a href="/data/2.3-fish.xlsx">fish dataset</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Examine the data</span>
-<span style="color:#a6e22e">help</span>(trees)
-<span style="color:#a6e22e">data</span>(trees)
-<span style="color:#a6e22e">str</span>(trees)
-</code></pre></div><p> </p>
+<p> </p>
 <p><strong>1</strong> Test whether the assumption of Gaussian residuals holds for the R formula Weight ~ Length1 for perch in the fish dataset.  Describe the evidence for why or why not; show your code.</p>
 <p> </p>
 <p><strong>2</strong>  Perform the regression for Weight ~ Height for the species Bream.  Assess whether the residuals fit the Gaussian assumption.  Present any graphical tests or other results and your conclusion in the scientific style.</p>
