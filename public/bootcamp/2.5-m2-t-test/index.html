@@ -145,10 +145,10 @@
 <p> </p>
 <p><strong>Overview</strong></p>
 <blockquote>
-<p>A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description.  Likewise, it may contain wonderful knowledge, there to discover.  Either way, your first task is to weigh the pig.</p>
+<p>The t-test and t-distribution are widely considered to be at the very foundation of modern statistic science and they form an important foundation for the practice of statistics.  Who would believe they were invented to make great beer better?</p>
 </blockquote>
-<p>The very first task for any data analysis is to gain an understanding of the data itself.  This typically involves examining the variables (Are they as we expect? Do we need to adjust the variable types?), graphing the data, and possibly examining numerical summaries and statistical assumptions.  Further, it is necessary to look for errors in the data both trivial (e.g. misspelling  factor level names like &ldquo;control&rdquo; with an extra space &ldquo;control &ldquo;), and more serious such as numerical typographical errors (e.g. misplacing a decimal point is a classic: height of 5 men in feet: c(5.5, 5.8, 6.1, 5.9, 52)&hellip; ). In total, this part of data analysis is sometimes referred to as <strong>Exploratory Data Analysis</strong>.</p>
-<p><strong>Exploratory Data Analysis</strong> (EDA) is part practical and part philosophical in that is requires skill, but is also subjective. Think of it as a step that might take a long while, where the data scientists decides what the analysis is that will be applied to the data, that the analysis is correct and appropriate.  Ironically, while EDA is considered very important and can take a large proportion of the total time spent analysing data, it is usually only reported on very briefly if at all.</p>
+<p>William Sealy Gosset is credited with inventing and applying the idea of the t-test to assist in scientific quality control while working for the Guiness brewery.  The idea was refined and supported by the great statistician R. A. Fisher, and the idea was initially described in a paper anonymously by &ldquo;Student&rdquo;, in order to protect the commercial interests of Guiness.  Today, it is perhaps one of the most prevalent and basic tools in statistics, and <a href="https://priceonomics.com/the-guinness-brewer-who-revolutionized-statistics/">it is a fascinating story</a>.</p>
+<p>Here, we will priefly look at the practical basis of the t-test before going on the look at different ways it can be applied to data.</p>
 <p> </p>
 <p><strong>Contents</strong></p>
 <p><a href="#anchor-1">2.5.1 The question of the t-test</a></p>
@@ -160,47 +160,385 @@
 <p> </p>
 <p> </p>
 <h3 id="251-the-question-of-the-t-test">2.5.1 The question of the t-test</h3>
+<p><strong>3 common versions of the t-test</strong></p>
+<p>The typical premise of the t-test is that it is used to compare populations you are interested in, which you measure with independent samples.  There are a few versions of the basic question.</p>
+<p><strong>2 independent samples</strong>, where you have measured a numeric variable and have 2 samples.  The question is: <strong>are the means of the two samples different</strong> (i.e. did the samples come from different populations)?  A typical design here might be an experiment with a control and one treatment group.  Another more general design might be a sample taken under one defined condition, is compared to a sample taken under a different condition.</p>
+<p>The data could be summarised in 2 different ways.  The &ldquo;long format&rdquo; way would be to have a vector with the measured variable, and another vector that is a factor with 2 levels defining the 2 sample conditions (1 numeric vector, 1 factor vector).</p>
+<p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#75715e">## 2 sample t-test long format data</span>
+<span style="color:#f92672">&gt;</span> (long.data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(density,height))
+   density height
+<span style="color:#ae81ff">1</span>     high      <span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">2</span>     high      <span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">3</span>     high      <span style="color:#ae81ff">4</span>
+<span style="color:#ae81ff">4</span>     high      <span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">5</span>     high      <span style="color:#ae81ff">4</span>
+<span style="color:#ae81ff">6</span>     high      <span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">7</span>     high      <span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">8</span>      low      <span style="color:#ae81ff">6</span>
+<span style="color:#ae81ff">9</span>      low      <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">10</span>     low      <span style="color:#ae81ff">6</span>
+<span style="color:#ae81ff">11</span>     low      <span style="color:#ae81ff">9</span>
+<span style="color:#ae81ff">12</span>     low      <span style="color:#ae81ff">7</span>
+<span style="color:#ae81ff">13</span>     low      <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">14</span>     low      <span style="color:#ae81ff">7</span>
+</code></pre></div><p> </p>
+<p>The &ldquo;wide format&rdquo; way would be to have a different numeric column for each of the samples (<strong>2 numeric vectors</strong>).</p>
+<p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#75715e">## 2 sample t-test wide format data</span>
+<span style="color:#f92672">&gt;</span> (wide.data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(high.ht <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>),
+<span style="color:#f92672">+</span>                         low.ht <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>)))
+  high.ht low.ht
+<span style="color:#ae81ff">1</span>       <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">6</span>
+<span style="color:#ae81ff">2</span>       <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">3</span>       <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">6</span>
+<span style="color:#ae81ff">4</span>       <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">9</span>
+<span style="color:#ae81ff">5</span>       <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">7</span>
+<span style="color:#ae81ff">6</span>       <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">7</span>       <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">7</span>
+</code></pre></div><p> </p>
+<p>A typical graph representing data like this, would be a boxplot.  Optionally to be maximally informative one can add the raw data as points over the box summaries.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Boxplot</span>
+<span style="color:#a6e22e">boxplot</span>(height <span style="color:#f92672">~</span> density, data <span style="color:#f92672">=</span> long.data,
+        main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;2 independent samples&#34;</span>)
+<span style="color:#75715e"># Optional: add raw data points</span>
+<span style="color:#75715e"># jitter() nudges the x-axis placement so that the points do not overlap</span>
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+<span style="color:#a6e22e">points</span>(x <span style="color:#f92672">=</span> <span style="color:#a6e22e">jitter</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,
+                    <span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>), 
+                  amount <span style="color:#f92672">=</span> <span style="color:#ae81ff">.2</span>),
+       y <span style="color:#f92672">=</span> long.data<span style="color:#f92672">$</span>height,
+       col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>, pch <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>, cex <span style="color:#f92672">=</span> <span style="color:#ae81ff">.8</span>) <span style="color:#75715e"># Mere vanity</span>
+</code></pre></div><p> </p>
+<p><code>R output</code></p>
+<p><img src="/img/2.5-ttest1.png" alt=" "></p>
 <p> </p>
-<h1 id="anchor-3"></h1>
+<p><strong>Compare 1 sample to a known mean</strong>, where you have one sample which you wish to compare to a mean value.  The basic question is <strong>did the sample come from a population exhibiting the known mean</strong>?</p>
+<p>The data are simply a single numeric vector, and the population mean for comparison.`</p>
+<p> </p>
+<p><code>R Output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">dput</span>(mysam) <span style="color:#75715e"># The data</span>
+<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2.06</span>, <span style="color:#ae81ff">1.77</span>, <span style="color:#ae81ff">1.9</span>, <span style="color:#ae81ff">1.94</span>, <span style="color:#ae81ff">1.91</span>, <span style="color:#ae81ff">1.83</span>, <span style="color:#ae81ff">2.08</span>, <span style="color:#ae81ff">1.84</span>, <span style="color:#ae81ff">2.15</span>, <span style="color:#ae81ff">1.84</span>, 
+<span style="color:#ae81ff">2.05</span>, <span style="color:#ae81ff">2.19</span>, <span style="color:#ae81ff">1.64</span>, <span style="color:#ae81ff">1.81</span>, <span style="color:#ae81ff">1.83</span>)
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">boxplot</span>(mysam, 
+<span style="color:#f92672">+</span>         main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Sample population the same?&#34;</span>)
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">points</span>(x <span style="color:#f92672">=</span> <span style="color:#a6e22e">jitter</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">15</span>), amount <span style="color:#f92672">=</span> <span style="color:#ae81ff">.1</span>),
+<span style="color:#f92672">+</span>        y <span style="color:#f92672">=</span> mysam,
+<span style="color:#f92672">+</span>        col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>, pch <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>, cex <span style="color:#f92672">=</span> <span style="color:#ae81ff">.8</span>) <span style="color:#75715e"># Mere vanity</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">abline</span>(h <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span>,
+<span style="color:#f92672">+</span>        col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>, lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>)  <span style="color:#75715e"># Mere vanity</span>
+</code></pre></div><p><img src="/img/2.5-ttest2.png" alt=" "></p>
+<p> </p>
+<p><strong>Paired samples</strong> are a third kind of t-test question.  Here the individual observation comprising the 2 samples are not independent.  A typical example might be the measurement of some variable before and after a treatment (e.g. measure crop yield in plots in a  field before and after a soil treatment in successive years); another classic example would be measuring plots that are paired spatially (e.g., plots are chosen and within each plot a treatment and untreated measurement is made.). For each of these examples, there is a unit, patient or plot identification, that represents the relationship of each measure.</p>
+<p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#75715e"># Biochar application, measure N before and after</span>
+<span style="color:#f92672">&gt;</span> biochar
+   plot N.first N.second
+<span style="color:#ae81ff">1</span>     A    <span style="color:#ae81ff">13.4</span>     <span style="color:#ae81ff">16.0</span>
+<span style="color:#ae81ff">2</span>     B    <span style="color:#ae81ff">16.7</span>     <span style="color:#ae81ff">16.7</span>
+<span style="color:#ae81ff">3</span>     C    <span style="color:#ae81ff">17.9</span>     <span style="color:#ae81ff">18.7</span>
+<span style="color:#ae81ff">4</span>     D    <span style="color:#ae81ff">18.5</span>     <span style="color:#ae81ff">18.7</span>
+<span style="color:#ae81ff">5</span>     E    <span style="color:#ae81ff">18.6</span>     <span style="color:#ae81ff">22.1</span>
+<span style="color:#ae81ff">6</span>     F    <span style="color:#ae81ff">18.6</span>     <span style="color:#ae81ff">22.7</span>
+<span style="color:#ae81ff">7</span>     G    <span style="color:#ae81ff">18.7</span>     <span style="color:#ae81ff">23.1</span>
+<span style="color:#ae81ff">8</span>     H    <span style="color:#ae81ff">20.5</span>     <span style="color:#ae81ff">23.1</span>
+<span style="color:#ae81ff">9</span>     I    <span style="color:#ae81ff">20.6</span>     <span style="color:#ae81ff">23.2</span>
+<span style="color:#ae81ff">10</span>    J    <span style="color:#ae81ff">21.5</span>     <span style="color:#ae81ff">23.5</span>
+<span style="color:#ae81ff">11</span>    K    <span style="color:#ae81ff">24.2</span>     <span style="color:#ae81ff">25.4</span>
+<span style="color:#ae81ff">12</span>    L    <span style="color:#ae81ff">24.5</span>     <span style="color:#ae81ff">25.9</span>
+<span style="color:#ae81ff">13</span>    M    <span style="color:#ae81ff">25.0</span>     <span style="color:#ae81ff">27.6</span>
+<span style="color:#ae81ff">14</span>    N    <span style="color:#ae81ff">27.1</span>     <span style="color:#ae81ff">28.0</span>
+<span style="color:#ae81ff">15</span>    O    <span style="color:#ae81ff">28.1</span>     <span style="color:#ae81ff">29.7</span>
+</code></pre></div><p> </p>
+<p><strong>Paired plot</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Data (the code are kind of ugly, but run it to &#34;make&#34; biochar)</span>
+biochar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">structure</span>(<span style="color:#a6e22e">list</span>(
+  plot <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">&#34;D&#34;</span>, <span style="color:#e6db74">&#34;E&#34;</span>, <span style="color:#e6db74">&#34;F&#34;</span>, <span style="color:#e6db74">&#34;G&#34;</span>, <span style="color:#e6db74">&#34;H&#34;</span>, <span style="color:#e6db74">&#34;I&#34;</span>, 
+           <span style="color:#e6db74">&#34;J&#34;</span>, <span style="color:#e6db74">&#34;K&#34;</span>, <span style="color:#e6db74">&#34;L&#34;</span>, <span style="color:#e6db74">&#34;M&#34;</span>, <span style="color:#e6db74">&#34;N&#34;</span>, <span style="color:#e6db74">&#34;O&#34;</span>), 
+  N.first <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">13.4</span>, <span style="color:#ae81ff">16.7</span>, <span style="color:#ae81ff">17.9</span>, <span style="color:#ae81ff">18.5</span>, <span style="color:#ae81ff">18.6</span>, <span style="color:#ae81ff">18.6</span>, <span style="color:#ae81ff">18.7</span>, 
+              <span style="color:#ae81ff">20.5</span>, <span style="color:#ae81ff">20.6</span>, <span style="color:#ae81ff">21.5</span>, <span style="color:#ae81ff">24.2</span>, <span style="color:#ae81ff">24.5</span>, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">27.1</span>, <span style="color:#ae81ff">28.1</span>), 
+  N.second <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">16.7</span>, <span style="color:#ae81ff">18.7</span>, <span style="color:#ae81ff">18.7</span>, <span style="color:#ae81ff">22.1</span>, <span style="color:#ae81ff">22.7</span>, <span style="color:#ae81ff">23.1</span>, 
+               <span style="color:#ae81ff">23.1</span>, <span style="color:#ae81ff">23.2</span>, <span style="color:#ae81ff">23.5</span>, <span style="color:#ae81ff">25.4</span>, <span style="color:#ae81ff">25.9</span>, <span style="color:#ae81ff">27.6</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">29.7</span>)), 
+  class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;data.frame&#34;</span>, 
+  row.names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#66d9ef">NA</span>, <span style="color:#ae81ff">-15L</span>))
+
+
+<span style="color:#75715e"># boxplot would work, but hides pairwise relationship</span>
+<span style="color:#75715e"># Try this:</span>
+
+<span style="color:#a6e22e">plot</span>(x <span style="color:#f92672">=</span> <span style="color:#a6e22e">jitter</span>(<span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">15</span>), <span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">15</span>)),amount <span style="color:#f92672">=</span> <span style="color:#ae81ff">.02</span>),
+     y <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(biochar<span style="color:#f92672">$</span>N.first, biochar<span style="color:#f92672">$</span>N.second),
+     xaxt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n&#34;</span>, xlim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">2.5</span>),
+     cex <span style="color:#f92672">=</span> <span style="color:#ae81ff">.8</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>, pch <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>,  <span style="color:#75715e"># Mere vanity</span>
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Biochar treatment&#34;</span>,
+     ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Soil N&#34;</span>,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Do the lines tend to increase?&#34;</span>)
+
+<span style="color:#a6e22e">mtext</span>(side <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, at <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span>, text <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;before&#34;</span>, <span style="color:#e6db74">&#34;after&#34;</span>), line <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+
+<span style="color:#75715e"># Get crazy: add horizontal lines to visualize the plot pairs</span>
+<span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>){
+<span style="color:#a6e22e">lines</span>(x <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1.05</span>,<span style="color:#ae81ff">1.95</span>),
+      y <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(biochar<span style="color:#f92672">$</span>N.first[i], biochar<span style="color:#f92672">$</span>N.second[i]),
+      lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>) <span style="color:#75715e"># Mere vanity</span>
+}        
+</code></pre></div><p><img src="/img/2.5-ttest3.png" alt=" "></p>
+<p> </p>
+<h1 id="anchor-2"></h1>
 <p> </p>
 <p> </p>
 <h3 id="252-data-and-assumptions">2.5.2 Data and assumptions</h3>
+<p>The principle assumptions of the t-test are:</p>
+<ul>
+<li>
+<p><strong>Gaussian distribution of observations within each sample</strong></p>
+</li>
+<li>
+<p><strong>Heteroscedasticity</strong> (our old friend) - i.e., the variance is equal in each sample</p>
+</li>
+<li>
+<p><strong>Independence of observations</strong></p>
+</li>
+</ul>
+<p> </p>
+<p>The t-test is known to be robust to violation of assumptions. For example, if the assumptions of Gaussian distribution and heteroscedasticiy are violated (a little), it is not likey to greatly bias your results.  The assumption of independence of observations remains very important however.</p>
+<p>The assumption of equal variances can be influenced by unequal samples size, however a common procedure is to use an esimation of common variance called the <strong>pooled variance</strong> that takes a weighted average of the variance for two samples.</p>
+<p><strong>Testing the assumptions</strong></p>
+<p>We would typically test assumption of Gaussian distribution using graphical evaluation of , for examples, a histogram (<code>hist()</code>) and a q-q plot (e.g., with <code>qqPlot()</code> in the <code>{MASS}</code> package).  We would typically examine the variance graphically or through calculation and comparison of descriptive statistics, although a formal test (e.g. using <code>var.test()</code>) is possible.  If the assumptions cannot be met reasonably with the data, a common alternative that does not require them is the <strong>Mann-Whitney U-test</strong> (which we will look at below).</p>
+<p><a href="http://www.biostathandbook.com/twosamplettest.html">Further information about the t-test and assumptions</a> can be found in John MacDonald&rsquo;s excellent online Biostats Handbook.</p>
 <p> </p>
 <h1 id="anchor-3"></h1>
 <p> </p>
 <p> </p>
 <h3 id="253-graphing">2.5.3 Graphing</h3>
+<p>We have already examined the most common cases for data, data arrangement and types of questions that fit the t-test.  The principle graph types are simple:</p>
+<ul>
+<li>
+<p><strong>2 independent samples</strong> - Boxplot or similar graph, showing the central tendency of the data and making it easy to visually compare the two samples.</p>
+</li>
+<li>
+<p><strong>1 sample</strong> - Again, boxplot or similar showing the variation of the single sample.  Indicating the population mean as a reference is useful.</p>
+</li>
+<li>
+<p><strong>2 paired samples</strong> - A boxplot is second best to a graph that indicates the tendency for change between the paired observations.</p>
+</li>
+</ul>
 <p> </p>
 <h1 id="anchor-4"></h1>
 <p> </p>
 <p> </p>
 <h3 id="254-test-and-alternatives">2.5.4 Test and alternatives</h3>
+<p>We will cover 4 examples here:</p>
+<ul>
+<li>
+<p>t-test for 2 independent samples</p>
+</li>
+<li>
+<p>1 sample t-test</p>
+</li>
+<li>
+<p>2 paired samples</p>
+</li>
+<li>
+<p>Mann-Whitney U-test</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>t-test for 2 independent samples</strong></p>
+<p>The example we will use here is the amount of tree growth over a period of time, where samples were taked of individual trees grown under 2 conditions - high density of trees versus low density.  The hypothesis we are testing is whether there is evidence the samples came from different populations (by inference, we are possibly interested in whether there is an effect of density on growth).  The data we will use is similar to the <code>long.data</code> from above.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># 2-sample t-test</span>
+<span style="color:#75715e"># Try this</span>
+<span style="color:#75715e"># data</span>
+density <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;high&#34;</span>,<span style="color:#e6db74">&#34;high&#34;</span>,<span style="color:#e6db74">&#34;high&#34;</span>,<span style="color:#e6db74">&#34;high&#34;</span>,<span style="color:#e6db74">&#34;high&#34;</span>,<span style="color:#e6db74">&#34;high&#34;</span>,<span style="color:#e6db74">&#34;high&#34;</span>,
+             <span style="color:#e6db74">&#34;low&#34;</span>,<span style="color:#e6db74">&#34;low&#34;</span>,<span style="color:#e6db74">&#34;low&#34;</span>,<span style="color:#e6db74">&#34;low&#34;</span>,<span style="color:#e6db74">&#34;low&#34;</span>,<span style="color:#e6db74">&#34;low&#34;</span>,<span style="color:#e6db74">&#34;low&#34;</span>)
+height <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2.1</span>,<span style="color:#ae81ff">3.5</span>,<span style="color:#ae81ff">4.3</span>,<span style="color:#ae81ff">3.2</span>,<span style="color:#ae81ff">4.5</span>,<span style="color:#ae81ff">3.7</span>,<span style="color:#ae81ff">2.7</span>, 
+            <span style="color:#ae81ff">6.1</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">6.9</span>,<span style="color:#ae81ff">9.1</span>,<span style="color:#ae81ff">7.5</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7.4</span>)
+(treegrowth <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(density,height))
+
+<span style="color:#75715e"># There is not much data to compare to the Gaussian distribution</span>
+<span style="color:#a6e22e">library</span>(MASS) <span style="color:#75715e"># for qqPlot()</span>
+<span style="color:#a6e22e">hist</span>(treegrowth<span style="color:#f92672">$</span>height[treegrowth<span style="color:#f92672">$</span>density <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;low&#34;</span>])
+<span style="color:#a6e22e">qqPlot</span>(treegrowth<span style="color:#f92672">$</span>height[treegrowth<span style="color:#f92672">$</span>density <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;low&#34;</span>])
+
+<span style="color:#a6e22e">hist</span>(treegrowth<span style="color:#f92672">$</span>height[treegrowth<span style="color:#f92672">$</span>density <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;high&#34;</span>])
+<span style="color:#a6e22e">qqPlot</span>(treegrowth<span style="color:#f92672">$</span>height[treegrowth<span style="color:#f92672">$</span>density <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;high&#34;</span>])
+
+
+
+<span style="color:#75715e"># The histograms are a little &#34;wooly&#34;, but there are no huge </span>
+<span style="color:#75715e"># deviations from the expectation of Gaussian and the </span>
+<span style="color:#75715e"># q-q plots look ok: proceed</span>
+
+<span style="color:#f92672">?</span>t.test
+<span style="color:#75715e"># NB 1 - the x argument can be a formula</span>
+<span style="color:#75715e"># x = height ~ density</span>
+<span style="color:#75715e"># or we can set our samples to x and y respectively</span>
+<span style="color:#75715e"># x = height[low], y = height[high]</span>
+
+<span style="color:#a6e22e">t.test</span>(x <span style="color:#f92672">=</span> height <span style="color:#f92672">~</span> density, 
+       data <span style="color:#f92672">=</span> treegrowth)
+       
+<span style="color:#75715e"># Flash challenge: Make a good graph of the data       </span>
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">t.test</span>(height <span style="color:#f92672">~</span> density, data <span style="color:#f92672">=</span> treegrowth)
+
+	Welch Two Sample t<span style="color:#f92672">-</span>test
+
+data<span style="color:#f92672">:</span>  height by density
+t <span style="color:#f92672">=</span> <span style="color:#ae81ff">-8.6257</span>, df <span style="color:#f92672">=</span> <span style="color:#ae81ff">11.868</span>, p<span style="color:#f92672">-</span>value <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.865e-06</span>
+alternative hypothesis<span style="color:#f92672">:</span> true difference in means is not equal to <span style="color:#ae81ff">0</span>
+<span style="color:#ae81ff">95</span> percent confidence interval<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">-5.190611</span> <span style="color:#ae81ff">-3.095103</span>
+sample estimates<span style="color:#f92672">:</span>
+mean in group high  mean in group low 
+          <span style="color:#ae81ff">3.428571</span>           <span style="color:#ae81ff">7.571429</span> 
+
+</code></pre></div><p> </p>
+<p>There are a few points in the output.</p>
+<ul>
+<li>
+<p><strong>The main test statistic is the &ldquo;t value&rdquo;</strong>, which can be be positive or negative (depending on which sample is larger on average); the absolute value of t should increase with the probability that the samples came different populations.</p>
+</li>
+<li>
+<p><strong>The degrees of freedom, df</strong>, is adjusted to account for differences in sample variance thought of as a way to quantify the overall difference</p>
+</li>
+<li>
+<p><strong>The 95% confidence interval</strong> is an estimation of the true mean difference between populations from which the samples were taken.</p>
+</li>
+<li>
+<p><strong>The P-value</strong></p>
+</li>
+</ul>
+<p>Here, we might report our results in the technical style as follows (remember ALWAYS the test performed: the test statistic, the degrees of freedom or sample size, the P-Value): We detected a <strong>significant difference between mean height for tree grown</strong> at high or low density (2-sample t-test: t = -8.63, df = 11.9, P &lt; 0.0001).</p>
+<p> </p>
+<p><strong>1 sample t-test</strong></p>
+<p>The example is a sample of earwigs measured in length to the nearest 0.1 mm.  There is a hypothesis that global warming has impacted the development in the population and they are getting larger.  A long term dataset has established a mean earwig lenth of 17.0 (NB, this is our estimate of &ldquo;mu&rdquo;, the population mean we will compare our sample to).  Are the earwigs getting bigger?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e"># Data</span>
+earwigs <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">22.1</span>, <span style="color:#ae81ff">16.3</span>, <span style="color:#ae81ff">19.1</span>, <span style="color:#ae81ff">19.9</span>, <span style="color:#ae81ff">19.2</span>, <span style="color:#ae81ff">17.7</span>, <span style="color:#ae81ff">22.5</span>, <span style="color:#ae81ff">17.7</span>, <span style="color:#ae81ff">24.1</span>, <span style="color:#ae81ff">17.8</span>, 
+<span style="color:#ae81ff">21.9</span>, <span style="color:#ae81ff">24.9</span>, <span style="color:#ae81ff">13.8</span>, <span style="color:#ae81ff">17.2</span>, <span style="color:#ae81ff">17.6</span>, <span style="color:#ae81ff">19.9</span>, <span style="color:#ae81ff">17.1</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10.7</span>, <span style="color:#ae81ff">22</span>)
+
+<span style="color:#75715e"># Flash Challenge: Assess this data for adherence to the Gaussian assumption</span>
+
+mymu <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">17.0</span> <span style="color:#75715e"># Our mu</span>
+
+<span style="color:#f92672">?</span>t.test <span style="color:#75715e">#notice the mu argument</span>
+<span style="color:#a6e22e">t.test</span>(x <span style="color:#f92672">=</span> earwigs,
+       mu <span style="color:#f92672">=</span> mymu)
+       
+<span style="color:#75715e"># Flash challenge: Make a great graph representing this test       </span>
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">t.test</span>(x <span style="color:#f92672">=</span> earwigs,
+<span style="color:#f92672">+</span>        mu <span style="color:#f92672">=</span> mymu)
+
+	One Sample t<span style="color:#f92672">-</span>test
+
+data<span style="color:#f92672">:</span>  earwigs
+t <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.7845</span>, df <span style="color:#f92672">=</span> <span style="color:#ae81ff">19</span>, p<span style="color:#f92672">-</span>value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.09031</span>
+alternative hypothesis<span style="color:#f92672">:</span> true mean is not equal to <span style="color:#ae81ff">17</span>
+<span style="color:#ae81ff">95</span> percent confidence interval<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">16.72775</span> <span style="color:#ae81ff">20.42225</span>
+sample estimates<span style="color:#f92672">:</span>
+mean of x 
+   <span style="color:#ae81ff">18.575</span> 
+</code></pre></div><p>We found no evidence the mean length of earwigs in our sample was different to the historical mean (1-sample t-test: t = 1.78, df = 19, P-value = 0.09).</p>
+<p> </p>
+<p><strong>2 paired samples</strong></p>
+<p>The example here is a measure of the hormone cortisol (related to stress in mammals) in pregnant cows.  A measure was taken in each individual twice; once as a baseline measure, and once after a treatment of soothing music being played to the cows for 3 hours per day. The prediction is that the mean level of cortisol will decrease relative to baseline after experiencing the music treatment.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Data</span>
+<span style="color:#75715e"># Try this:</span>
+<span style="color:#75715e"># Data</span>
+cort.t0 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.59</span>, <span style="color:#ae81ff">0.68</span>, <span style="color:#ae81ff">0.74</span>, <span style="color:#ae81ff">0.86</span>, <span style="color:#ae81ff">0.54</span>, <span style="color:#ae81ff">0.85</span>, <span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.81</span>, <span style="color:#ae81ff">0.79</span>, <span style="color:#ae81ff">0.76</span>, 
+             <span style="color:#ae81ff">0.49</span>, <span style="color:#ae81ff">0.64</span>, <span style="color:#ae81ff">0.74</span>, <span style="color:#ae81ff">0.51</span>, <span style="color:#ae81ff">0.57</span>, <span style="color:#ae81ff">0.74</span>, <span style="color:#ae81ff">0.77</span>, <span style="color:#ae81ff">0.72</span>, <span style="color:#ae81ff">0.52</span>, <span style="color:#ae81ff">0.49</span>)
+
+cort.t1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1.13</span>, <span style="color:#ae81ff">0.81</span>, <span style="color:#ae81ff">0.77</span>, <span style="color:#ae81ff">0.72</span>, <span style="color:#ae81ff">0.45</span>, <span style="color:#ae81ff">0.9</span>, <span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.98</span>, <span style="color:#ae81ff">0.96</span>, <span style="color:#ae81ff">1.1</span>, 
+             <span style="color:#ae81ff">0.63</span>, <span style="color:#ae81ff">0.91</span>, <span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">0.99</span>, <span style="color:#ae81ff">0.72</span>, <span style="color:#ae81ff">1.11</span>, <span style="color:#ae81ff">1.2</span>, <span style="color:#ae81ff">0.77</span>, <span style="color:#ae81ff">0.91</span>)
+
+<span style="color:#f92672">?</span>t.test <span style="color:#75715e"># NB the &#34;paired&#34; argument</span>
+<span style="color:#a6e22e">t.test</span>(x <span style="color:#f92672">=</span> cort.t0,
+       y <span style="color:#f92672">=</span> cort.t1,
+       paired <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+
+<span style="color:#75715e"># Flash Challenge:</span>
+<span style="color:#75715e"># 1) Make a great graph that represents these data</span>
+<span style="color:#75715e"># 2) do the data conform to the assumptions?</span>
+<span style="color:#75715e"># 3) Was your hypothesis upheld...?</span>
+<span style="color:#75715e"># 4) format and report the results in the technical style!</span>
+</code></pre></div><p> </p>
+<p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">
+	Paired t<span style="color:#f92672">-</span>test
+
+data<span style="color:#f92672">:</span>  cort.t0 and cort.t1
+t <span style="color:#f92672">=</span> <span style="color:#ae81ff">-3.7324</span>, df <span style="color:#f92672">=</span> <span style="color:#ae81ff">19</span>, p<span style="color:#f92672">-</span>value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.001412</span>
+alternative hypothesis<span style="color:#f92672">:</span> true difference in means is not equal to <span style="color:#ae81ff">0</span>
+<span style="color:#ae81ff">95</span> percent confidence interval<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">-0.31605728</span> <span style="color:#ae81ff">-0.08894272</span>
+sample estimates<span style="color:#f92672">:</span>
+mean of the differences 
+                <span style="color:#ae81ff">-0.2025</span> 
+</code></pre></div><p> </p>
+<p><strong>Mann-Whitney U-test</strong></p>
+<p>The Mann-Whitney U-test (wilcox.test() in R, don&rsquo;t ask why&hellip;) is an alternative to the t-test when your data cannot achieve the assumptions for the t-test.  The t-test is robust, especially when sample size is large, or the deviation from assumptions is similar for both samples.  However, when sample size is not very large (e.g. ~30 per sample or less), and there is skew or the samples are dissimilar, the Mann-Whitney U-test is a good choice. Two sample and one sample methods exist.</p>
+<p>The example here is chicken egg count for a control, and a +bonemeal diet.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## **Mann-Whitney U-test** ####</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">dput</span>(diet)
+<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">dput</span>(diet.bone)
+<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)
+
+
+<span style="color:#75715e"># Gaussian assumption</span>
+<span style="color:#a6e22e">library</span>(MASS)
+<span style="color:#a6e22e">hist</span>(diet)
+<span style="color:#a6e22e">hist</span>(diet.bone) <span style="color:#75715e"># Dist not similar to diet</span>
+
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#a6e22e">qqPlot</span>(diet, 
+       main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Not Gaussian&#34;</span>) <span style="color:#75715e"># Divergence</span>
+<span style="color:#a6e22e">qqPlot</span>(diet.bone,
+       main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Diff. to diet?&#34;</span>) 
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))
+
+<span style="color:#f92672">?</span>wilcox.test
+<span style="color:#a6e22e">wilcox.test</span>(x <span style="color:#f92672">=</span> diet, y <span style="color:#f92672">=</span> diet.bone)
+</code></pre></div><p> </p>
+<p><code>R output</code></p>
+<p><img src="/img/2.5-diet.png" alt=""></p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">wilcox.test</span>(x <span style="color:#f92672">=</span> diet, y <span style="color:#f92672">=</span> diet.bone)
+
+	Wilcoxon rank sum test with continuity correction
+
+data<span style="color:#f92672">:</span>  diet and diet.bone
+W <span style="color:#f92672">=</span> <span style="color:#ae81ff">63.5</span>, p<span style="color:#f92672">-</span>value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0374</span>
+alternative hypothesis<span style="color:#f92672">:</span> true location shift is not equal to <span style="color:#ae81ff">0</span>
+
+Warning message<span style="color:#f92672">:</span>
+In <span style="color:#a6e22e">wilcox.test.default</span>(x <span style="color:#f92672">=</span> diet, y <span style="color:#f92672">=</span> diet.bone) <span style="color:#f92672">:</span>
+</code></pre></div><p> </p>
+<blockquote>
+<p>We found evidence of a difference in the number of eggs lain under a control diet and a a diet supplemeted with bone meal (Mann-Whitney U-test: W = 63.5, n = [15, 15], P = 0.037) )</p>
+</blockquote>
 <p> </p>
 <h1 id="anchor-5"></h1>
 <p> </p>
 <p> </p>
 <h3 id="255-practice-exercises">2.5.5 Practice exercises</h3>
-<p>For the following exercises, use the trees dataset, which has Girth, Height and Volume variables for 31 Black Cherry trees.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Examine the data</span>
-<span style="color:#a6e22e">help</span>(trees)
-<span style="color:#a6e22e">data</span>(trees)
-<span style="color:#a6e22e">str</span>(trees)
-</code></pre></div><p> </p>
-<p><strong>1</strong> Show code to calculate the mean Girth of Black Cherry trees with Height less than 75 ft.</p>
+<p>For the following exercises, use the dataset in the file <a href="/data/2.5-Davis.xlsx">2.5-Davis.xlsx</a>.  The dataset is in tidy format; take advantage of this by looking at the terse information present in the data dictionary tab.  The data are a result of a survey of some university students, who were asked to report their height and weight, and then their height and weight were measured.  There will be some data handling as part of the exercises below, and practical and important part of every real data data analysis.</p>
 <p> </p>
-<p><strong>2</strong> Use <code>help(cut)</code> and use the <code>cut()</code> function to create a new factor variable based on the <code>Height</code> numeric variable in the <code>trees</code> dataset. Try setting the <code>break</code>s argument to 2 ro 3.  Rename the levels of your new factor to something meaningful.  Show the code.</p>
+<p><strong>1</strong> Pick the appropriate form of t-test to ask whether male reported and actual height are the same.  Perform the test, make a great graph to illustrate, and report your results in the technical style.  Show all required code.</p>
 <p> </p>
-<p><strong>3</strong> Using the new factor from question 2, use <code>aggregate()</code> to calculate the mean and standard deviation of all three variables in the <code>trees</code> data.  Show your code and report the results to 2 decimal points of accuracy.</p>
+<p><strong>2</strong> Devise a similar test to the one in the previous question using the weight variables in females.  Formally state your hypothesis, perform the test, make a great graph to illustrate, and report your results in the technical style.  Show all required code.</p>
 <p> </p>
-<p><strong>4</strong> Show the code using which() and boolean phrases as appropriate to find the rows in the <code>trees</code> dataset where Girth is higher than 11 and Height is lower than 75.</p>
+<p><strong>3</strong> Calculate the difference between reported height and reported weight for all study subjects and place the result in a new numeric vector.  Use a t-test to discover whether the degree of discrepancy between reported height differs between males and females. Report your results in the technical style.  Show all required code.</p>
 <p> </p>
-<p><strong>5</strong> Run the following code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">data_1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(volume <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#66d9ef">NA</span>,<span style="color:#ae81ff">10</span>),
-           population <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,
-           <span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>))
-</code></pre></div><p>Use <code>aggregate()</code> to calculate the mean of volume for each population (hint: you may need to use help for the functions involved and pay close attention to your data frame&hellip;).</p>
+<p><strong>4</strong> Devise a way to examine the question whether taller people tend to self report height similarly to taller people.  Discuss your approach and present any evidence, graphical or otherwise, to resolve your question.</p>
 <p> </p>
-<p><strong>6</strong> Write a plausible practice question involving any aspect of using <code>which()</code>, boolean phrases and/or <code>aggregate()</code> involving the in-built R dataset <code>iris</code>.</p>
+<p><strong>5</strong> The in this dataset were students at the University of California Davis in the Psychology Department.  The average height of adult men in California has been estimated as 176.5 cm.  Test whether males in our dataset is different.  State your conclusion and results and briefly discuss an explanation for the pattern (i.e., the difference or lack of difference) that you observe.  Comment on sampling assumptions when you do so.</p>
+<p> </p>
+<p><strong>6</strong> Write a plausible practice question involving any aspect of data handling, graphing or analysis for the t-test framework to ask a novel question for the Davis student height data.</p>
 <p> </p>
 </div>
 

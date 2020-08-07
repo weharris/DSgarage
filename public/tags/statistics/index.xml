@@ -72,8 +72,8 @@ SCRIPT 2.4 Use this to follow along on this page and for the Practice exercises 
       <description>T-test (and related questions and tools)  VIDEO 2.5
 SCRIPT 2.5 Use this to follow along on this page and for the Practice exercises below.
  Overview
- A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description. Likewise, it may contain wonderful knowledge, there to discover. Either way, your first task is to weigh the pig.
- The very first task for any data analysis is to gain an understanding of the data itself.</description>
+ The t-test and t-distribution are widely considered to be at the very foundation of modern statistic science and they form an important foundation for the practice of statistics. Who would believe they were invented to make great beer better?
+ William Sealy Gosset is credited with inventing and applying the idea of the t-test to assist in scientific quality control while working for the Guiness brewery.</description>
     </item>
     
     <item>
