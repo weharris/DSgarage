@@ -145,9 +145,9 @@
 <p> </p>
 <p><strong>Overview</strong></p>
 <blockquote>
-<p>Text</p>
+<p>The analysis of variance is not a mathematical theorem, but rather a convenient method of arranging the arithmetic. R. A. Fisher (via Wishart 1934. Sppl. J. Roy. Soc. 1(1):26-61.)</p>
 </blockquote>
-<p>Text</p>
+<p>Perhaps more so than any other tool, the Analysis of Variance (ANOVA) literally revolutionized the idea of objectivity in using data to produce evidence to support claims. Invented by the famous statistician and biologist R. A Fisher while working at Rothamsted Research, the intention was to be a useful tool to analyze agriculture experiments.  Today, despite many innovations and competing approaches, it is remains at the foundation of the basic practice of statistics.</p>
 <p> </p>
 <p><strong>Contents</strong></p>
 <p><a href="#anchor-1">2.6.1 The question of 1-way ANOVA</a></p>
@@ -159,47 +159,566 @@
 <p> </p>
 <p> </p>
 <h3 id="261-the-question-of-1-way-anova">2.6.1 The question of 1-way ANOVA</h3>
+<p>There are several reasons to use a &ldquo;1-way ANOVA&rdquo; experimental design.  The scenario usually involves <strong>one numeric continuous dependent variable</strong> of interest, and <strong>a factor that contains 2 or more levels</strong>, often with a control (when there are just 2 levels, the 1-ANOVA is essentially equivalent to the t-test).  An example might be something like a classic field trial, where crop pest damage is measured (the numeric continuous dependent variable) and the factor compares pest treatment with 3 levels: a control level (no pesticide), an organic pesticide, and a chemical pesticide. The basic question is whether there is an overall difference in the numeric dependent variable amongst the factor levels, however several kinds of questions are also possible to answer:</p>
+<ul>
+<li>
+<p><strong>overall difference</strong> test of means between the factors</p>
+</li>
+<li>
+<p>Comparison of difference of each factor level with the control (so-called &ldquo;contrasts&rdquo; with the control or other reference factor level in linear models)</p>
+</li>
+<li>
+<p><em><strong>post hoc</strong></em> tests of difference between specific factor levels, e.g. pairwise tests for a factor with levels A, B, and C might test all possible comparisons A:B, A:C, and B:C.</p>
+</li>
+<li>
+<p>Examination of the <strong>&ldquo;sources of variation&rdquo;</strong> observed in the dependent variable, e.g. what proportion of total variation can be accounted for by the factor</p>
+</li>
+</ul>
 <p> </p>
-<h1 id="anchor-3"></h1>
+<p>The test statistic for ANOVA is the <strong>F ratio</strong>, which is proportion of variance in the dependent variable between the groups, relative to that within the categories.  We will (very briefly) look at this calculation with the aim of gaining a practical understanding of what is going.</p>
+<p> </p>
+<h1 id="anchor-2"></h1>
 <p> </p>
 <p> </p>
 <h3 id="262-data-and-assumptions">2.6.2 Data and assumptions</h3>
+<p>The data we will look at is an experiment in animal genetics, looking at the weight of male chickens (8-week old weight in grams), where weight is the continuous dependent variable.  The factor is the sire identity, where the measure young male chicks were sired by one of 5 sires, thus sire is a factor with 5 levels A, B, C, D, and E.</p>
 <p> </p>
+<p><strong>Wide format</strong></p>
+<p>Here, the numeric data are stored in five vectors, each corresponding to one factor level. One row does not correspond to a single &ldquo;case&rdquo; because each column contains measures from different individual offspring.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+<span style="color:#75715e"># Data in &#34;wide format&#34; </span>
+A <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">687</span>, <span style="color:#ae81ff">691</span>, <span style="color:#ae81ff">793</span>, <span style="color:#ae81ff">675</span>, <span style="color:#ae81ff">700</span>, <span style="color:#ae81ff">753</span>, <span style="color:#ae81ff">704</span>, <span style="color:#ae81ff">717</span>)
+B <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">618</span>, <span style="color:#ae81ff">680</span>, <span style="color:#ae81ff">592</span>, <span style="color:#ae81ff">683</span>, <span style="color:#ae81ff">631</span>, <span style="color:#ae81ff">691</span>, <span style="color:#ae81ff">694</span>, <span style="color:#ae81ff">732</span>)
+C <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">618</span>, <span style="color:#ae81ff">687</span>, <span style="color:#ae81ff">763</span>, <span style="color:#ae81ff">747</span>, <span style="color:#ae81ff">687</span>, <span style="color:#ae81ff">737</span>, <span style="color:#ae81ff">731</span>, <span style="color:#ae81ff">603</span>)
+D <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">657</span>, <span style="color:#ae81ff">669</span>, <span style="color:#ae81ff">606</span>, <span style="color:#ae81ff">718</span>, <span style="color:#ae81ff">693</span>, <span style="color:#ae81ff">669</span>, <span style="color:#ae81ff">648</span>)
+E <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">717</span>, <span style="color:#ae81ff">658</span>, <span style="color:#ae81ff">674</span>, <span style="color:#ae81ff">611</span>, <span style="color:#ae81ff">678</span>, <span style="color:#ae81ff">788</span>, <span style="color:#ae81ff">650</span>, <span style="color:#ae81ff">690</span>)
+
+<span style="color:#a6e22e">head</span>(chicken.wide <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(A, B, C, D, E))
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">head</span>(chicken.wide <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(A, B, C, D, E))
+    A   B   C   D   E
+<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">687</span> <span style="color:#ae81ff">618</span> <span style="color:#ae81ff">618</span> <span style="color:#ae81ff">600</span> <span style="color:#ae81ff">717</span>
+<span style="color:#ae81ff">2</span> <span style="color:#ae81ff">691</span> <span style="color:#ae81ff">680</span> <span style="color:#ae81ff">687</span> <span style="color:#ae81ff">657</span> <span style="color:#ae81ff">658</span>
+<span style="color:#ae81ff">3</span> <span style="color:#ae81ff">793</span> <span style="color:#ae81ff">592</span> <span style="color:#ae81ff">763</span> <span style="color:#ae81ff">669</span> <span style="color:#ae81ff">674</span>
+<span style="color:#ae81ff">4</span> <span style="color:#ae81ff">675</span> <span style="color:#ae81ff">683</span> <span style="color:#ae81ff">747</span> <span style="color:#ae81ff">606</span> <span style="color:#ae81ff">611</span>
+<span style="color:#ae81ff">5</span> <span style="color:#ae81ff">700</span> <span style="color:#ae81ff">631</span> <span style="color:#ae81ff">687</span> <span style="color:#ae81ff">718</span> <span style="color:#ae81ff">678</span>
+<span style="color:#ae81ff">6</span> <span style="color:#ae81ff">753</span> <span style="color:#ae81ff">691</span> <span style="color:#ae81ff">737</span> <span style="color:#ae81ff">693</span> <span style="color:#ae81ff">788</span>
+</code></pre></div><p> </p>
+<p><strong>Long format</strong> (preferred)</p>
+<p>Here, the numeric data is stored in a single vector, with a factor vector for the sire data.  Each row corresponds to a single, independent &ldquo;case&rdquo;.  This format is preferred and adheres to the &ldquo;Tidy Data&rdquo; standard, although it is easy to move between wide and long formats.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this</span>
+<span style="color:#75715e"># Data in &#34;wide format&#34;  ####</span>
+A <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">687</span>, <span style="color:#ae81ff">691</span>, <span style="color:#ae81ff">793</span>, <span style="color:#ae81ff">675</span>, <span style="color:#ae81ff">700</span>, <span style="color:#ae81ff">753</span>, <span style="color:#ae81ff">704</span>, <span style="color:#ae81ff">717</span>)
+B <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">618</span>, <span style="color:#ae81ff">680</span>, <span style="color:#ae81ff">592</span>, <span style="color:#ae81ff">683</span>, <span style="color:#ae81ff">631</span>, <span style="color:#ae81ff">691</span>, <span style="color:#ae81ff">694</span>, <span style="color:#ae81ff">732</span>)
+C <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">618</span>, <span style="color:#ae81ff">687</span>, <span style="color:#ae81ff">763</span>, <span style="color:#ae81ff">747</span>, <span style="color:#ae81ff">687</span>, <span style="color:#ae81ff">737</span>, <span style="color:#ae81ff">731</span>, <span style="color:#ae81ff">603</span>)
+D <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">657</span>, <span style="color:#ae81ff">669</span>, <span style="color:#ae81ff">606</span>, <span style="color:#ae81ff">718</span>, <span style="color:#ae81ff">693</span>, <span style="color:#ae81ff">669</span>, <span style="color:#ae81ff">648</span>)
+E <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">717</span>, <span style="color:#ae81ff">658</span>, <span style="color:#ae81ff">674</span>, <span style="color:#ae81ff">611</span>, <span style="color:#ae81ff">678</span>, <span style="color:#ae81ff">788</span>, <span style="color:#ae81ff">650</span>, <span style="color:#ae81ff">690</span>)
+
+<span style="color:#a6e22e">head</span>(chicken.wide <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(A, B, C, D, E))
+
+<span style="color:#75715e"># Data in &#34;long format&#34;  ####</span>
+<span style="color:#75715e"># The hard way</span>
+weight <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(A,B,C,D,E)
+
+sire <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#ae81ff">8</span>),
+          <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#ae81ff">8</span>),
+          <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#ae81ff">8</span>),
+          <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;D&#34;</span>, <span style="color:#ae81ff">8</span>),
+          <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;E&#34;</span>, <span style="color:#ae81ff">8</span>) )
+
+<span style="color:#a6e22e">head</span>(<span style="color:#a6e22e">data.frame</span>(weight, sire))
+<span style="color:#a6e22e">tail</span>(<span style="color:#a6e22e">data.frame</span>(weight, sire))
+
+<span style="color:#75715e"># The &#34;programm-ey&#34; way</span>
+weight1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(A,B,C,D,E)
+
+sire1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">vector</span>(mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;character&#34;</span>, length <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>)
+<span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>) { sire1<span style="color:#a6e22e">[</span>(<span style="color:#ae81ff">8</span><span style="color:#f92672">*</span>i<span style="color:#ae81ff">-8</span>)<span style="color:#f92672">+</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">8</span>)] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#66d9ef">LETTERS</span>[i], <span style="color:#ae81ff">8</span>) }
+
+<span style="color:#a6e22e">head</span>(<span style="color:#a6e22e">data.frame</span>(weight1, sire1))
+<span style="color:#a6e22e">tail</span>(<span style="color:#a6e22e">data.frame</span>(weight1, sire1))
+
+<span style="color:#75715e"># With function from {tidyr}</span>
+<span style="color:#a6e22e">head</span>(chicken.wide) <span style="color:#75715e"># From above</span>
+
+<span style="color:#a6e22e">library</span>(reshape2) <span style="color:#75715e"># For melt()</span>
+<span style="color:#f92672">?</span>melt
+new.long <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">melt</span>(chicken.wide)
+
+<span style="color:#a6e22e">head</span>(new.long) <span style="color:#75715e"># Not bad but note the variable names</span>
+
+<span style="color:#75715e"># Flash challenge: change the variable names in new.long</span>
+
+<span style="color:#75715e"># NB, you should probably just use long format for your data in the first place!</span>
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">head</span>(new.long) <span style="color:#75715e"># Not bad but note the variable names</span>
+  variable value
+<span style="color:#ae81ff">1</span>        A   <span style="color:#ae81ff">687</span>
+<span style="color:#ae81ff">2</span>        A   <span style="color:#ae81ff">691</span>
+<span style="color:#ae81ff">3</span>        A   <span style="color:#ae81ff">793</span>
+<span style="color:#ae81ff">4</span>        A   <span style="color:#ae81ff">675</span>
+<span style="color:#ae81ff">5</span>        A   <span style="color:#ae81ff">700</span>
+<span style="color:#ae81ff">6</span>        A   <span style="color:#ae81ff">753</span>
+</code></pre></div><p> </p>
+<p><strong>Assumptions</strong></p>
+<p>The assumptions of ANOVA are similar to those of regression (indeed, both are a specific kind of Linear Model and share the assumptions of the Gaussian Linear Model).  The most important to consider now are:</p>
+<ul>
+<li>
+<p>Gaussian residuals (we test graphically and with NHST for Gaussian residual ditribution)</p>
+</li>
+<li>
+<p>Homoscedasticity (we test graphically with a residuals versus fitted values plot)</p>
+</li>
+<li>
+<p>Equality of variance (plot of residual versus factor and NHST for == variance)</p>
+</li>
+<li>
+<p>Independent observations (we assume this for now with the chicken data, but will not test is formally)</p>
+</li>
+</ul>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## **Assumptions** ####</span>
+
+<span style="color:#75715e">## - Gaussian residuals ####</span>
+<span style="color:#75715e"># Make the model object with aov()</span>
+<span style="color:#f92672">?</span>aov
+m1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aov</span>(formula <span style="color:#f92672">=</span> Weight <span style="color:#f92672">~</span> Sire, 
+         data <span style="color:#f92672">=</span> new.long)
+
+<span style="color:#75715e"># Graph to examine Gaussian assumption of residuals</span>
+<span style="color:#75715e"># NB we use rstandard()</span>
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#a6e22e">hist</span>(<span style="color:#a6e22e">rstandard</span>(m1),
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gaussian?&#34;</span>)
+
+<span style="color:#75715e"># Look at residuals with qqPlot()</span>
+<span style="color:#a6e22e">library</span>(MASS) <span style="color:#75715e"># For qqPlot()</span>
+<span style="color:#a6e22e">qqPlot</span>(x <span style="color:#f92672">=</span> m1,
+       main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gaussian?&#34;</span>)
+<span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))
+</code></pre></div><p><img src="/img/2.6-resid.png" alt=""></p>
+<p> </p>
+<p>At a glance, there are no serious issues with the assumption of Gaussian residual distribution.  We can use NHST to help us decide; we will try the <code>shapiro.test()</code>.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">shapiro.test</span>(<span style="color:#a6e22e">rstandard</span>(m1))
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">shapiro.test</span>(<span style="color:#a6e22e">rstandard</span>(m1))
+
+	Shapiro<span style="color:#f92672">-</span>Wilk normality test
+
+data<span style="color:#f92672">:</span>  <span style="color:#a6e22e">rstandard</span>(m1)
+W <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.99182</span>, p<span style="color:#f92672">-</span>value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.9913</span>
+</code></pre></div><p> </p>
+<blockquote>
+<p>There is no evidence of difference to Gaussian in our residuals for our ANOVA model (Shapiro-Wilk: W = 0.99, n = 40, P = 0.99).</p>
+</blockquote>
+<p> </p>
+<p><strong>Homoscedasticity check</strong></p>
+<p>We will look at the residuals relative to the fitted values.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Plot for homoscedasticity check</span>
+<span style="color:#a6e22e">plot</span>(formula <span style="color:#f92672">=</span> <span style="color:#a6e22e">rstandard</span>(m1) <span style="color:#f92672">~</span> <span style="color:#a6e22e">fitted</span>(m1),
+     ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;m1: residuals&#34;</span>,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;m1: fitted values&#34;</span>,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Spread similar across x?&#34;</span>)
+<span style="color:#a6e22e">abline</span>(h <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+       lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>)
+
+<span style="color:#75715e"># Make the mean residual y points</span>
+y1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(<span style="color:#a6e22e">rstandard</span>(m1), by <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(new.long<span style="color:#f92672">$</span>Sire), FUN <span style="color:#f92672">=</span> mean)[,<span style="color:#ae81ff">2</span>]
+<span style="color:#75715e"># Make the x unique fitted values</span>
+x1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">unique</span>(<span style="color:#a6e22e">round</span>(<span style="color:#a6e22e">fitted</span>(m1), <span style="color:#ae81ff">6</span>))
+
+<span style="color:#a6e22e">points</span>(x <span style="color:#f92672">=</span> x1, y <span style="color:#f92672">=</span> y1, 
+       pch <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>, cex <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.2</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>)
+</code></pre></div><p><img src="/img/2.6-homosc.png" alt=""></p>
+<p> </p>
+<p>Finally, we can use NHST just to have a final check of whether the variance in weight is equal between factor levels.  There are several ways to do this; we will use the Bartlett test using <code>bartlett.test()</code>, which compares the variance for more than 2 groups.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># NHST to examine  assumption of homoscedasticity</span>
+<span style="color:#75715e"># (homoscedasticiyy good, heteroscedasticity bad)</span>
+
+<span style="color:#a6e22e">bartlett.test</span>(formula <span style="color:#f92672">=</span> weight<span style="color:#f92672">~</span>sire, data <span style="color:#f92672">=</span> new.long)
+
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">bartlett.test</span>(formula <span style="color:#f92672">=</span> weight<span style="color:#f92672">~</span>sire, data <span style="color:#f92672">=</span> new.long)
+
+	Bartlett test of homogeneity of variances
+
+data<span style="color:#f92672">:</span>  weight by sire
+Bartlett K<span style="color:#f92672">-</span>squared <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.6868</span>, df <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>, p<span style="color:#f92672">-</span>value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7931</span>
+</code></pre></div><p> </p>
+<blockquote>
+<p>We find no evidence that variance in offspring weight differs between sires (Bartlett test: K-sqared = 1.69, df = 4, P = 0.79).</p>
+</blockquote>
 <h1 id="anchor-3"></h1>
 <p> </p>
 <p> </p>
 <h3 id="263-graphing">2.6.3 Graphing</h3>
+<p>The classic way to visualize the 1-way ANOVA is with boxplot or similar, with some way to show the central tendency of the data separately for each factor level.  For continuous variables, boxplots show this perfectly.  For count variables, barplots are sometimes used with the height set to the mean, along with some form of error bar.  Here we will use a boxplot.</p>
 <p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## basic boxplot ####</span>
+
+<span style="color:#75715e"># It always pays to make a nice plot</span>
+
+<span style="color:#75715e"># If you neglected the Flash Challenge above</span>
+<span style="color:#a6e22e">names</span>(new.long) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Sire&#34;</span>, <span style="color:#e6db74">&#34;Weight&#34;</span>)
+
+<span style="color:#75715e"># Do you think sire affects offspring weight?</span>
+<span style="color:#a6e22e">boxplot</span>(weight <span style="color:#f92672">~</span> sire, data <span style="color:#f92672">=</span> new.long, 
+        main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Is this plot good enough?&#34;</span>) 
+</code></pre></div><p><img src="/img/2.6-boxbad.png" alt=""></p>
+<p> </p>
+<p>So, it looks like sire identity <em>could</em> have an effect on mean male offspring weight.  But, is this graph good enough?  Can we make it better?  Let&rsquo;s critique it:</p>
+<ul>
+<li>
+<p>(important) The y axis does not indicate the unit of measurement</p>
+</li>
+<li>
+<p>(important) Neither axis title is capitalized</p>
+</li>
+<li>
+<p>(optional) Adding on the points might add interesting detail</p>
+</li>
+<li>
+<p>(optional) Reference line for control (we do not really have a control here) or of the &ldquo;grand mean&rdquo; might be useful</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Make a better graph</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## **Make a better graph** ####</span>
+
+<span style="color:#a6e22e">boxplot</span>(weight <span style="color:#f92672">~</span> sire, data <span style="color:#f92672">=</span> new.long,
+        ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Weight (g)&#34;</span>,
+        xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Sire&#34;</span>,
+        main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Effect of Sire on 8-wk weight&#34;</span>,
+        cex <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># Get rid of the outlier dot (we will draw it back)</span>
+
+<span style="color:#75715e"># Make horizontal line for grand mean</span>
+<span style="color:#a6e22e">abline</span>(h <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(new.long<span style="color:#f92672">$</span>Weight), 
+       lty <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>) <span style="color:#75715e"># Mere vanity</span>
+
+<span style="color:#75715e"># Draw on raw data</span>
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">42</span>)
+<span style="color:#a6e22e">points</span>(x <span style="color:#f92672">=</span> <span style="color:#a6e22e">jitter</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span>, each <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>), amount <span style="color:#f92672">=</span> <span style="color:#ae81ff">.1</span>),
+       y <span style="color:#f92672">=</span> new.long<span style="color:#f92672">$</span>Weight,
+       pch <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>, cex <span style="color:#f92672">=</span> <span style="color:#ae81ff">.8</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>) <span style="color:#75715e"># Mere vanity</span>
+</code></pre></div><p><img src="/img/2.6-boxbetter.png" alt=""></p>
 <h1 id="anchor-4"></h1>
 <p> </p>
 <p> </p>
 <h3 id="264-test-and-alternatives">2.6.4 Test and alternatives</h3>
+<p>The basic application of ANOVA in R is the <code>aov()</code> function.  There are actually a lot of alternative ways to perform the exact same test in R.  To micro-digress, ANOVA is a subset of the Gaussian linear model; the Gaussian linear model is a subset of the General Linear Model; and the General Linear Model is a subset of the GeneralIZED Linear Model.  For now we will forget all of that and go with <code>aov()</code>.</p>
 <p> </p>
-<h1 id="anchor-5"></h1>
+<p><strong>perform the ANOVA</strong></p>
+<p>We have a few things to do here:</p>
+<ul>
+<li>
+<p>Perform 1-way ANOVA and look at the basic output for the <strong>overall effect of sire</strong></p>
+</li>
+<li>
+<p>Look at how to produce <strong>contrasts</strong> (differences between the control or a reference factor level, and each of the others) and <strong>Post hoc</strong> testing (e.g. all pairwise comparisons between factor levels)</p>
+</li>
+<li>
+<p>Examine what happens in the ANOVA in a little more detail</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>1-way ANOVA</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Perform 1-way ANOVA ####</span>
+<span style="color:#75715e"># Try this</span>
+
+<span style="color:#75715e"># NB if the factor is a character, it &#34;should&#34; be coerced to a factor</span>
+<span style="color:#75715e"># by R, &#34;the passive aggressive butler&#34;</span>
+<span style="color:#75715e"># If in doubt, explicitly make the vector class == factor()</span>
+m1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aov</span>(formula <span style="color:#f92672">=</span> weight <span style="color:#f92672">~</span> <span style="color:#a6e22e">factor</span>(sire), 
+          data <span style="color:#f92672">=</span> new.long)
+
+<span style="color:#a6e22e">summary</span>(m1)
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">summary</span>(m1)
+             Df Sum Sq Mean Sq F value <span style="color:#a6e22e">Pr</span>(<span style="color:#f92672">&gt;</span>F)
+<span style="color:#a6e22e">factor</span>(sire)  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">17426</span>    <span style="color:#ae81ff">4356</span>   <span style="color:#ae81ff">1.872</span>  <span style="color:#ae81ff">0.137</span>
+Residuals    <span style="color:#ae81ff">35</span>  <span style="color:#ae81ff">81442</span>    <span style="color:#ae81ff">2327</span> 
+</code></pre></div><p> </p>
+<p>The output is formatted in a classic &ldquo;ANOVA Table&rdquo; style.  There are 2 rows - one for the &ldquo;main effect&rdquo; of the sire factor, one for the residual error.  The test statistic is the F value (1.87), the P-value column is named &ldquo;Pr(&gt;F)&rdquo; (0.14), and there are 2 degrees of freedom for this test (the factor degrees of freedom is the number of factor levels minus 1 = 5 - 1 = 4; the residual degrees of freedom is the total number of observations minus the number of factor levels = 40 - 5 = 35).</p>
+<p>Here we can see that the overall effect of sire does not significantly explain variation in weight (1-way ANOVA: F = 1.87, df = 4,35, P = 0.14).</p>
+<p> </p>
+<p><strong>Contrasts and <em>post hoc</em> test</strong></p>
+<p>An alternative to the ANOVA table format, and possibly different to the question of an overall mean effect of the factor, is the approach for a regular linear model looking at differences for each factor level relative to a reference factor level like a control.  For our experiment, let&rsquo;s say that sire C is our reference level sire, against which we would like to statistically compare offspring weight for other sires.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Use lm() and summary() to generate contrasts</span>
+<span style="color:#75715e"># Use relevel() to set sire C to the reference factor level</span>
+new.long<span style="color:#f92672">$</span>Sire <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">relevel</span>(new.long<span style="color:#f92672">$</span>Sire, ref<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C&#34;</span>)
+m2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(formula <span style="color:#f92672">=</span> Weight <span style="color:#f92672">~</span> Sire, 
+         data <span style="color:#f92672">=</span> new.long)
+<span style="color:#a6e22e">summary</span>(m2)
+<span style="color:#a6e22e">plot</span>(Weight <span style="color:#f92672">~</span> Sire, 
+     data <span style="color:#f92672">=</span> new.long)
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> m2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(formula <span style="color:#f92672">=</span> Weight <span style="color:#f92672">~</span> Sire, 
+<span style="color:#f92672">+</span>          data <span style="color:#f92672">=</span> new.long)
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">summary</span>(m2)
+
+Call<span style="color:#f92672">:</span>
+<span style="color:#a6e22e">lm</span>(formula <span style="color:#f92672">=</span> Weight <span style="color:#f92672">~</span> Sire, data <span style="color:#f92672">=</span> new.long)
+
+Residuals<span style="color:#f92672">:</span>
+    Min      <span style="color:#ae81ff">1</span>Q  Median      <span style="color:#ae81ff">3</span>Q     Max 
+<span style="color:#ae81ff">-93.625</span> <span style="color:#ae81ff">-29.312</span>  <span style="color:#ae81ff">-2.875</span>  <span style="color:#ae81ff">33.906</span> <span style="color:#ae81ff">104.750</span> 
+
+Coefficients<span style="color:#f92672">:</span>
+            Estimate Std. Error t value <span style="color:#a6e22e">Pr</span>(<span style="color:#f92672">&gt;|</span>t<span style="color:#f92672">|</span>)    
+(Intercept)   <span style="color:#ae81ff">696.63</span>      <span style="color:#ae81ff">17.05</span>  <span style="color:#ae81ff">40.846</span>   <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2e-16</span> <span style="color:#f92672">***</span>
+SireA          <span style="color:#ae81ff">18.38</span>      <span style="color:#ae81ff">24.12</span>   <span style="color:#ae81ff">0.762</span>    <span style="color:#ae81ff">0.451</span>    
+SireB         <span style="color:#ae81ff">-31.50</span>      <span style="color:#ae81ff">24.12</span>  <span style="color:#ae81ff">-1.306</span>    <span style="color:#ae81ff">0.200</span>    
+SireD         <span style="color:#ae81ff">-39.13</span>      <span style="color:#ae81ff">24.12</span>  <span style="color:#ae81ff">-1.622</span>    <span style="color:#ae81ff">0.114</span>    
+SireE         <span style="color:#ae81ff">-13.38</span>      <span style="color:#ae81ff">24.12</span>  <span style="color:#ae81ff">-0.555</span>    <span style="color:#ae81ff">0.583</span>    
+<span style="color:#f92672">---</span>
+Signif. codes<span style="color:#f92672">:</span>  <span style="color:#ae81ff">0</span> ‘<span style="color:#f92672">***</span>’ <span style="color:#ae81ff">0.001</span> ‘<span style="color:#f92672">**</span>’ <span style="color:#ae81ff">0.01</span> ‘<span style="color:#f92672">*</span>’ <span style="color:#ae81ff">0.05</span> ‘.’ <span style="color:#ae81ff">0.1</span> ‘ ’ <span style="color:#ae81ff">1</span>
+
+Residual standard error<span style="color:#f92672">:</span> <span style="color:#ae81ff">48.24</span> on <span style="color:#ae81ff">35</span> degrees of freedom
+Multiple R<span style="color:#f92672">-</span>squared<span style="color:#f92672">:</span>  <span style="color:#ae81ff">0.1763</span>,	Adjusted R<span style="color:#f92672">-</span>squared<span style="color:#f92672">:</span>  <span style="color:#ae81ff">0.08211</span> 
+F<span style="color:#f92672">-</span>statistic<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.872</span> on <span style="color:#ae81ff">4</span> and <span style="color:#ae81ff">35</span> DF,  p<span style="color:#f92672">-</span>value<span style="color:#f92672">:</span> <span style="color:#ae81ff">0.1373</span>
+</code></pre></div><p> </p>
+<p>Notice how the output format has changed.  This is because the summary function (and lots of functions in fact) &ldquo;behave differently&rdquo; in response to the specific class() of object we pass to it (here an &ldquo;lm&rdquo; object; before an &ldquo;aov&rdquo; object).  One big difference we see is the table of contrasts. Now, there is are 5 rows: one for the intercept coeeficient (testing whether the &ldquo;grand mean&rdquo; of Weight is different to zero - NB this not at all interesting for us), and for rows comparing each factor level to the reference mean for sire &ldquo;C&rdquo;.  Here, the Estimate column is an estimate of the AMOUNT of difference in weight relative to the reference mean weight for that sire.  E.g., sire B ofspring weight is estimated at -31.5 grams (the negative indicate less than) compared to offspring weight for sire C.  However, this observed sample difference is not statistically significant (P = 0.20).</p>
+<p>Notice the overall F value and p-value for the 1-way are also present at the bottom of the output, which is exactly the same as that produced by the <code>aov()</code> function.</p>
+<p> </p>
+<p>We can make a new boxplot based on our levelled sire variable and notice how it automatically moves sire C to the leftmost &ldquo;reference position&rdquo;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(Weight <span style="color:#f92672">~</span> Sire, 
+     data <span style="color:#f92672">=</span> new.long,
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Sire C as reference&#34;</span>)
+</code></pre></div><p><code>R output</code></p>
+<p><img src="/img/2.6-sire-c.png" alt=""></p>
+<p><strong>Some <em>Post hoc</em> tests</strong></p>
+<blockquote>
+<p>The collection and analysis of data should be driven by the question. We should always be careful to make the distinction between data analysis that <strong>SHOULD be done</strong> versus that which merely <strong>CAN be done</strong>.  The former is driven by prediction and motivated by evidence, expectation and the design of data collection.  The latter is often a waste of time, or worse, a &ldquo;fishing expedition&rdquo; in crass pursuit of a P-value, any P-value, &lt; 0.05 .</p>
+</blockquote>
+<p> </p>
+<p><img src="https://imgs.xkcd.com/comics/significant.png" alt=""></p>
+<p> </p>
+<p><em>Post hoc</em> tests are often interesting in research, and the 1-way ANOVA is a good example, where an overall question of &ldquo;is there a difference?&rdquo; can be enhanced by asking whther there are particular or specific differences, say between pairs of means.  The phrase <em>post hoc</em> implies that the sometimes these questions can be an afterthought.  Thus, consideration should be given as to whether these specific questions NEED to be asked.</p>
+<p> </p>
+<p><strong>Type I errors</strong></p>
+<p>The alpha value, the value to whioch we compare our P-value, can be interpreted as the (maximum) probability we are willing to accept of being wrong if we conclude there is significance in our data.  Traditionally, this alpha value is accepted to be 0.05, or a 5% chance of making a false positive error.  When multiple tests are made on the same data, it increases the chance of discovering a false positive, by chance alone, to above 5%.  Thus, there are methods that are used to avoid doing this, by adjusting the P-value to keep the overall liklihood of false positive error at 5%.</p>
+<p>The <strong>Bonferroni adjustment</strong> <a href="https://www.bmj.com/content/310/6973/170.short">see Bland and Altman 1995</a> is a baseline, conservative adjustment to the alpha value to avoid false positive errors.  This might be typically applied to a 1-way ANOVA situation where specific, pairwise comparisons between means are required that are not covered by the overall test, or by the contrasts.  E.g. in our chicken data, we know there is not a difference in offspring weight between sire C and all other sire offsring weights: C:A, C:B, C:D, C:E, but what if we really wanted to test the others?  We could use the <strong>Bonferroni adjustment</strong> as implemented in the <code>pairwise.t.test()</code> function.</p>
+<p>The <strong>Bonferroni adjustment</strong> simply divides the alpha expected value by the number of <em>post hoc</em> pairwise comparisons.  NB the Bonferroni adjustment is conservative, and there are alternatives.  The point here is just to illustrate how these tests function and, like with many things, more study will be required to round out foundational knowledge for <em>post hoc</em> testing precedures.  The Bonferroni test is nice to know about and understand because it is easy to use, and manually calculate, and can be applied to any situation.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+
+<span style="color:#75715e">## Bonferroni ####</span>
+
+<span style="color:#f92672">?</span>pairwise.t.test
+
+<span style="color:#75715e"># there are a few p.adjust.methods</span>
+<span style="color:#75715e"># c(&#34;holm&#34;, &#34;hochberg&#34;, &#34;hommel&#34;, &#34;bonferroni&#34;, &#34;BH&#34;, &#34;BY&#34;,</span>
+<span style="color:#75715e">#   &#34;fdr&#34;, &#34;none&#34;)</span>
+<span style="color:#75715e"># we will use &#34;bonferroni&#34;</span>
+<span style="color:#a6e22e">pairwise.t.test</span>(x <span style="color:#f92672">=</span> new.long<span style="color:#f92672">$</span>Weight, 
+                g <span style="color:#f92672">=</span> new.long<span style="color:#f92672">$</span>Sire,
+                p.adjust.method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bonferroni&#34;</span>)
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">pairwise.t.test</span>(x <span style="color:#f92672">=</span> new.long<span style="color:#f92672">$</span>Weight, 
+<span style="color:#f92672">+</span>                 g <span style="color:#f92672">=</span> new.long<span style="color:#f92672">$</span>Sire,
+<span style="color:#f92672">+</span>                 p.adjust.method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bonferroni&#34;</span>)
+
+	Pairwise comparisons using t tests with pooled SD 
+
+data<span style="color:#f92672">:</span>  new.long<span style="color:#f92672">$</span>Weight and new.long<span style="color:#f92672">$</span>Sire 
+
+  C    A    B    D   
+A <span style="color:#ae81ff">1.00</span> <span style="color:#f92672">-</span>    <span style="color:#f92672">-</span>    <span style="color:#f92672">-</span>   
+B <span style="color:#ae81ff">1.00</span> <span style="color:#ae81ff">0.46</span> <span style="color:#f92672">-</span>    <span style="color:#f92672">-</span>   
+D <span style="color:#ae81ff">1.00</span> <span style="color:#ae81ff">0.23</span> <span style="color:#ae81ff">1.00</span> <span style="color:#f92672">-</span>   
+E <span style="color:#ae81ff">1.00</span> <span style="color:#ae81ff">1.00</span> <span style="color:#ae81ff">1.00</span> <span style="color:#ae81ff">1.00</span>
+
+P value adjustment method<span style="color:#f92672">:</span> bonferroni 
+</code></pre></div><p> </p>
+<p>NB the output here is a matrix of (Bonferroni adjusted!) p-values for each possible pairwise comparison (none are significant, i.e., less than 0.05). It is also possible to simply calculate uncorrected p-values and compare them to Bonferroni adjust alpha values, as described above!</p>
+<p> </p>
+<p><strong>Tukey Honestly Significant Differences</strong></p>
+<p>The Tukey Honestly Significant Difference test is ideal for 1-way ANOVA, and is less conservative than the Bonferroni adjustment.  We use the <code>Tukey.HSD()</code> function to apply it here.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Tukey Honestly Significant Differences ####</span>
+<span style="color:#f92672">?</span>TukeyHSD
+<span style="color:#a6e22e">TukeyHSD</span>(m1) <span style="color:#75715e"># NB m1 - this function requires an &#34;aov&#34; object</span>
+<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">TukeyHSD</span>(m1))
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">TukeyHSD</span>(m1) <span style="color:#75715e"># NB m1 - this function requires an &#34;aov&#34; object</span>
+  Tukey multiple comparisons of means
+    <span style="color:#ae81ff">95</span>% family<span style="color:#f92672">-</span>wise confidence level
+
+Fit<span style="color:#f92672">:</span> <span style="color:#a6e22e">aov</span>(formula <span style="color:#f92672">=</span> weight <span style="color:#f92672">~</span> <span style="color:#a6e22e">factor</span>(sire), data <span style="color:#f92672">=</span> new.long)
+
+<span style="color:#f92672">$</span><span style="color:#a6e22e">`factor</span>(sire)`
+       diff        lwr       upr     p adj
+B<span style="color:#f92672">-</span>A <span style="color:#ae81ff">-49.875</span> <span style="color:#ae81ff">-119.21883</span>  <span style="color:#ae81ff">19.46883</span> <span style="color:#ae81ff">0.2565333</span>
+C<span style="color:#f92672">-</span>A <span style="color:#ae81ff">-18.375</span>  <span style="color:#ae81ff">-87.71883</span>  <span style="color:#ae81ff">50.96883</span> <span style="color:#ae81ff">0.9397600</span>
+D<span style="color:#f92672">-</span>A <span style="color:#ae81ff">-57.500</span> <span style="color:#ae81ff">-126.84383</span>  <span style="color:#ae81ff">11.84383</span> <span style="color:#ae81ff">0.1436866</span>
+E<span style="color:#f92672">-</span>A <span style="color:#ae81ff">-31.750</span> <span style="color:#ae81ff">-101.09383</span>  <span style="color:#ae81ff">37.59383</span> <span style="color:#ae81ff">0.6830523</span>
+C<span style="color:#f92672">-</span>B  <span style="color:#ae81ff">31.500</span>  <span style="color:#ae81ff">-37.84383</span> <span style="color:#ae81ff">100.84383</span> <span style="color:#ae81ff">0.6893101</span>
+D<span style="color:#f92672">-</span>B  <span style="color:#ae81ff">-7.625</span>  <span style="color:#ae81ff">-76.96883</span>  <span style="color:#ae81ff">61.71883</span> <span style="color:#ae81ff">0.9977281</span>
+E<span style="color:#f92672">-</span>B  <span style="color:#ae81ff">18.125</span>  <span style="color:#ae81ff">-51.21883</span>  <span style="color:#ae81ff">87.46883</span> <span style="color:#ae81ff">0.9425341</span>
+D<span style="color:#f92672">-</span>C <span style="color:#ae81ff">-39.125</span> <span style="color:#ae81ff">-108.46883</span>  <span style="color:#ae81ff">30.21883</span> <span style="color:#ae81ff">0.4937665</span>
+E<span style="color:#f92672">-</span>C <span style="color:#ae81ff">-13.375</span>  <span style="color:#ae81ff">-82.71883</span>  <span style="color:#ae81ff">55.96883</span> <span style="color:#ae81ff">0.9806452</span>
+E<span style="color:#f92672">-</span>D  <span style="color:#ae81ff">25.750</span>  <span style="color:#ae81ff">-43.59383</span>  <span style="color:#ae81ff">95.09383</span> <span style="color:#ae81ff">0.8216369</span>
+</code></pre></div><p><img src="/img/2.6-tukey.png" alt=""></p>
+<p> </p>
+<p>Notice the table of pairwise comparisons.  The format is slightly different than that for the simple <code>pairwise.t.test()</code> function output and there is a bit more information.  Also note that the p-values tend to be smaller for the exact same comparisons, but there are sill no significant comparisons.</p>
+<p> </p>
+<p><strong>Alternative to 1-way ANOVA</strong></p>
+<p>In case the assumptions of 1-way ANOVA cannot be met by the data, there are a few options:</p>
+<ul>
+<li>
+<p>Attempt to transform the data (e.g. with <code>log()</code>, <code>sqrt()</code> or other transformation) to coerce the data to conform to the assumptions of 1-way ANOVA</p>
+</li>
+<li>
+<p>Use an alternative test for which assumptions are not violated</p>
+</li>
+</ul>
+<p>The simplest alternative test to use for a 1-way ANOVA design would a &ldquo;non-parameteric&rdquo;&rdquo; test that simply does not make the assumptions of Gaussian residuals or of homscedasticity.  NB there are other many other methods as well (e.g. the Generalized linear model, randomisation, Bayesian modelling), which we will not cover here.  Non-parametric tests have the advantage of being very easy to use, and being very easy to interpret as they tend to be analogous to tests that require assumptions of the data (so-called &ldquo;parametric tests&rdquo; like the t-test, regression and 1-way ANOVA).  A downside to these non-parametric tests is that they tend to have less <strong>statistical power</strong>; that is, they are less likely than their parametric cousins to detect a significant difference even if one does exist!</p>
+<p> </p>
+<p><strong>Kruskal-Wallis non-parametric alternative to the 1-way ANOVA</strong></p>
+<p>Here we will look at a non-parametric test that is perfect to use instead of, the Kruskal-Wallis test.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
+<span style="color:#f92672">?</span>kruskal.test
+<span style="color:#a6e22e">kruskal.test</span>(formula <span style="color:#f92672">=</span> Weight <span style="color:#f92672">~</span> Sire,
+             data <span style="color:#f92672">=</span> new.long)
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">kruskal.test</span>(formula <span style="color:#f92672">=</span> Weight <span style="color:#f92672">~</span> Sire,
+<span style="color:#f92672">+</span>              data <span style="color:#f92672">=</span> new.long)
+
+	Kruskal<span style="color:#f92672">-</span>Wallis rank sum test
+
+data<span style="color:#f92672">:</span>  Weight by Sire
+Kruskal<span style="color:#f92672">-</span>Wallis chi<span style="color:#f92672">-</span>squared <span style="color:#f92672">=</span> <span style="color:#ae81ff">7.648</span>, df <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>, p<span style="color:#f92672">-</span>value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1054</span>
+</code></pre></div><p> </p>
+<p>The result is qualitatively the same as that for our 1-way ANOVA test, which is not surprising.  Reporting the results of this test is similar as well.</p>
+<p> </p>
+<blockquote>
+<p>We found no evidence of a difference in offspring weight for different sires (Kruskal-Wallis: chi-squared = 7.65, df = 4, P = 0.11).</p>
+</blockquote>
+<p> </p>
+<p><strong>ANOVA calculation details</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Our data</span>
+
+<span style="color:#f92672">&gt;</span> chicken
+    A   B   C   D   E
+<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">687</span> <span style="color:#ae81ff">618</span> <span style="color:#ae81ff">618</span> <span style="color:#ae81ff">600</span> <span style="color:#ae81ff">717</span>
+<span style="color:#ae81ff">2</span> <span style="color:#ae81ff">691</span> <span style="color:#ae81ff">680</span> <span style="color:#ae81ff">687</span> <span style="color:#ae81ff">657</span> <span style="color:#ae81ff">658</span>
+<span style="color:#ae81ff">3</span> <span style="color:#ae81ff">793</span> <span style="color:#ae81ff">592</span> <span style="color:#ae81ff">763</span> <span style="color:#ae81ff">669</span> <span style="color:#ae81ff">674</span>
+<span style="color:#ae81ff">4</span> <span style="color:#ae81ff">675</span> <span style="color:#ae81ff">683</span> <span style="color:#ae81ff">747</span> <span style="color:#ae81ff">606</span> <span style="color:#ae81ff">611</span>
+<span style="color:#ae81ff">5</span> <span style="color:#ae81ff">700</span> <span style="color:#ae81ff">631</span> <span style="color:#ae81ff">687</span> <span style="color:#ae81ff">718</span> <span style="color:#ae81ff">678</span>
+<span style="color:#ae81ff">6</span> <span style="color:#ae81ff">753</span> <span style="color:#ae81ff">691</span> <span style="color:#ae81ff">737</span> <span style="color:#ae81ff">693</span> <span style="color:#ae81ff">788</span>
+<span style="color:#ae81ff">7</span> <span style="color:#ae81ff">704</span> <span style="color:#ae81ff">694</span> <span style="color:#ae81ff">731</span> <span style="color:#ae81ff">669</span> <span style="color:#ae81ff">650</span>
+<span style="color:#ae81ff">8</span> <span style="color:#ae81ff">717</span> <span style="color:#ae81ff">732</span> <span style="color:#ae81ff">603</span> <span style="color:#ae81ff">648</span> <span style="color:#ae81ff">690</span>
+</code></pre></div><p> </p>
+<p><strong>ANOVA Equations</strong></p>
+<p><img src="/img/2.6-anova-equations.png" alt=""></p>
+<p> </p>
+<p><strong>ANOVA Variables</strong></p>
+<p><img src="/img/2.6-anova-variables.png" alt=""></p>
+<p> </p>
+<p><strong>ANOVA Sources of variation table</strong></p>
+<p><img src="/img/2.6-anova-sov.png" alt=""></p>
+<p> </p>
+<blockquote>
+<p>I like the cocksure argument that you never need to actually &ldquo;do an ANOVA by hand&rdquo; because we have computers for that sort of thing these days.  Which, we do.  But, I think I would make a distinction between someone who has never, or fears they cannot, calculate an ANOVA, versus someone who might occasionally do so just to understand better how the world works.  I know which one I would rather be.</p>
+</blockquote>
+<p> </p>
+<p><strong>Do an ANOVA &ldquo;by hand&rdquo;&rdquo; programmatically</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## ANOVA details ####</span>
+
+<span style="color:#75715e"># Try this:</span>
+<span style="color:#75715e"># For the code below, try to follow what is going on in the code</span>
+<span style="color:#75715e"># It is okay if not every detail is clear yet</span>
+<span style="color:#75715e"># Do we get the same answer as aov()?</span>
+
+n.groups <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ncol</span>(chicken)
+n.per.group <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">vector</span>(mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;integer&#34;</span>, length <span style="color:#f92672">=</span> <span style="color:#a6e22e">ncol</span>(chicken))
+
+<span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">ncol</span>(chicken)) {n.per.group[i] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">length</span>(chicken[,i])}
+
+n.individuals <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ncol</span>(chicken)<span style="color:#f92672">*</span><span style="color:#a6e22e">nrow</span>(chicken)
+df.between <span style="color:#f92672">&lt;-</span> n.groups <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+df.within <span style="color:#f92672">&lt;-</span> n.individuals <span style="color:#f92672">-</span> n.groups
+mean.total <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">mean</span>(<span style="color:#a6e22e">as.matrix</span>(chicken))
+mean.per.group <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">colMeans</span>(chicken)
+
+ss.between <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sum</span>(n.per.group<span style="color:#f92672">*</span>(mean.per.group<span style="color:#f92672">-</span>mean.total)^2)
+
+ss.within <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">sum</span>((chicken[,<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> mean.per.group[1])^2),
+                 <span style="color:#a6e22e">sum</span>((chicken[,<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> mean.per.group[2])^2),
+                 <span style="color:#a6e22e">sum</span>((chicken[,<span style="color:#ae81ff">3</span>] <span style="color:#f92672">-</span> mean.per.group[3])^2),
+                 <span style="color:#a6e22e">sum</span>((chicken[,<span style="color:#ae81ff">4</span>] <span style="color:#f92672">-</span> mean.per.group[4])^2),
+                 <span style="color:#a6e22e">sum</span>((chicken[,<span style="color:#ae81ff">5</span>] <span style="color:#f92672">-</span> mean.per.group[5])^2)
+                 )
+ms.between <span style="color:#f92672">&lt;-</span> ss.between<span style="color:#f92672">/</span>df.between
+ms.within <span style="color:#f92672">&lt;-</span> ss.within<span style="color:#f92672">/</span>df.within
+
+<span style="color:#75715e"># Manual F</span>
+(myF <span style="color:#f92672">&lt;-</span> ms.between<span style="color:#f92672">/</span>ms.within)
+
+<span style="color:#75715e"># Anova table</span>
+<span style="color:#a6e22e">anova</span>(m1)<span style="color:#f92672">$</span><span style="color:#e6db74">&#34;F value&#34;</span>[1] <span style="color:#75715e"># Store-bought F</span>
+</code></pre></div><p><code>R output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#f92672">&gt;</span> (myF <span style="color:#f92672">&lt;-</span> ms.between<span style="color:#f92672">/</span>ms.within)
+[1] <span style="color:#ae81ff">1.872189</span>
+
+<span style="color:#f92672">&gt;</span> <span style="color:#75715e"># aov() function Store-bought F</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">anova</span>(m1)<span style="color:#f92672">$</span><span style="color:#e6db74">&#34;F value&#34;</span>[1] 
+[1] <span style="color:#ae81ff">1.872189</span>
+</code></pre></div><h1 id="anchor-5"></h1>
 <p> </p>
 <p> </p>
 <h3 id="265-practice-exercises">2.6.5 Practice exercises</h3>
-<p>For the following exercises, use the trees dataset, which has Girth, Height and Volume variables for 31 Black Cherry trees.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Examine the data</span>
-<span style="color:#a6e22e">help</span>(trees)
-<span style="color:#a6e22e">data</span>(trees)
-<span style="color:#a6e22e">str</span>(trees)
+<p>For these exercises, run the code below to recreate the data object <code>pest</code>.  There are 40 rows and 2 variables with 2 variables: <code>damage</code> and <code>treatment</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pest <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">structure</span>(<span style="color:#a6e22e">list</span>(damage <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">113.7</span>, <span style="color:#ae81ff">94.4</span>, <span style="color:#ae81ff">103.6</span>, 
+                                  <span style="color:#ae81ff">106.3</span>, <span style="color:#ae81ff">104</span>, <span style="color:#ae81ff">98.9</span>, 
+                          <span style="color:#ae81ff">115.1</span>, <span style="color:#ae81ff">99.1</span>, <span style="color:#ae81ff">120.2</span>, <span style="color:#ae81ff">99.4</span>, 
+                          <span style="color:#ae81ff">88</span>, <span style="color:#ae81ff">97.9</span>, <span style="color:#ae81ff">61.1</span>, <span style="color:#ae81ff">72.2</span>, <span style="color:#ae81ff">73.7</span>, 
+                          <span style="color:#ae81ff">81.4</span>, <span style="color:#ae81ff">72.2</span>, <span style="color:#ae81ff">48.4</span>, <span style="color:#ae81ff">50.6</span>, <span style="color:#ae81ff">88.2</span>, 
+                          <span style="color:#ae81ff">46.9</span>, <span style="color:#ae81ff">32.2</span>, <span style="color:#ae81ff">48.3</span>, <span style="color:#ae81ff">62.1</span>, <span style="color:#ae81ff">69</span>, 
+                          <span style="color:#ae81ff">45.7</span>, <span style="color:#ae81ff">47.4</span>, <span style="color:#ae81ff">32.4</span>, <span style="color:#ae81ff">54.6</span>, <span style="color:#ae81ff">43.6</span>, 
+                          <span style="color:#ae81ff">104.6</span>, <span style="color:#ae81ff">107</span>, <span style="color:#ae81ff">110.4</span>, <span style="color:#ae81ff">93.9</span>, <span style="color:#ae81ff">105</span>, 
+                          <span style="color:#ae81ff">82.8</span>, <span style="color:#ae81ff">92.2</span>, <span style="color:#ae81ff">91.5</span>, <span style="color:#ae81ff">75.9</span>, <span style="color:#ae81ff">100.4</span>), 
+                       treatment <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;control&#34;</span>, <span style="color:#e6db74">&#34;control&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;control&#34;</span>, <span style="color:#e6db74">&#34;control&#34;</span>,
+                                     <span style="color:#e6db74">&#34;control&#34;</span>, <span style="color:#e6db74">&#34;control&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;control&#34;</span>, <span style="color:#e6db74">&#34;control&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;control&#34;</span>, <span style="color:#e6db74">&#34;control&#34;</span>,
+                                     <span style="color:#e6db74">&#34;x.half&#34;</span>, <span style="color:#e6db74">&#34;x.half&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;x.half&#34;</span>, <span style="color:#e6db74">&#34;x.half&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;x.half&#34;</span>, <span style="color:#e6db74">&#34;x.half&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;x.half&#34;</span>, <span style="color:#e6db74">&#34;x.half&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;x.half&#34;</span>, <span style="color:#e6db74">&#34;x.half&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;x.full&#34;</span>, <span style="color:#e6db74">&#34;x.full&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;x.full&#34;</span>, <span style="color:#e6db74">&#34;x.full&#34;</span>,
+                                     <span style="color:#e6db74">&#34;x.full&#34;</span>, <span style="color:#e6db74">&#34;x.full&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;x.full&#34;</span>, <span style="color:#e6db74">&#34;x.full&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;x.full&#34;</span>, <span style="color:#e6db74">&#34;x.full&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;organic&#34;</span>, <span style="color:#e6db74">&#34;organic&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;organic&#34;</span>, <span style="color:#e6db74">&#34;organic&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;organic&#34;</span>, <span style="color:#e6db74">&#34;organic&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;organic&#34;</span>, <span style="color:#e6db74">&#34;organic&#34;</span>, 
+                                     <span style="color:#e6db74">&#34;organic&#34;</span>, <span style="color:#e6db74">&#34;organic&#34;</span>)), 
+                  class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;data.frame&#34;</span>, 
+                  row.names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#66d9ef">NA</span>, <span style="color:#ae81ff">-40L</span>))
 </code></pre></div><p> </p>
-<p><strong>1</strong> Show code to calculate the mean Girth of Black Cherry trees with Height less than 75 ft.</p>
+<p>Think of this data as the result of an experiment looking at the effectiveness of pesticide treatment on leaf damage.  Let us imagine that this experiment measured leaf damage (variable &ldquo;damage&rdquo; measured in  mm squared) and that the plants were treated with one of 4 treatment levels (variable &ldquo;treatment&rdquo; with levels &ldquo;control&rdquo;, &ldquo;x.half&rdquo;, &ldquo;x.full&rdquo;, &ldquo;organic&rdquo;). The experiment is of course designed to look at an overall effect the various treatments may have to reduce leaf damage relative to the controls.  In addition, it is of interest to examine the effect of the organic treatment compared to the others, as well as that of the x.half to the x.full.  The experiment ran using 40 potted plants spaced 1m from each other in a greenhouse setting.  Each treatment was randomly assigned to 10 plants.  Onto each plant was placed 5 red lily beetle (<em>Lilioceris lilii</em>) pairs.</p>
 <p> </p>
-<p><strong>2</strong> Use <code>help(cut)</code> and use the <code>cut()</code> function to create a new factor variable based on the <code>Height</code> numeric variable in the <code>trees</code> dataset. Try setting the <code>break</code>s argument to 2 ro 3.  Rename the levels of your new factor to something meaningful.  Show the code.</p>
+<p><img src="/img/2.6-red-lily-beetle.jpg" alt=""></p>
 <p> </p>
-<p><strong>3</strong> Using the new factor from question 2, use <code>aggregate()</code> to calculate the mean and standard deviation of all three variables in the <code>trees</code> data.  Show your code and report the results to 2 decimal points of accuracy.</p>
+<p><strong>1</strong> Make a good, appropriate graph representing the overall experiment.  Show your code. Describe any trends in the data that are apparent from the graph, as well as an initial assessment of principle assumptions of 1-way ANOVA based only on your single graph.</p>
 <p> </p>
-<p><strong>4</strong> Show the code using which() and boolean phrases as appropriate to find the rows in the <code>trees</code> dataset where Girth is higher than 11 and Height is lower than 75.</p>
+<p><strong>2</strong> Test the assumption of Gaussian residuals for 1-way ANOVA using any graphs or NHST approach that you deem appropriate.  Show your code and briefly describe your EDA findings and conclusion as to whether these data adhere to the Gaussian assumption.</p>
 <p> </p>
-<p><strong>5</strong> Run the following code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">data_1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(volume <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">7</span>,<span style="color:#66d9ef">NA</span>,<span style="color:#ae81ff">10</span>),
-           population <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;A&#34;</span>,
-           <span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>))
-</code></pre></div><p>Use <code>aggregate()</code> to calculate the mean of volume for each population (hint: you may need to use help for the functions involved and pay close attention to your data frame&hellip;).</p>
+<p><strong>3</strong> Test the assumption of homoscedasticity of residuals for 1-way ANOVA using any graphs or NHST approach that you deem appropriate.  Show your code and briefly describe your EDA findings and conclusion as to whether these data adhere to the homoscedasticity assumption.</p>
 <p> </p>
-<p><strong>6</strong> Write a plausible practice question involving any aspect of using <code>which()</code>, boolean phrases and/or <code>aggregate()</code> involving the in-built R dataset <code>iris</code>.</p>
+<p><strong>4</strong> Perform either a 1-way ANOVA or an appropriate alternative based on your findings in the previous answers.  Show your code, state your results in the technical style and briefly interpret your findings.</p>
+<p> </p>
+<p><strong>5</strong> Perform an appropriate set of <em>post hoc</em> tests to compare pairwise mean differences in these data.  Focus on the <em>post hoc</em> questions of interest: Is the organic pesticide effective?  Does dose matter in the non-organic treatments?</p>
+<p> </p>
+<p><strong>6</strong> Write a plausible practice question involving any aspect of data handling, graphing or analysis for the 1-way ANOVA framework for the iris data (<code>data(iris)</code>; <code>help(iris)</code>).</p>
 <p> </p>
 </div>
 

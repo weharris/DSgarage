@@ -177,15 +177,8 @@ SCRIPT 2.5 Use this to follow along on this page and for the Practice exercises 
       <description>1-way ANOVA (and related questions and tools)  VIDEO 2.6
 SCRIPT 2.6 Use this to follow along on this page and for the Practice exercises below.
  Overview
- Text
- Text
- Contents
-2.6.1 The question of 1-way ANOVA
-2.6.2 Data and assumptions
-2.6.3 Graphing
-2.6.4 Test and alternatives
-2.6.5 Practice exercises
-   2.6.1 The question of 1-way ANOVA     2.6.2 Data and assumptions     2.</description>
+ The analysis of variance is not a mathematical theorem, but rather a convenient method of arranging the arithmetic. R. A. Fisher (via Wishart 1934. Sppl. J. Roy. Soc. 1(1):26-61.)
+ Perhaps more so than any other tool, the Analysis of Variance (ANOVA) literally revolutionized the idea of objectivity in using data to produce evidence to support claims.</description>
     </item>
     
   </channel>
