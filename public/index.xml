@@ -203,6 +203,17 @@ SCRIPT 2.6 Use this to follow along on this page and for the Practice exercises 
     </item>
     
     <item>
+      <title>3.3 Git and version control</title>
+      <link>/bootcamp/3.3-m3-version-control/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/3.3-m3-version-control/</guid>
+      <description>Git and version control  Overview
+ Have you ever accidentally deleted work on your computer and realized you needed it and lost work? And you were left with the terrible feeling you had to do it all again? Or had to make tedious revisions to merge work done on the same document with others? Git and Github fix all that.
+  The practice of data science involves a lot of data, code, figures, tables, manuscripts, and other documents.</description>
+    </item>
+    
+    <item>
       <title>About</title>
       <link>/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

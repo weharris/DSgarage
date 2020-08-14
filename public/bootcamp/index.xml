@@ -202,5 +202,16 @@ SCRIPT 2.6 Use this to follow along on this page and for the Practice exercises 
       <description>As researchers we often want our collaborators to easily understand what we have done during an analysis. We could just share our raw data and code as it should be reproducible now you&amp;rsquo;ve completed module 3.1. It would be much better to create a reproducible report using RMarkdown that presents your code alongside its output (graphs, tables, etc.) with conventional text to explain it. Of course, reproducible reports aren&amp;rsquo;t just a useful way of sharing analyses with collaborators but can also act as a record for yourself.</description>
     </item>
     
+    <item>
+      <title>3.3 Git and version control</title>
+      <link>/bootcamp/3.3-m3-version-control/</link>
+      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/bootcamp/3.3-m3-version-control/</guid>
+      <description>Git and version control  Overview
+ Have you ever accidentally deleted work on your computer and realized you needed it and lost work? And you were left with the terrible feeling you had to do it all again? Or had to make tedious revisions to merge work done on the same document with others? Git and Github fix all that.
+  The practice of data science involves a lot of data, code, figures, tables, manuscripts, and other documents.</description>
+    </item>
+    
   </channel>
 </rss>

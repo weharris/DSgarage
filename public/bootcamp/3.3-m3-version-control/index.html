@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>3.3 Git and version control</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: white;
+    }
+
+    :root {
+        --accent: green;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/haskell.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/swift.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.72.0" />
+        
+
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+
+    </head>
+
+    <body>
+        
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">3.3 Git and version control</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/bootcamp/">Bootcamp</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="https://join.slack.com/t/hadatascience/shared_invite/zt-ekigo1t3-0ADgafsF6zTDwJ9SxIws9w"><i class="fa fa-slack"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://twitter.com/adams_data/"><i class="fa fa-twitter"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.youtube.com/channel/UCOEuOH6cY8yisodud25hb7w"><i class="fa fa-youtube"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+<main>
+
+    <div>
+        <h2>3.3 Git and version control</h2>
+        <h5></h5>
+        
+<a href="/tags/bootcamp"><kbd class="item-tag">Bootcamp</kbd></a>
+
+<a href="/tags/r"><kbd class="item-tag">R</kbd></a>
+
+<a href="/tags/open-science"><kbd class="item-tag">Open Science</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p><img src="/img/3.3-aphid-sm.png" alt=" "></p>
+<p> </p>
+<p> </p>
+<h2 id="git-and-version-control">Git and version control</h2>
+<p> </p>
+<p><strong>Overview</strong></p>
+<blockquote>
+<p>Have you ever accidentally deleted work on your computer and realized you needed it and lost work? And you were left with the terrible feeling you had to do it all again?  Or had to make tedious revisions to merge work done on the same document with others?  Git and Github fix all that.</p>
+</blockquote>
+<p> </p>
+<p>The practice of data science involves a lot of data, code, figures, tables, manuscripts, and other documents.  Many of these files evolve during the course of a project and often need to be shared with collaborators. Projects can easily spiral out of control (reducing the quality and <strong>reproducibility</strong> of your work. The good news is that this can be mitigated by using <strong>version control</strong>.</p>
+<p> </p>
+<p>A popular way to use version control is with <strong>Git</strong> and <strong>Github</strong>.</p>
+<ul>
+<li>
+<p><strong>Git is software</strong> that usually is installed locally on your computer that is essentially a system which keeps track of documents and changes.</p>
+</li>
+<li>
+<p><strong>Github is an online platform</strong> that implements Git to <strong>store and manage</strong> your files, and also is very conventient to <strong>share and showcase</strong> your work to others.  Git and github make it easy to store and share your work, but they are also a great way to <strong>build a portfolio of your work</strong>.  These tools are extremely useful when you start to build and work with data science projects that have, say, more than a handfull of different code and data files!</p>
+</li>
+<li>
+<p><strong>Github Desktop</strong> is a piece of software that allows you to interface with Github with a Graphical User Interface (GUI), as apposed to working with Git and Github through the command line exclusively with code).</p>
+</li>
+</ul>
+<p> </p>
+<p>NB there are many different software solutions out there to use Git and Git-like systems, but for our purposes we are going to keep it simple and use Git with Github and Github Desktop. The examples for this page or presented for Windows 10.  The intructions are identical for Macs (except you will need to download the appropriate version of Github desktop for your own OS).  If you happen to be using Linux, you might try <a href="https://www.gitkraken.com/">Gitkraken</a> instead as a github GUI application.  Getting Git up and running can fiddley, so as with any of the modules in this bootcamp, if you have any problems <a href="https://join.slack.com/t/hadatascience/shared_invite/zt-ekigo1t3-0ADgafsF6zTDwJ9SxIws9w">join us in the Slack channel for help</a>.</p>
+<p> </p>
+<p><strong>Note about &ldquo;freedom&rdquo;, &ldquo;open&rdquo; and &ldquo;open source&rdquo;</strong></p>
+<blockquote>
+<p>&ldquo;Free software&rdquo; is a philosophical idea: FREE means no cost (like free beer), but more importantly it means free as in liberty to use, improve, and share.</p>
+</blockquote>
+<p> </p>
+<p>You may have come across the idea of &ldquo;open source&rdquo; software.  This concept was developed on the premise that source code for software could and  SHOULD be made available to anyone all the time. That way, bugs could be found quickly and fixed, functionality could be added by a large community, and all fixes and upgrades could be immediately available to everyone. These somewhat socialist ideals were initially criticized by traditional &ldquo;closed&rdquo; software companies, but actually there has been immense economic successes for open source software (Android, Linux, Google Chrome, Firefox, R (of course), and many others).  If you are interested in learning more, you can read a little about it via the <a href="https://www.fsf.org/">Free Software Foundation</a>.</p>
+<p>An important separate point here is that <strong>a lot of people believe that science, both scientific research methods and literature, should reproducible and open too</strong>.  Without digressing further on this subject, you can read more about it if you wish:</p>
+<ul>
+<li>
+<p><a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3000246">Article about open science, Allen and Mehler 2019</a></p>
+</li>
+<li>
+<p><a href="https://www.ted.com/talks/michael_nielsen_open_science_now?language=en#t-134685">Open science TED talk Michael Nielsen</a></p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Contents</strong></p>
+<p><a href="#anchor-1">3.3.1 Set up Github and Git</a></p>
+<p><a href="#anchor-2">3.3.2 Make a first &ldquo;repository&rdquo;</a></p>
+<p><a href="#anchor-3">3.3.3 Making changes to the repo</a></p>
+<p><a href="#anchor-4">3.3.4 Resources</a></p>
+<h1 id="anchor-1"></h1>
+<p> </p>
+<p> </p>
+<h3 id="331-set-up-github-and-git">3.3.1 Set up Github and Git</h3>
+<p>Okay, we need to do a few things here before we can start:</p>
+<p>1 <strong>Create a Github account</strong> (assuming you do not already have one)</p>
+<p>2 <strong>Install Github Desktop</strong></p>
+<p>3 <strong>Sign in to Github with Github Desktop</strong></p>
+<p>Let&rsquo;s go!</p>
+<p> </p>
+<h4 id="1-create-a-github-account">1 Create a Github account</h4>
+<p><strong>This is straightforward; navigate to <a href="https://github.com/">github.com</a>.</strong></p>
+<p> </p>
+<p><img src="/img/3.3-git-url.png" alt=""></p>
+<p> </p>
+<p><strong>Hit the Sign Up button.</strong></p>
+<p> </p>
+<p><img src="/img/3.3-git-signup.png" alt=""></p>
+<p> </p>
+<p><strong>Create a free account.  You will need an email address (any will do).</strong></p>
+<p> </p>
+<p><img src="/img/3.3-git-create.png" alt=""></p>
+<p> </p>
+<p><strong>You may need to log in and verify your email at this point.</strong></p>
+<p> </p>
+<h4 id="2-install-github-desktop">2 Install Github Desktop</h4>
+<p> </p>
+<p><strong>Navigate to the <a href="https://desktop.github.com/">Github Desktop webpage</a> and download the version that suits your operating system.</strong>  NB you do not actually need to have a github GUI program; here we are starting with one simply because it is fast to begin this way for people without a lot of coding experience (and you can always learn to use the command line interface later).</p>
+<p> </p>
+<p><img src="/img/3.3-github-dessktop.png" alt=""></p>
+<p> </p>
+<h4 id="3-sign-in-to-github-with-github-desktop">3 Sign in to Github with Github Desktop</h4>
+<p>This step is used to link Githug Desktop with your cloud space on Github. Go ahead and sign in to github.com with the account information you just created.  In this way, Github Desktop will save your credentials and make it work seamlessly between your local machine and the Github.</p>
+<p> </p>
+<p><img src="/img/3.3-github-desktop-sign.png" alt=""></p>
+<p> </p>
+<p>After logging in you should see something like this (success!):</p>
+<p><img src="/img/3.3-git-success.png" alt=""></p>
+<p> </p>
+<h1 id="anchor-2"></h1>
+<p> </p>
+<p> </p>
+<h3 id="332-make-a-first-repository">3.3.2 Make a first &ldquo;repository&rdquo;</h3>
+<p>A <strong>repository</strong>, or <strong>repo</strong> is basically Git jargon for a folder on your computer that contains a collection of files and often other folders.  This folder might be as simple in structure as a single script and dataset, or it might be very complex, say complex enough to make a whole piece of software, a large machine learning project, a website or even a book or scientific manuscript.</p>
+<p>The idea is that Git &ldquo;watches&rdquo; the folder and any changes you make in your local repo are tracked (once this is set up, it just &ldquo;happens&rdquo; automatically), then every once in a while you update those changes to the version of your repo on Github.  Of course, the system is reliable even if loads of people are making changes at the same time, adding parts, upgrading parts, correcting mistakes, etc.  This is really the power of Github.</p>
+<p> </p>
+<p>At this point it might be fun for you to just have a peek at some repositories.  Here are a few we think are pretty cool:</p>
+<ul>
+<li>
+<p><a href="https://github.com/djnavarro/rbook">Daniell Navarro&rsquo;s free and open <em>Learning Statistics with R</em> book</a>. That&rsquo;s on Github.</p>
+</li>
+<li>
+<p><a href="https://github.com/pytorch/pytorch">Pytorch, one of the most powerful machine learning object detection tools</a>. That&rsquo;s on Github.</p>
+</li>
+<li>
+<p><a href="https://github.com/pprevos/RGames">RGames - mini-computer games coded in R!</a>.  That&rsquo;s on Github too.</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Flash challenge:</strong> find a github repository you are interested in, read the ReadMe (most repos have a ReadMe file in the root folder that is rendered as an html webpage with information at the bottom of the Github landing page).  Probably the easiest way to find github repos at this point would be to Google <code>github</code> + <code>&lt;words describing things you are interested in&gt;</code>.</p>
+<p> </p>
+<p>There are a few ways of setting up a repository:</p>
+<ul>
+<li>
+<p><strong>Start with an existing folder on your computer</strong> and make it a repository.  There may or may not already be files in the folder, and if there are they may or may not be complete (probably not!), as in an ongoing project.</p>
+</li>
+<li>
+<p><strong>Create a new folder on your computer</strong> at the same time as you make it a repository.  Here the plan it to build up the contents.</p>
+</li>
+<li>
+<p><strong>Copy (&ldquo;clone&rdquo; in Git jargon) an existing reposity from Github</strong>. Here the idea might be to learn from an existing repo, or to add functionality or content to it, or to directly collaborate. Because the content is free and open, you have liberty to do any of these things!</p>
+</li>
+</ul>
+<p> </p>
+<p><strong>Make a repository</strong></p>
+<p>We are going to make a first repository with an existing directory located on your own computer.  We will go through these steps:</p>
+<p>1 <strong>Download a zip file containing a folder with some files in it, and unzip to a directory on your own computer</strong></p>
+<p>2 <strong>Add the folder to Github as a repository</strong> using Github Desktop</p>
+<p>3 <strong>Check our your own site on Github.com</strong> and examine your new repository</p>
+<p> </p>
+<p>Let&rsquo;s go!</p>
+<p><strong>1 <a href="/data/test-repo.zip">Download this zip file containing a folder with some files in it</a>.</strong></p>
+<p>You can unzip this folder anywhere on your computer, but it might be a good idea to make a folder just for git repositories, and then unzip the folder into that folder.</p>
+<p> </p>
+<p>Mine looks like this In the Windows Explorer file browser) and yours should look similar (note my directory path and note the directory name with 3 files in the test-repo directory:</p>
+<p><img src="/img/3.3-repo-folder.png" alt=""></p>
+<p> </p>
+<p><strong>2 Add the folder to Github as a repository</strong></p>
+<p>At the moment you have a folder with some files on the hard drive of your local computer, but that is the only place it exists.  This will eventually become a repository, but at the moment Github does not &ldquo;know about it&rdquo; and neither does Github Desktop, i.e., it is just a folder.</p>
+<p>Back in Github Desktop, if you are still in the start page you can just hit the button &ldquo;Create a New Repository on your hard drive&hellip;&rdquo; (or use the menu File &gt; New repository&hellip;)</p>
+<p>You should see a screen similar to below, which you can fill in with similar details, like the Name field. For now, ignore the Git Ignore, and the License fields (although it will <em>probably</em> not hurt anything if you want to experiment).  Hit the Create repository button:</p>
+<p> </p>
+<p><img src="/img/3.3-create-new.png" alt=""></p>
+<p> </p>
+<p>After you hit Create repository, you should see a window like this:</p>
+<p> </p>
+<p><img src="/img/3.3-create-new1.png" alt=""></p>
+<p> </p>
+<p><strong>A the Current repository</strong>.  When you have more than 1 repository, you can select which one you want to interact with here.  If you chose the name test-repo, it should be listed here as the Current (active) repository.</p>
+<p><strong>B Publish repository</strong>. This option will show only when you have a local repository, but you have not linked it to Github yet (we will fix that shortly).</p>
+<p><strong>C Changes and Commit to Master</strong>. This area is where you manage changes in your repository.  Assuming you have not opened and saved changes to the files in your repository yet, there should be listed 0 changed files.  When there are changes you want to update to the &ldquo;Master&rdquo; repository (i.e., the most recent version of all the files), The summary field must be updated with a brief descripotion of the changes and the Commit to Master button will become available.</p>
+<p><strong>D Open and View files</strong>. These are utilities in Github Desktop that link files in a repository to software to vioew and manage files.  For this repo we will not be useing those, but since it is an R script and an xlsx data file, we will be using Rstudio to view and edit the script (and README.md file too).</p>
+<p> </p>
+<p>Now you have identified you folder as repository, and Github Desktop is now &ldquo;watching it&rdquo;, however it still does not exist on Github, because it has not been <strong>Published</strong>. Go ahead and hit one of the Publish repository buttons (it does not matter which one).  You should see something similar to this:</p>
+<p> </p>
+<p><img src="/img/3.3-publish.png" alt=""></p>
+<p> </p>
+<ul>
+<li>
+<p>Uncheck the Keep this code private box (this is handy if you are working on something top secret, but it does not apply here!)</p>
+</li>
+<li>
+<p>Add a description if you wish</p>
+</li>
+<li>
+<p>Hit the Publish repository button (yep, this is the second one&hellip;)</p>
+</li>
+</ul>
+<p> </p>
+<p>You may have noticed that the Github Destop GUI changes contextually as the status of your repository changes.  Now you have a Fetch origin button along the top (this is in case there has been a change to your repository on Github, that has not been compared to the changes on your local hard drive where you are running Giuthub Desktop).  You also should see something like this in the main pane:</p>
+<p> </p>
+<p><img src="/img/3.3-published.png" alt=""></p>
+<p> </p>
+<p><strong>3 Check our your own site on Github.com</strong></p>
+<p>Go ahead and hit the View on Github button, which should launcha a brower to your Github page in the directory for this, your, first repository.</p>
+<p> </p>
+<p><img src="/img/3.3-github.png" alt=""></p>
+<p> </p>
+<p>Notice a few things:</p>
+<ul>
+<li>
+<p>The URL for your repository is test to the name you chose for your repository.  This is very useful for accessing the files either by code, or by direct download, or just for someone to visit your site.</p>
+</li>
+<li>
+<p>The list of files is shown here - note there is a new file called .gitattributes which is part of the Git tracking system for changes to the repository. If you look in the local repository folder on your computer, you should also see it there</p>
+</li>
+<li>
+<p>At the bottom of the page that the README.md file is <em>rendered</em> and displayed as an HTML document.  There is not much content at the moment&hellip;</p>
+</li>
+</ul>
+<h1 id="anchor-3"></h1>
+<p> </p>
+<p> </p>
+<h3 id="333-making-changes-to-the-repo">3.3.3 Making changes to the repo</h3>
+<p> </p>
+<p>We are going to make a few changes to the repository now:</p>
+<p><strong>1 Edit the local repo to change the R code</strong> to fix up the graph and make it &ldquo;good&rdquo; (TM)</p>
+<p><strong>2 Edit the local repo by changing the README.md</strong> to spruce it up a little</p>
+<p><strong>3 Update Github with the repo changes we have made on our local copy</strong></p>
+<p> </p>
+<p><strong>1 Edit the local repo to change the R code</strong></p>
+<p>Navigate to the &ldquo;local&rdquo; repository folder on your own computer and go ahead and open both the R script file <code>script-3.3-reposcript.R</code> and the markdown script <code>README.md</code> in RStudio. The script is very short, but is set up with Header and Contents blocks.  In the Setup section you should see something like the code below.  Go ahead and <strong>edit the path character variable</strong> to be that of the path to the repository folder on your own computer, <strong>set your working directory</strong>, and read in the data.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## 01 Setup ####</span>
+<span style="color:#75715e"># Get the data set up</span>
+
+<span style="color:#75715e"># Set a path character variable here</span>
+mydir <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;D:/Dropbox/git/DSgarage/public/data&#34;</span> <span style="color:#75715e"># &lt;&lt; change to your repo dir!</span>
+<span style="color:#a6e22e">setwd</span>(mydir)
+
+<span style="color:#a6e22e">library</span>(openxlsx)
+data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.xlsx</span>(<span style="color:#e6db74">&#34;3.3-cane.xlsx&#34;</span>)
+</code></pre></div><p> </p>
+<p>You will probably want to open the data file and look in the data dictionary tab to read about what the data are, where they came from etc.  The data are compliant with the Tidy Data format in Excel, but the information is fairly terse.  Basically this experiment was looking at <strong>disease in sugarcane</strong> and where disease susceptibility was examined in different sugarcane strains in a block design.  We will look at this in a very simple way - just looking at the proportion of diseased plants relative to the total number for each strain.</p>
+<p>Go ahead and run the code to make a plot just as it is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## 02 Graph ####</span>
+<span style="color:#75715e"># Make a plot showing the proportion of diseased stems per plot</span>
+<span style="color:#75715e"># (variable &#34;r&#34; / variable &#34;n&#34;)</span>
+<span style="color:#75715e"># as a function of cane variety (variable &#34;var&#34;)</span>
+<span style="color:#a6e22e">plot</span>(y <span style="color:#f92672">=</span> data<span style="color:#f92672">$</span>r<span style="color:#f92672">/</span>data<span style="color:#f92672">$</span>n, 
+     x <span style="color:#f92672">=</span> data<span style="color:#f92672">$</span>var)
+</code></pre></div><p> </p>
+<p>You should see something like this:</p>
+<p><img src="/img/3.3-graph1.png" alt=""></p>
+<p> </p>
+<p>Let&rsquo;s be honest - a bad graph can be worse than no graph. This graph is terrible (but probably not worse than no graph).  Let&rsquo;s critique it.</p>
+<ul>
+<li>
+<p>The axis labels are not really good enough</p>
+</li>
+<li>
+<p>It is hard to see the individual data points for individual cane variety</p>
+</li>
+<li>
+<p>It is a bit &ldquo;ugly&rdquo; in general&hellip;</p>
+</li>
+</ul>
+<p> </p>
+<p>Go ahead and <strong>save a copy of this bad graph to your working directory (i.e. save it to your repo directory)</strong>.  Do this with the Export button in the graph menu in RStudio and choose save as image. Name the image file <code>bad-graph.png</code> if you want to follow along exactly.  Note the default Image format is .PNG (a good format for web pictures), and the Directory for saving the graph is your repo directory. Go ahead and <strong>hit Save</strong>.</p>
+<p> </p>
+<p><img src="/img/3.3-bad-graph.png" alt=""></p>
+<p> </p>
+<p><img src="/img/3.3-bad-graph-save.png" alt=""></p>
+<p> </p>
+<p>Your task here is to make the graph better - you can do this in any way you wish. Go ahead and make your changes to the script to make a great graph.  When you have finished, save your R script changes in Rstudio, and save a second version of the graph called <code>good-graph.png</code>. Go ahead and make any edit you want, but try to make it obviously different (and better) than the bad graph.  With mine, I wanted to specifically be able to see the raw data for each cane varity better, which I made a unique color for.  I also added a bigger dot for each variety that is the mean.  Finally, I changed the background colour for the base plot, and I added a legend for the meaning of the different sized dots  - mine looks like this:</p>
+<p> </p>
+<p><img src="/img/3.3-good-graph.png" alt=""></p>
+<p> </p>
+<p><strong>Flash Challenge: make your graph look as close to mine as you can!</strong>.  Once you are happy, <strong>save your new image as <code>good-graph.pgn</code></strong> and go ahead and save your R script too.</p>
+<p> </p>
+<p><strong>2 Edit the local repo by changing the README.md</strong></p>
+<p>Go ahead and look at the README.md file now, obviously a Markdown file (there is a visual que for this in the RStudio tab icon for the file).  This is a very minimal README file.  For bigger projects, the README might serve the function of providing information to potential users about the resources in repository, or it might even act as a minimal website.  Like a lot of script-type files in different computing languages, the files is really just a text file that, due to the file extension (the .md part) is recognized and displayed with syntax highlighting appropriate to Markdown in code editing software like RStudio.</p>
+<p>Here you are going simply add some text and display both of you graphs to the README file to display in your repository directory in Github.  Edit your README.md file contents to be something similar to below. By all means, you should experiment here and play a little with the Markdown language, but the point here really is to demonstrate the basic usage of Github Desktop.</p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md"><span style="color:#75715e">## My test reposity
+</span><span style="color:#75715e"></span>
+This test-project is part of a Github tutorial at the Data Science Garage Bootcamp
+
+https://dsgarage.netlify.app/bootcamp/
+
+
+<span style="color:#75715e">## Bad graph
+</span><span style="color:#75715e"></span>
+
+<span style="color:#75715e">### bad graph R code
+</span><span style="color:#75715e"></span>plot(y = data$r/data$n, 
+      x = data$var)
+
+![](bad-graph.png)
+
+<span style="color:#75715e">### Better graph R code
+</span><span style="color:#75715e"></span>(Put your code here!)
+
+![](good-graph.png)
+
+</code></pre></div><p> </p>
+<p>You can see what your page will look like right inside RStudio, by hitting the Preview button.  When you are happy make sure and <strong>save your changes</strong> to the README.md file.</p>
+<p> </p>
+<p><img src="/img/3.3-preview.png" alt=""></p>
+<p> </p>
+<p><strong>3 Update Github with the repo changes we have made on our local copy</strong></p>
+<p>Now it is time to look back at Github Desktop.  What you should see, all being well, is that the main page now has a lot of content detailing the changes made to your repo directory.  If you have followed along, you will have edited the R script, the README file, and added 2 picture files (also, if you have hit the preview button in RStudio, there will probably also be a README html file that was created by RStudio).  It should look similar to this:</p>
+<p> </p>
+<p><img src="/img/3.3-changes.png" alt=""></p>
+<p> </p>
+<p>Note a few things here:</p>
+<ul>
+<li>
+<p><strong>The Changes log</strong> is shown in the upper left (there have been 5 files changed in mine)</p>
+</li>
+<li>
+<p><strong>Click on individual file names to see the changes</strong>.  If you try to click on the different file names, you should see the changes rendered in different ways depending on the file type.  E.g., the picture files should be rendered and displayed, the content of code files should also be displayed.</p>
+</li>
+<li>
+<p><strong>Code file changes are detailed</strong>.  The line numbers where changes have happened are shown.  Deletions are highlighted in red; additions are highlighted in green.</p>
+</li>
+</ul>
+<p> </p>
+<p>Next step: <strong>Commit to Master</strong>.  When you &ldquo;commit&rdquo; a set of changes in your repo, it is kind of like making a stopping point for a set of changes to all files in the repo (specifically ones that have happened since the most recent commit).  To do this, you must document a summary of the commit and optionally you can write a brief description of the changes. Once you supply a summary, the Commit to <strong>master</strong> button becomes available like in the picture below - go ahead and hit it.</p>
+<p> </p>
+<p><img src="/img/3.3-commit.png" alt=""></p>
+<p> </p>
+<p>Now the status of your repo has changed.  In your repo, you have made a commit to Master and there are no local changes since the last commit (NB unless you did make some!).  This should be reflected in your Github Desktop pane.  To update the contents of where this repo lives on Github, we still need to <strong>Push origin</strong>.  There is a history tab at the top of the file changes windows, where you can always examine changes to your repo in the past.  You can see the staus changes in the picture below, and there are actually 2 buttons for Push Origin - pick one and smash it!</p>
+<p> </p>
+<p><img src="/img/3.3-push.png" alt=""></p>
+<p> </p>
+<p>A final step here is <strong>go to your Github repository page online</strong> and have a look at the changes you have made - your file list should have changed and the new README should reflect your edits.  Congratualtions!</p>
+<h1 id="anchor-3"></h1>
+<p> </p>
+<p> </p>
+<h3 id="334-resources">3.3.4 Resources</h3>
+<p>The purpose of this page was really just to introduce you to the <em>ideas</em> of Git, Github and Github Desktop, for those who have not encountered them before.  This is just the barest of introductions to these fun, powerful, useful tools.  To really become proficient will most likely require quite a bit of practice.  We have not covered all the Git and Github specific jargon, or all the functionality of these tools.  We also have completely ignored possibly the most powerful way to use Git and Github, which is directly from a Command Line terminal.</p>
+<p>Here are a few of our favorite resources if you want to learn more:</p>
+<p> </p>
+<p><a href="https://docs.github.com/en/github/getting-started-with-github"><strong>Github&rsquo;s own tutorial</strong></a></p>
+<p><a href="https://git-scm.com/book/en/v2"><strong>Pro Git open source book</strong></a></p>
+<p><a href="https://happygitwithr.com/"><strong>Jenny Ryan&rsquo;s Happy Git and Github book</strong></a></p>
+<p><a href="https://www.youtube.com/watch?v=zVqTLqr6ceQ"><strong>Video: Creative uses for Github</strong></a></p>
+<p><a href="https://www.youtube.com/watch?v=xuB1Id2Wxak"><strong>Video: Comprehensive Github intro (Edureka)</strong></a></p>
+<p> </p>
+<p>That&rsquo;s it, now Git.</p>
+<p> </p>
+<p><img src="https://imgs.xkcd.com/comics/git.png" alt=""></p>
+</div>
+
+</main>
+
+        <footer>
+            <p class="copyright text-muted">© All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a>.</p>
+        </footer>
+
+        
+
+        
+    </body>
+
+</html>
+
