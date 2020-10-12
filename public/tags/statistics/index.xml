@@ -14,7 +14,7 @@
       
       <guid>/bootcamp/2.1-m2-question-explore-analyze/</guid>
       <description>Question, explore, analyze (a workflow for data science)  SCRIPT 2.1 Use this to follow along on this page and for the Practice exercises below.
-Optional reference to review key concepts: Danielle Navarro. 2019. Learning Statistics with R
+ Optional reference to review key concepts: Danielle Navarro. 2019. Learning Statistics with R
  Overview
  A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description. Likewise, it may contain wonderful knowledge, there to discover.</description>
     </item>
@@ -26,7 +26,7 @@ Optional reference to review key concepts: Danielle Navarro. 2019. Learning Stat
       
       <guid>/bootcamp/2.2-m2-sampling-and-distributions/</guid>
       <description>Sampling and distributions  SCRIPT 2.2 Use this to follow along on this page and for the Practice exercises below.
-Optional reference to reinforce key concepts: Rafael Irizarry. 2020. Introduction to Data Science (Chs 13-16)
+ Optional reference to reinforce key concepts: Rafael Irizarry. 2020. Introduction to Data Science (Chs 13-16)
  Overview
  I. A curve has been found representing the frequency distribution of standard deviations of samples drawn from a normal population.
 II. A curve has been found representing the frequency distribution of values of the means of such samples, when these values are measured from the mean of the population in terms of the standard deviation of the sample…</description>
@@ -77,17 +77,6 @@ II. A curve has been found representing the frequency distribution of values of 
  Overview
  The analysis of variance is not a mathematical theorem, but rather a convenient method of arranging the arithmetic. R. A. Fisher (via Wishart 1934. Sppl. J. Roy. Soc. 1(1):26-61.)
  Perhaps more so than any other tool, the Analysis of Variance (ANOVA) literally revolutionized the idea of objectivity in using data to produce evidence to support claims.</description>
-    </item>
-    
-    <item>
-      <title>4.1 IPBC (In-person Bootcamp</title>
-      <link>/bootcamp/4.1-ipbc-desktop-o8okvi1s-conflicted-copy-2020-09-16/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/4.1-ipbc-desktop-o8okvi1s-conflicted-copy-2020-09-16/</guid>
-      <description>In-person Bootcamp (activities)  Overview
- Night science is where we explore the unstructured realm of possible hypotheses, of ideas not yet fully fleshed out. In day science, we falsify hypotheses and observe which are left standing (Yanai, I., Lercher, M., 2019. Night science. Genome Biology 20, 179.)
- The practice of data science is, at it&amp;rsquo;s heart, the applications of tools to solve practical problems. It could be argued that this requires both technical skills and creativity.</description>
     </item>
     
     <item>
