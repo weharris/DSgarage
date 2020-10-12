@@ -1,0 +1,512 @@
+lty = 2, lwd = 2, col = "red") # Mere vanity
+# Draw on raw data
+set.seed(42)
+points(x = jitter(rep(1:5, each = 8), amount = .1),
+y = new.long$Weight,
+pch = 16, cex = .8, col = "blue") # Mere vanity
+summary(aov)
+m1 <- aov(weight~sire, data = new.long)
+summary(aov)
+m2 <- lm(weight~sire, data = new.long)
+summary(m2)
+m1 <- aov(weight~sire, data = new.long)
+summary(aov)
+aov
+summary(m1)
+summary(m2)
+anova(m1)
+summary(m1)
+anova(m2)
+summary(m2)
+plot(m1)
+hist(residuals$m1)
+hist(residuals(m1))
+hist(rstandard(m1))
+shapiro.test(rstandard(m1))
+library(MASS)
+qqPlot(m1)
+bartlett.test(formula = weight~sire, data = new.long)
+plot(rstandard(m1)~new.long$Sire)
+plot(m1)
+plot(rstandard(m1)~fitted(m1))
+plot(formula = rstandard(m1) ~ fitted(m1))
+anova(m1)
+summary(m1)
+m1 <- aov(formula = weight ~ factor(sire),
+data = new.long)
+summary(m1)
+summary(m1)
+coefficients(m1)
+sum_test = unlist(summary(m1))
+sum_test["Pr(>F)1"]
+unlist(summary(m1))
+lm(m1)
+summary(lm(m1))
+mean(chicken)
+mean(vector(chicken))
+mean(as.vector(chicken))
+grand.mean <- mean(new.long$Weight)
+grand.mean
+ncol(chicken)
+ncol(chicken)
+ncol(chicken)*nrow(chicken)
+mean(matrix(chicken))
+mean(as.matrix(chicken))
+mean(new.long$weight)
+mean(new.long$Weight)
+colMeans(chicken)
+n.per.group <- for(i in 1:ncol(chicken)) length(chicken[,1])
+n.per.group
+n.per.group <- for(i in 1:ncol(chicken)) length(chicken[,i])
+n.per.group
+i
+length(chicken[,i])
+n.per.group <- for(i in 1:ncol(chicken)) n.per.group[i] <- length(chicken[,i])
+n.per.group
+n.per.group <- for(i in 1:ncol(chicken)) {n.per.group[i] <- length(chicken[,i])}
+n.per.group
+n.per.group <- vector(mode = "integer", length = ncol(chicken))
+n.per.group <- for(i in 1:ncol(chicken)) {n.per.group[i] <- length(chicken[,i])}
+n.per.group
+ncol(chicken)
+n.per.group[i]
+n.per.group
+n.per.group <- vector(mode = "integer", length = ncol(chicken))
+n.per.group
+length(chicken[,i])
+n.per.group <- for(i in 1:ncol(chicken)) {n.per.group[i] <- length(chicken[,i])}
+n.per.group
+n.per.group[i]
+i
+n.per.group
+n.per.group <- vector(mode = "integer", length = ncol(chicken))
+for(i in 1:ncol(chicken)) {n.per.group[i] <- length(chicken[,i])}
+n.per.group
+n.groups <- ncol(chicken)
+n.per.group <- vector(mode = "integer", length = ncol(chicken))
+for(i in 1:ncol(chicken)) {n.per.group[i] <- length(chicken[,i])}
+n.individuals <- ncol(chicken)*nrow(chicken)
+df.between <- n.groups - 1
+df.within <- n.individuals - n.groups
+mean.total <- mean(as.matrix(chicken))
+mean.per.group <- colMeans(chicken)
+ss.between <-
+# Anova table
+summary(m1)
+ss.between
+n.per.group*(mean.per.group-mean.total)^2
+mean.per.group
+mean.total
+mean.per.group[1]
+chicken[,1]
+(chicken[,1] - mean.per.group[1])^2
+sum(sum((chicken[,1] - mean.per.group[1])^2),
+sum((chicken[,2] - mean.per.group[2])^2),
+sum((chicken[,3] - mean.per.group[3])^2),
+sum((chicken[,4] - mean.per.group[4])^2),
+sum((chicken[,5] - mean.per.group[5])^2)
+)
+ss.between
+ss.between <- sum(n.per.group*(mean.per.group-mean.total)^2)
+ss.between
+ss.within <- sum(sum((chicken[,1] - mean.per.group[1])^2),
+sum((chicken[,2] - mean.per.group[2])^2),
+sum((chicken[,3] - mean.per.group[3])^2),
+sum((chicken[,4] - mean.per.group[4])^2),
+sum((chicken[,5] - mean.per.group[5])^2)
+)
+ss.within
+ms.between <- ss.between/df.between
+ms.between
+ms.within <- ss.within/df.within
+myF <- ms.between/ms.within
+myF
+# Anova table
+summary(m1)
+qf(.95, df.between, df.within)
+df.within
+qf(.95, df.within, df.between )
+ss.between
+ss.within
+myF
+## - Gaussian residuals ####
+m1 < aov(formula = Weight ~ Sire,
+data = new long)
+## - Gaussian residuals ####
+m1 < aov(formula = Weight ~ factor(Sire),
+data = new long)
+## - Gaussian residuals ####
+m1 < aov(formula = Weight ~ factor(Sire),
+data = new.long)
+## - Gaussian residuals ####
+m1 < aov(formula = Weight ~ Sire,
+data = new.long)
+## - Gaussian residuals ####
+m1 <- aov(formula = Weight ~ Sire,
+data = new.long)
+# Graph to examine Gaussian assumption of residuals
+hist(rstandard(m1))
+library(MASS)
+qqPlot(m1)
+# Graph to examine Gaussian assumption of residuals
+# NB we use rstandard()
+hist(rstandard(m1),
+main = "Do the residuals look Gaussian?")
+qqPlot(x = m1,
+main = "")
+# Graph to examine Gaussian assumption of residuals
+# NB we use rstandard()
+par(mfrow = c(1,2))
+hist(rstandard(m1),
+main = "Do the residuals look Gaussian?")
+qqPlot(x = m1,
+main = "Gaussian?")
+par(mfrow = c(1,2))
+hist(rstandard(m1),
+main = "Gaussian?")
+# Look at residuals with qqPlot()
+library(MASS) # For qqPlot()
+qqPlot(x = m1,
+main = "Gaussian?")
+par(mfrow=c(1,1))
+# NHST to examine Gaussian assumption of residuals
+shapiro.test(rstandard(m1))
+plot(formula = rstandard(m1) ~ fitted(m1),
+ylab = "m1: residuals",
+xlab = "m1: fitted values")
+plot(formula = rstandard(m1) ~ fitted(m1),
+ylab = "m1: residuals",
+xlab = "m1: fitted values")
+aggregate(rstandard(m1), by = list(new.long$Sire), FUN = mean)
+fitted(m1)
+aggregate(rstandard(m1), by = list(new.long$Sire), FUN = mean)[,2]
+unique(fitted(m1))
+unique(round(fitted(m1)), 3)
+unique(round(fitted(m1)), 6)
+unique(round(fitted(m1), 6))
+abline(h = 0,
+lty = 2, lwd = 2, col = "red")
+# Make the mean residual y points
+y1 <- aggregate(rstandard(m1), by = list(new.long$Sire), FUN = mean)[,2]
+# Make the x unique fitted values
+x1 <- unique(round(fitted(m1), 6))
+points(x = x1, y = y1,
+pch = 16, cex = 1.2, col = "blue")
+plot(formula = rstandard(m1) ~ fitted(m1),
+ylab = "m1: residuals",
+xlab = "m1: fitted values",
+man = "Spread similar across x?")
+plot(formula = rstandard(m1) ~ fitted(m1),
+ylab = "m1: residuals",
+xlab = "m1: fitted values",
+man = "Spread similar across x?")
+plot(formula = rstandard(m1) ~ fitted(m1),
+ylab = "m1: residuals",
+xlab = "m1: fitted values",
+main = "Spread similar across x?")
+abline(h = 0,
+lty = 2, lwd = 2, col = "red")
+# Make the mean residual y points
+y1 <- aggregate(rstandard(m1), by = list(new.long$Sire), FUN = mean)[,2]
+# Make the x unique fitted values
+x1 <- unique(round(fitted(m1), 6))
+points(x = x1, y = y1,
+pch = 16, cex = 1.2, col = "blue")
+plot(formula = rstandard(m1) ~ new.long$Sire,
+ylab = "m1: residuals",
+xlab = "m1: fitted values",
+main = "Spread similar across x?")
+# NHST to examine  assumption of homoscedasticity
+# (homoscedasticiyy good, heteroscedasticity bad)
+bartlett.test(formula = weight~sire, data = new.long)
+?cut()
+x <- rnorm(100)
+x
+set.seed(42)
+x <- rnorm(100)
+x <- round(rnorm(100), 2)
+set.seed(42)
+x <- round(rnorm(100), 2)
+x
+cut(x, 10)
+set.seed(42)
+x <- round(rnorm(20), 2)
+?cut
+cut(x, 2)
+set.seed(42)
+x <- round(rnorm(20), 2)
+?cut
+x0 <- cut(x, breaks = 2, labels = null) # Default
+x1 <- cut(x, breaks = 2, labels = c("A", "B"))
+x2 <- cut(x, breaks = 2, labels = c("bob", "thomas"))
+x0 <- cut(x, breaks = 2, labels = NULL) # Default
+data.frame(x, x0, x1, x2)
+head(data.frame(x, x0, x1, x2))
+summary(aov)
+# NB if the factor is a character, it "should" be coerced to a factor
+# by R, "the passive aggressive butler"
+# If in doubt, explicitly make the vector class == factor()
+m1 <- aov(formula = weight ~ factor(sire),
+data = new.long)
+summary(m1)
+summary(m1)
+# Use lm() and summary() to generate contrasts
+# Use relevel() to set sire C to the reference factor level
+new.long$Sire <- relevel(new.long$Sire, ref="C")
+plot(Weight ~ Sire,
+data = new.long)
+summary(m2)
+class(m2)
+plot(Weight ~ Sire,
+data = new.long,
+main = "Sire C as reference")
+chicken
+library(kableExtra)
+library(kable)
+library(kableExtra)
+install.packages("kableExtra")
+library(kableExtra)
+kable(chicken)
+```r
+> chicken
+A   B   C   D   E
+1 687 618 618 600 717
+2 691 680 687 657 658
+3 793 592 763 669 674
+4 675 683 747 606 611
+5 700 631 687 718 678
+6 753 691 737 693 788
+7 704 694 731 669 650
+8 717 732 603 648 690
+```
+kable(chicken, "latex")
+n.groups <- ncol(chicken)
+n.per.group <- vector(mode = "integer", length = ncol(chicken))
+for(i in 1:ncol(chicken)) {n.per.group[i] <- length(chicken[,i])}
+n.individuals <- ncol(chicken)*nrow(chicken)
+df.between <- n.groups - 1
+df.within <- n.individuals - n.groups
+mean.total <- mean(as.matrix(chicken))
+mean.per.group <- colMeans(chicken)
+ss.between <- sum(n.per.group*(mean.per.group-mean.total)^2)
+ss.within <- sum(sum((chicken[,1] - mean.per.group[1])^2),
+sum((chicken[,2] - mean.per.group[2])^2),
+sum((chicken[,3] - mean.per.group[3])^2),
+sum((chicken[,4] - mean.per.group[4])^2),
+sum((chicken[,5] - mean.per.group[5])^2)
+)
+ms.between <- ss.between/df.between
+ms.within <- ss.within/df.within
+myF <- ms.between/ms.within
+qf(p = .95, df1 = df.within, df2 = df.between )
+# Anova table
+summary(m1)
+# Model coefficients
+coefficients(m1)
+# Contrast table
+summary(lm(m1))
+myF <- ms.between/ms.within
+myF
+names(m1)
+# Model coefficients
+coefficients(m1)
+# Anova table
+summary(m1)
+# Manual F
+(myF <- ms.between/ms.within)
+# Anova table
+summary(m1) # Store-bought F
+dim(summary(m1))
+# Anova table
+class(m1) # Store-bought F
+# Anova table
+anova(m1) # Store-bought F
+# Anova table
+names(anova(m1)) # Store-bought F
+# Anova table
+anova(m1)$"F value" # Store-bought F
+# Anova table
+anova(m1)$"F value"[1] # Store-bought F
+# Manual F
+(myF <- ms.between/ms.within)
+# Anova table
+anova(m1)$"F value"[1] # Store-bought F
+```r
+plot(Weight ~ Sire,
+data = new.long,
+main = "Sire C as reference")
+```
+new.long$Sire <- relevel(new.long$Sire, ref="C")
+m2 <= lm(function = Weight ~ Sire,
+data = new.long)
+m2 <- lm(function = Weight ~ Sire,
+data = new.long)
+m2 <- lm(function = Weight ~ Sire,
+data = new.long)
+m2 <- lm(function = Weight ~ Sire,
+data = new.long)
+m2 <- lm(function = Weight ~ Sire, data = new.long)
+```r
+# Use lm() and summary() to generate contrasts
+# Use relevel() to set sire C to the reference factor level
+new.long$Sire <- relevel(new.long$Sire, ref="C")
+m2 <- lm(formula = Weight ~ Sire,
+data = new.long)
+summary(m2)
+plot(Weight ~ Sire,
+data = new.long)
+```
+```r
+# Use lm() and summary() to generate contrasts
+# Use relevel() to set sire C to the reference factor level
+new.long$Sire <- relevel(new.long$Sire, ref="C")
+m2 <- lm(formula = Weight ~ Sire,
+data = new.long)
+summary(m2)
+plot(Weight ~ Sire,
+data = new.long)
+```
+m2 <- lm(formula = Weight ~ Sire,
+data = new.long)
+summary(m2)
+?pairwise.t.test
+# there are a few p.adjust.methods
+# c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY",
+#   "fdr", "none")
+# we will use "bonferroni"
+pairwise.t.test(x = new.long$Weight,
+g = new.long$Sire,
+p.adjust.method = "bonferroni")
+?TukeyHSD
+TukeyHSD(m2)
+TukeyHSD(m1)
+plot(TukeyHSD(m1))
+# there are a few p.adjust.methods
+# c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY",
+#   "fdr", "none")
+# we will use "bonferroni"
+pairwise.t.test(x = new.long$Weight,
+g = new.long$Sire,
+p.adjust.method = "bonferroni")
+TukeyHSD(m1) # NB m1 - this function requires an "aov" object
+## **Kruskal-Wallis non-parametric alternative to the 1-way ANOVA**
+####
+?kruskal.test
+Kruskal.test(formula = Weight ~ Sire,
+data = new.long)
+kruskal.test(formula = Weight ~ Sire,
+data = new.long)
+treatment <- c(rep("control", 10),
+rep("x.half", 10),
+rep("x.full", 10),
+rep("organic", 10))
+set.seed(42)
+damage <- c(rnorm(10, 100, 10),
+rnorm(10, 75, 10),
+rnorm(10, 50, 10),
+rnorm(10, 100, 10))
+damage
+set.seed(42)
+damage <- round(c(rnorm(10, 100, 10),
+rnorm(10, 75, 10),
+rnorm(10, 50, 10),
+rnorm(10, 100, 10)), 1)
+damage
+pest <- data.frame(damage, treatment)
+dput(pest)
+structure(list(damage = c(113.7, 94.4, 103.6, 106.3, 104, 98.9,
+115.1, 99.1, 120.2, 99.4, 88, 97.9, 61.1, 72.2, 73.7, 81.4, 72.2,
+48.4, 50.6, 88.2, 46.9, 32.2, 48.3, 62.1, 69, 45.7, 47.4, 32.4,
+54.6, 43.6, 104.6, 107, 110.4, 93.9, 105, 82.8, 92.2, 91.5, 75.9,
+100.4), treatment = c("control", "control", "control", "control",
+"control", "control", "control", "control", "control", "control",
+"x.half", "x.half", "x.half", "x.half", "x.half", "x.half", "x.half",
+"x.half", "x.half", "x.half", "x.full", "x.full", "x.full", "x.full",
+"x.full", "x.full", "x.full", "x.full", "x.full", "x.full", "organic",
+"organic", "organic", "organic", "organic", "organic", "organic",
+"organic", "organic", "organic")), class = "data.frame", row.names = c(NA,
+-40L))
+pest <- structure(list(damage = c(113.7, 94.4, 103.6, 106.3, 104, 98.9,
+115.1, 99.1, 120.2, 99.4, 88, 97.9, 61.1, 72.2, 73.7, 81.4, 72.2,
+48.4, 50.6, 88.2, 46.9, 32.2, 48.3, 62.1, 69, 45.7, 47.4, 32.4,
+54.6, 43.6, 104.6, 107, 110.4, 93.9, 105, 82.8, 92.2, 91.5, 75.9,
+100.4), treatment = c("control", "control", "control", "control",
+"control", "control", "control", "control", "control", "control",
+"x.half", "x.half", "x.half", "x.half", "x.half", "x.half", "x.half",
+"x.half", "x.half", "x.half", "x.full", "x.full", "x.full", "x.full",
+"x.full", "x.full", "x.full", "x.full", "x.full", "x.full", "organic",
+"organic", "organic", "organic", "organic", "organic", "organic",
+"organic", "organic", "organic")), class = "data.frame", row.names = c(NA,
+-40L))
+head(new.long)
+A <- c(687, 691, 793, 675, 700, 753, 704, 717)
+B <- c(618, 680, 592, 683, 631, 691, 694, 732)
+C <- c(618, 687, 763, 747, 687, 737, 731, 603)
+D <- c(600, 657, 669, 606, 718, 693, 669, 648)
+E <- c(717, 658, 674, 611, 678, 788, 650, 690)
+head(chicken.wide <- data.frame(A, B, C, D, E))
+library(reshape2) # For melt()
+new.long <- melt(chicken.wide)
+head(new.long) # Not bad but note the variable names
+# With function from {tidyr}
+head(chicken.wide) # From above
+new.long <- melt(chicken.wide)
+head(new.long) # Not bad but note the variable names
+The **Bonferroni adjustment** simply divides the alpha expected value by the number of *post hoc* pairwise comparisons.  NB the Bonferroni adjustment is conservative, and there are alternatives.  The point here is just to illustrate how these tests function and, like with many things, more study will be required to round out foundational knowledge for *post hoc* testing precedures.  The Bonferroni test is nice to know about and understand because it is easy to use, and manually calculate, and can be applied to any situation.
+```r
+# Try this:
+citation()
+blogdown:::serve_site()
+library(openxlsx)
+data <- read.xlsx("3.3-can.xlsx")
+data <- read.xlsx("3.3-cane.xlsx")
+## 01 Setup ####
+# Get the data set up
+mydir <- "D:/Dropbox/git/DSgarage/public/data" # << change to yours!
+setwd(mydir)
+data <- read.xlsx("3.3-cane.xlsx")
+## 02 Graph ####
+plot(y = r/n,
+x = var)
+## 02 Graph ####
+plot(y = r/n,
+x = var,
+data = data)
+names(data)
+## 02 Graph ####
+plot(y = r/n,
+x = var,
+data = data)
+## 02 Graph ####
+plot(y = data$r/n,
+x = var,
+data = data)
+## 02 Graph ####
+plot(y = data$r/data$n,
+x = data$var,
+data = data)
+## 02 Graph ####
+plot(y = data$r/data$n,
+x = data$var)
+## 01 Setup ####
+# Get the data set up
+mydir <- "D:/Dropbox/git/DSgarage/public/data" # << change to yours!
+setwd(mydir)
+library(openxlsx)
+data <- read.xlsx("3.3-cane.xlsx")
+## 02 Graph ####
+# Make a plot showing the proportion of diseased stems per plot
+# (variable "r" / variable "n")
+# as a function of
+plot(y = data$r/data$n,
+x = data$var)
+blogdown:::serve_site()
+blogdown:::serve_site()
+blogdown:::serve_site()
+blogdown:::serve_site()
+blogdown:::serve_site()
+blogdown:::serve_site()
+install.packages("blogdown", dep=T)
+blogdown:::serve_site()
+blogdown::install_hugo()
+blogdown:::serve_site()

@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bootcamp on Data Science Garage</title>
-    <link>/tags/bootcamp/</link>
+    <link>/categories/bootcamp/</link>
     <description>Recent content in Bootcamp on Data Science Garage</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/bootcamp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="/categories/bootcamp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>0.0 R Bootcamp Overview</title>
       <link>/bootcamp/0.0-bootcamp-overview/</link>
@@ -22,7 +22,8 @@
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/0.1-bootcamp-intro/</guid>
-      <description>0.1 Bootcamp Intro (Your first day with R) SCRIPT 0.1 Use this for the Practice exercises below.
+      <description>0.1 Bootcamp Intro (Your first day with R) VIDEO 0.1 Bootcamp Intro
+SCRIPT 0.1 Use this for the Practice exercises below.
  Overview
 This page is intended to guide people during their first installation and use of R and RStudio.
  Contents
@@ -30,8 +31,7 @@ This page is intended to guide people during their first installation and use of
 0.1.2 R motivation 
 0.1.3 Install R and RStudio or set up RStudio Cloud
 0.1.4 RStudio components and setup
-0.1.5 Workflow for scripts in R
-0.1.6 Practice exercises</description>
+0.1.5 Workflow for scripts in R</description>
     </item>
     
     <item>
@@ -40,7 +40,8 @@ This page is intended to guide people during their first installation and use of
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.1-m1-r-syntax-basics/</guid>
-      <description>R Syntax basics (R as a passive-aggressive butler) SCRIPT 1.1 Use this to follow along on this page and for the Practice exercises below.
+      <description>R Syntax basics (R as a passive-aggressive butler) VIDEO 1.1
+SCRIPT 1.1 Use this to follow along on this page and for the Practice exercises below.
  Overview
  We love the R language, but sometimes it is a little bit like talking to a passive aggressive butler - if you aren&amp;rsquo;t careful with your language, the interaction may have unexpected outcomes&amp;hellip;
  R is a programming language and popular open source software design to help non-programmers perform statistical analyses and to make graphs.</description>
@@ -52,7 +53,8 @@ This page is intended to guide people during their first installation and use of
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.2-m1-function-and-packages/</guid>
-      <description>Functions and Packages Toolboxes (R as a garage full of tools) SCRIPT 1.2 Use this to follow along on this page and for the Practice exercises below.
+      <description>Functions and Packages Toolboxes (R as a garage full of tools) VIDEO 1.2
+SCRIPT 1.2 Use this to follow along on this page and for the Practice exercises below.
  Overview
  R is like a big garage filled with useful tools.
  One of the best things about R is that it can be customized to accomplish a huge variety of kinds of tasks: perform all sorts of statistical analyses from simple to bleeding edge, produce professional graphs, format analyses into presentations, manuscripts and web pages, collaboration, GIS and mapping, and a lot more.</description>
@@ -64,7 +66,8 @@ This page is intended to guide people during their first installation and use of
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.3-m1-data-objects/</guid>
-      <description>Data Objects (R space as &amp;ldquo;a thing&amp;rdquo;) SCRIPT 1.3 Use this to follow along on this page and for the Practice exercises below.
+      <description>Data Objects (R space as &amp;ldquo;a thing&amp;rdquo;) VIDEO 1.3
+SCRIPT 1.3 Use this to follow along on this page and for the Practice exercises below.
  Overview
  Imagine you are floating in space in the R Global Environment and any data object you can see, you can call on by name to manipulate with functions. Let&amp;rsquo;s call it R Space
  The fundamental way to analyse data in R is to be able to manipuate it with code.</description>
@@ -76,7 +79,8 @@ This page is intended to guide people during their first installation and use of
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.4-m1-data-frames/</guid>
-      <description>Data Frames (Like your room, data should be tidy) SCRIPT 1.4 Use this to follow along on this page and for the Practice exercises below.
+      <description>Data Frames (Like your room, data should be tidy) VIDEO 1.4
+SCRIPT 1.4 Use this to follow along on this page and for the Practice exercises below.
 NB for this page we assume you have access to Microsoft Excel; however, similar spreadsheet software (like Libre Office Calc) will work fine.
  Overview
  The first step for getting your data into R is making your data tidy. The first step in using R for data analysis is getting your data into R.</description>
@@ -88,7 +92,8 @@ NB for this page we assume you have access to Microsoft Excel; however, similar 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.5-m1-data-subsetting-and-manipulation/</guid>
-      <description>Data Subsetting and Manipulation (Use sumo on data)  SCRIPT 1.5 Use this to follow along on this page and for the Practice exercises below.
+      <description>Data Subsetting and Manipulation (Use sumo on data)  VIDEO 1.5
+SCRIPT 1.5 Use this to follow along on this page and for the Practice exercises below.
  Overview
  With a good basic set of moves for subsetting and manipulating data, you can overpower any dataset no matter how large and powerful they may be. Then, you will have strong data Sumo.
  Subsetting and manipuating data is probably the commonest activity for anyone who works with data.</description>
@@ -100,7 +105,8 @@ NB for this page we assume you have access to Microsoft Excel; however, similar 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.1-m2-question-explore-analyze/</guid>
-      <description>Question, explore, analyze (a workflow for data science)  SCRIPT 2.1 Use this to follow along on this page and for the Practice exercises below.
+      <description>Question, explore, analyze (a workflow for data science)  VIDEO 2.1
+SCRIPT 2.1 Use this to follow along on this page and for the Practice exercises below.
 Optional reference to review key concepts: Danielle Navarro. 2019. Learning Statistics with R
  Overview
  A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description. Likewise, it may contain wonderful knowledge, there to discover.</description>
@@ -112,7 +118,8 @@ Optional reference to review key concepts: Danielle Navarro. 2019. Learning Stat
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.2-m2-sampling-and-distributions/</guid>
-      <description>Sampling and distributions  SCRIPT 2.2 Use this to follow along on this page and for the Practice exercises below.
+      <description>Sampling and distributions  VIDEO 2.2
+SCRIPT 2.2 Use this to follow along on this page and for the Practice exercises below.
 Optional reference to reinforce key concepts: Rafael Irizarry. 2020. Introduction to Data Science (Chs 13-16)
  Overview
  I. A curve has been found representing the frequency distribution of standard deviations of samples drawn from a normal population.
@@ -125,7 +132,8 @@ II. A curve has been found representing the frequency distribution of values of 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.3-m2-correlation/</guid>
-      <description>Correlation  SCRIPT 2.3 Use this to follow along on this page and for the Practice exercises below.
+      <description>Correlation  VIDEO 2.3
+SCRIPT 2.3 Use this to follow along on this page and for the Practice exercises below.
  Overview
  Most of you will have heard the maxim &amp;ldquo;correlation does not imply causation&amp;rdquo;. Just because two variables have a statistical relationship with each other does not mean that one is responsible for the other. For instance, ice cream sales and forest fires are correlated because both occur more often in the summer heat.</description>
     </item>
@@ -136,7 +144,8 @@ II. A curve has been found representing the frequency distribution of values of 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.4-m2-simple-linear-regression/</guid>
-      <description>Question, explore, analyze (a workflow for data science)  SCRIPT 2.4 Use this to follow along on this page and for the Practice exercises below.
+      <description>Question, explore, analyze (a workflow for data science)  VIDEO 2.4
+SCRIPT 2.4 Use this to follow along on this page and for the Practice exercises below.
  Overview
  &amp;ldquo;The general rule is straightforward but has surprising consequences: whenever the correlation between two scores is imperfect, there will be regression to the mean.&amp;rdquo; - Francis Galton
  One of the most common and powerful tools in the statistical toolbox is linear regression.</description>
@@ -148,7 +157,8 @@ II. A curve has been found representing the frequency distribution of values of 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.5-m2-t-test/</guid>
-      <description>T-test (and related questions and tools)  SCRIPT 2.5 Use this to follow along on this page and for the Practice exercises below.
+      <description>T-test (and related questions and tools)  VIDEO 2.5
+SCRIPT 2.5 Use this to follow along on this page and for the Practice exercises below.
  Overview
  The t-test and t-distribution are widely considered to be at the very foundation of modern statistic science and they form an important foundation for the practice of statistics. Who would believe they were invented to make great beer better?
  William Sealy Gosset is credited with inventing and applying the idea of the t-test to assist in scientific quality control while working for the Guiness brewery.</description>
@@ -160,57 +170,15 @@ II. A curve has been found representing the frequency distribution of values of 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.6-1-way-anova/</guid>
-      <description>1-way ANOVA (and related questions and tools)  SCRIPT 2.6 Use this to follow along on this page and for the Practice exercises below.
+      <description>1-way ANOVA (and related questions and tools)  VIDEO 2.6
+SCRIPT 2.6 Use this to follow along on this page and for the Practice exercises below.
  Overview
  The analysis of variance is not a mathematical theorem, but rather a convenient method of arranging the arithmetic. R. A. Fisher (via Wishart 1934. Sppl. J. Roy. Soc. 1(1):26-61.)
  Perhaps more so than any other tool, the Analysis of Variance (ANOVA) literally revolutionized the idea of objectivity in using data to produce evidence to support claims.</description>
     </item>
     
     <item>
-      <title>3.1 Best Practices for Reproducibility</title>
-      <link>/bootcamp/3.1-m3-reproducible-research/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/3.1-m3-reproducible-research/</guid>
-      <description>Analysing data using R can generate complex scripts that might make sense to you while you&amp;rsquo;re actively working on them, but they won&amp;rsquo;t to future you or collaborators. This bootcamp module offers guidance to improve the reproducibility of your code for yourself and others. Following this guidance will also improve your R workflow and reduce errors.
- SCRIPT - Use this for the practice exercises below
- Contents
-3.1.1 Styling Your Code</description>
-    </item>
-    
-    <item>
-      <title>3.2 RMarkdown for Reproducible Reports</title>
-      <link>/bootcamp/3.2-m3-rmarkdown/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/3.2-m3-rmarkdown/</guid>
-      <description>As researchers we often want our collaborators to easily understand what we have done during an analysis. We could just share our raw data and code as it should be reproducible now you&amp;rsquo;ve completed module 3.1. It would be much better to create a reproducible report using RMarkdown that presents your code alongside its output (graphs, tables, etc.) with conventional text to explain it. Of course, reproducible reports aren&amp;rsquo;t just a useful way of sharing analyses with collaborators but can also act as a record for yourself.</description>
-    </item>
-    
-    <item>
-      <title>3.3 Git and version control</title>
-      <link>/bootcamp/3.3-m3-version-control/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/3.3-m3-version-control/</guid>
-      <description>Git and version control  Overview
- Have you ever accidentally deleted work on your computer and realized you needed it and lost work? And you were left with the terrible feeling you had to do it all again? Or had to make tedious revisions to merge work done on the same document with others? Git and Github fix all that.
-  The practice of data science involves a lot of data, code, figures, tables, manuscripts, and other documents.</description>
-    </item>
-    
-    <item>
       <title>4.1 IPBC (In-person Bootcamp</title>
-      <link>/bootcamp/4.1-ipbc-desktop-o8okvi1s-conflicted-copy-2020-09-16/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/4.1-ipbc-desktop-o8okvi1s-conflicted-copy-2020-09-16/</guid>
-      <description>In-person Bootcamp (activities)  Overview
- Night science is where we explore the unstructured realm of possible hypotheses, of ideas not yet fully fleshed out. In day science, we falsify hypotheses and observe which are left standing (Yanai, I., Lercher, M., 2019. Night science. Genome Biology 20, 179.)
- The practice of data science is, at it&amp;rsquo;s heart, the applications of tools to solve practical problems. It could be argued that this requires both technical skills and creativity.</description>
-    </item>
-    
-    <item>
-      <title>4.1 IPBC (In-person Bootcamp)</title>
       <link>/bootcamp/4.1-ipbc/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       

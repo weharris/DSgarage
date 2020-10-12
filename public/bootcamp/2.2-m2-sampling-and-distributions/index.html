@@ -66,7 +66,7 @@
 
 
 <script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
- <meta name="generator" content="Hugo 0.72.0" />
+ <meta name="generator" content="Hugo 0.75.0" />
         
 
         
@@ -141,7 +141,6 @@
 <p> </p>
 <h2 id="sampling-and-distributions">Sampling and distributions</h2>
 <p> </p>
-<p>VIDEO 2.2</p>
 <p><a href="/scripts/script-2.2.R">SCRIPT 2.2</a> Use this to follow along on this page and for the Practice exercises below.</p>
 <p>Optional reference to reinforce key concepts: <a href="https://learningstatisticswithr.com/book/">Rafael Irizarry. 2020. Introduction to Data Science (Chs 13-16)</a></p>
 <p> </p>
@@ -348,7 +347,7 @@ mycol <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</sp
 </code></pre></div><p><img src="/img/2.2-fig-gauss.png" alt=""></p>
 <p> </p>
 <p><strong>Q-Q plots</strong></p>
-<p>It is very often that you might want a peek or even test whether data are Gaussian.  This might be in a situation when looking at, for example, the residuals for a linear model to test whether they adhere to the assumption of a Gaussian distribution.  In that case, a common diagnostic graph to construct is the quantile-quantile, or <a href="https://data.library.virginia.edu/understanding-q-q-plots">&ldquo;q-q&rdquo;&rdquo; Gaussian plot</a>.</p>
+<p>It is very often that you might want a peek or even test whether data are Gaussian.  This might be in a situation when looking at, for example, the residuals for a linear model to test whether they adhere to the assumption of a Gaussian distribution.  In that case, a common diagnostic graph to construct is the quantile-quantile, or <a href="https://data.library.virginia.edu/understanding-q-q-plots">&ldquo;q-q&rdquo;&quot; Gaussian plot</a>.</p>
 <p>The q-q Gaussian plot your data again the theoretical expectation of the &ldquo;quantile&rdquo;, or percentile, were your data perfectly Gaussian (a straight, diagonal line).  Remember, samples are not necessarily expected to perfectly conform to Gaussian (due to sampling error), even if the population from which the sample was taken were to be perfectly Gaussian.  Thus, this is a way to <strong>confront your data with a model</strong>, to help be completely informed.  The degree to which your data deviates from the line (especially systematic deviation at the ends of the line of expectation), is the degree to which is deviates from Gaussian.</p>
 <p> </p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## q-q- Gaussian ####</span>
@@ -490,7 +489,7 @@ mycol <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</sp
 <p><strong>The Binomial distribution:</strong></p>
 <ul>
 <li>
-<p>Data are the count of &ldquo;successes&rdquo;&rdquo; in (binary) outcomes of a series of independent events</p>
+<p>Data are the count of &ldquo;successes&rdquo;&quot; in (binary) outcomes of a series of independent events</p>
 </li>
 <li>
 <p>Data coding can be variable, but an example would be success for failure while surveying for wildlife: check this nestbox; <a href="https://nbn.org.uk/biological-recording-scheme/the-national-dormouse-monitoring-programme-ndmp/">is there at least one dormouse (<em>Muscardinus avellanarius</em>) in it?</a>.  Let&rsquo;s say you check 50 nest boxes, there is exactly 1 outcome, and the probability of occupancy is 30%.</p>

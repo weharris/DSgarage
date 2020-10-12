@@ -13,7 +13,8 @@
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.1-m2-question-explore-analyze/</guid>
-      <description>Question, explore, analyze (a workflow for data science)  SCRIPT 2.1 Use this to follow along on this page and for the Practice exercises below.
+      <description>Question, explore, analyze (a workflow for data science)  VIDEO 2.1
+SCRIPT 2.1 Use this to follow along on this page and for the Practice exercises below.
 Optional reference to review key concepts: Danielle Navarro. 2019. Learning Statistics with R
  Overview
  A dataset often comes to the Data Scientist in an imperfect state, possibly incomplete, containing errors, and with minimal description. Likewise, it may contain wonderful knowledge, there to discover.</description>
@@ -25,7 +26,8 @@ Optional reference to review key concepts: Danielle Navarro. 2019. Learning Stat
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.2-m2-sampling-and-distributions/</guid>
-      <description>Sampling and distributions  SCRIPT 2.2 Use this to follow along on this page and for the Practice exercises below.
+      <description>Sampling and distributions  VIDEO 2.2
+SCRIPT 2.2 Use this to follow along on this page and for the Practice exercises below.
 Optional reference to reinforce key concepts: Rafael Irizarry. 2020. Introduction to Data Science (Chs 13-16)
  Overview
  I. A curve has been found representing the frequency distribution of standard deviations of samples drawn from a normal population.
@@ -38,7 +40,8 @@ II. A curve has been found representing the frequency distribution of values of 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.3-m2-correlation/</guid>
-      <description>Correlation  SCRIPT 2.3 Use this to follow along on this page and for the Practice exercises below.
+      <description>Correlation  VIDEO 2.3
+SCRIPT 2.3 Use this to follow along on this page and for the Practice exercises below.
  Overview
  Most of you will have heard the maxim &amp;ldquo;correlation does not imply causation&amp;rdquo;. Just because two variables have a statistical relationship with each other does not mean that one is responsible for the other. For instance, ice cream sales and forest fires are correlated because both occur more often in the summer heat.</description>
     </item>
@@ -49,7 +52,8 @@ II. A curve has been found representing the frequency distribution of values of 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.4-m2-simple-linear-regression/</guid>
-      <description>Question, explore, analyze (a workflow for data science)  SCRIPT 2.4 Use this to follow along on this page and for the Practice exercises below.
+      <description>Question, explore, analyze (a workflow for data science)  VIDEO 2.4
+SCRIPT 2.4 Use this to follow along on this page and for the Practice exercises below.
  Overview
  &amp;ldquo;The general rule is straightforward but has surprising consequences: whenever the correlation between two scores is imperfect, there will be regression to the mean.&amp;rdquo; - Francis Galton
  One of the most common and powerful tools in the statistical toolbox is linear regression.</description>
@@ -61,7 +65,8 @@ II. A curve has been found representing the frequency distribution of values of 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.5-m2-t-test/</guid>
-      <description>T-test (and related questions and tools)  SCRIPT 2.5 Use this to follow along on this page and for the Practice exercises below.
+      <description>T-test (and related questions and tools)  VIDEO 2.5
+SCRIPT 2.5 Use this to follow along on this page and for the Practice exercises below.
  Overview
  The t-test and t-distribution are widely considered to be at the very foundation of modern statistic science and they form an important foundation for the practice of statistics. Who would believe they were invented to make great beer better?
  William Sealy Gosset is credited with inventing and applying the idea of the t-test to assist in scientific quality control while working for the Guiness brewery.</description>
@@ -73,7 +78,8 @@ II. A curve has been found representing the frequency distribution of values of 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/2.6-1-way-anova/</guid>
-      <description>1-way ANOVA (and related questions and tools)  SCRIPT 2.6 Use this to follow along on this page and for the Practice exercises below.
+      <description>1-way ANOVA (and related questions and tools)  VIDEO 2.6
+SCRIPT 2.6 Use this to follow along on this page and for the Practice exercises below.
  Overview
  The analysis of variance is not a mathematical theorem, but rather a convenient method of arranging the arithmetic. R. A. Fisher (via Wishart 1934. Sppl. J. Roy. Soc. 1(1):26-61.)
  Perhaps more so than any other tool, the Analysis of Variance (ANOVA) literally revolutionized the idea of objectivity in using data to produce evidence to support claims.</description>
@@ -81,17 +87,6 @@ II. A curve has been found representing the frequency distribution of values of 
     
     <item>
       <title>4.1 IPBC (In-person Bootcamp</title>
-      <link>/bootcamp/4.1-ipbc-desktop-o8okvi1s-conflicted-copy-2020-09-16/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/4.1-ipbc-desktop-o8okvi1s-conflicted-copy-2020-09-16/</guid>
-      <description>In-person Bootcamp (activities)  Overview
- Night science is where we explore the unstructured realm of possible hypotheses, of ideas not yet fully fleshed out. In day science, we falsify hypotheses and observe which are left standing (Yanai, I., Lercher, M., 2019. Night science. Genome Biology 20, 179.)
- The practice of data science is, at it&amp;rsquo;s heart, the applications of tools to solve practical problems. It could be argued that this requires both technical skills and creativity.</description>
-    </item>
-    
-    <item>
-      <title>4.1 IPBC (In-person Bootcamp)</title>
       <link>/bootcamp/4.1-ipbc/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
