@@ -6,19 +6,14 @@
     <description>Recent content in Programming on Data Science Garage</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/programming/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/programming/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1.1 R Syntax Basics</title>
       <link>/bootcamp/1.1-m1-r-syntax-basics/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.1-m1-r-syntax-basics/</guid>
-      <description>R Syntax basics (R as a passive-aggressive butler) VIDEO 1.1
-SCRIPT 1.1 Use this to follow along on this page and for the Practice exercises below.
+      <description>R Syntax basics (R as a passive-aggressive butler)  SCRIPT 1.1 Use this to follow along on this page and for the Practice exercises below.
  Overview
  We love the R language, but sometimes it is a little bit like talking to a passive aggressive butler - if you aren&amp;rsquo;t careful with your language, the interaction may have unexpected outcomes&amp;hellip;
  R is a programming language and popular open source software design to help non-programmers perform statistical analyses and to make graphs.</description>
@@ -30,8 +25,7 @@ SCRIPT 1.1 Use this to follow along on this page and for the Practice exercises 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.2-m1-function-and-packages/</guid>
-      <description>Functions and Packages Toolboxes (R as a garage full of tools) VIDEO 1.2
-SCRIPT 1.2 Use this to follow along on this page and for the Practice exercises below.
+      <description>Functions and Packages Toolboxes (R as a garage full of tools)  SCRIPT 1.2 Use this to follow along on this page and for the Practice exercises below.
  Overview
  R is like a big garage filled with useful tools.
  One of the best things about R is that it can be customized to accomplish a huge variety of kinds of tasks: perform all sorts of statistical analyses from simple to bleeding edge, produce professional graphs, format analyses into presentations, manuscripts and web pages, collaboration, GIS and mapping, and a lot more.</description>
@@ -43,8 +37,7 @@ SCRIPT 1.2 Use this to follow along on this page and for the Practice exercises 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.3-m1-data-objects/</guid>
-      <description>Data Objects (R space as &amp;ldquo;a thing&amp;rdquo;) VIDEO 1.3
-SCRIPT 1.3 Use this to follow along on this page and for the Practice exercises below.
+      <description>Data Objects (R space as &amp;ldquo;a thing&amp;rdquo;)  SCRIPT 1.3 Use this to follow along on this page and for the Practice exercises below.
  Overview
  Imagine you are floating in space in the R Global Environment and any data object you can see, you can call on by name to manipulate with functions. Let&amp;rsquo;s call it R Space
  The fundamental way to analyse data in R is to be able to manipuate it with code.</description>
@@ -56,9 +49,8 @@ SCRIPT 1.3 Use this to follow along on this page and for the Practice exercises 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.4-m1-data-frames/</guid>
-      <description>Data Frames (Like your room, data should be tidy) VIDEO 1.4
-SCRIPT 1.4 Use this to follow along on this page and for the Practice exercises below.
-NB for this page we assume you have access to Microsoft Excel; however, similar spreadsheet software (like Libre Office Calc) will work fine.
+      <description>Data Frames (Like your room, data should be tidy)  SCRIPT 1.4 Use this to follow along on this page and for the Practice exercises below.
+ NB for this page we assume you have access to Microsoft Excel; however, similar spreadsheet software (like Libre Office Calc) will work fine.
  Overview
  The first step for getting your data into R is making your data tidy. The first step in using R for data analysis is getting your data into R.</description>
     </item>
@@ -69,8 +61,7 @@ NB for this page we assume you have access to Microsoft Excel; however, similar 
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/bootcamp/1.5-m1-data-subsetting-and-manipulation/</guid>
-      <description>Data Subsetting and Manipulation (Use sumo on data)  VIDEO 1.5
-SCRIPT 1.5 Use this to follow along on this page and for the Practice exercises below.
+      <description>Data Subsetting and Manipulation (Use sumo on data)  SCRIPT 1.5 Use this to follow along on this page and for the Practice exercises below.
  Overview
  With a good basic set of moves for subsetting and manipulating data, you can overpower any dataset no matter how large and powerful they may be. Then, you will have strong data Sumo.
  Subsetting and manipuating data is probably the commonest activity for anyone who works with data.</description>
