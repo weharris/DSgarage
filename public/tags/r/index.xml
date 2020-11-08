@@ -6,7 +6,217 @@
     <description>Recent content in R on Data Science Garage</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Lab 01 Graphing 1</title>
+      <link>/c7041-labs/01-graphing-1/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/01-graphing-1/</guid>
+      <description>Goals   Review some basic graphical formats and when they are useful
+  Make graphs in R, such as histograms, bar charts, box plots, and scatter plots
+  Critique basic graphs to improve readability and accurate communication
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 02 Describing data</title>
+      <link>/c7041-labs/02-describing-data/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/02-describing-data/</guid>
+      <description>Goals   Investigate sampling error; see that larger samples have less sampling error
+  Visualize confidence intervals
+  Calculate basic summary statistics using R
+  Calculate confidence intervals for the mean with R
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 03 Frequency data</title>
+      <link>/c7041-labs/03-frequency-data/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/03-frequency-data/</guid>
+      <description>Goals   Calculate a confidence interval for a proportion
+  Make a hypothesis test about proportions
+  Fit frequency data to a model
+  Test for a fit to a Poisson distribution
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 04 Contingency Analysis</title>
+      <link>/c7041-labs/04-contingency-analysis/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/04-contingency-analysis/</guid>
+      <description>Goals   Display associations between two categorical variables in contingency tables and mosaic plots
+  Calculate odds ratios and their confidence intervals
+  Test for the independence of two categorical variables
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 05 The Gaussian distribution</title>
+      <link>/c7041-labs/05-gaussian-sample-means/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/05-gaussian-sample-means/</guid>
+      <description>Goals   Visualize properties of the Gaussian distribution
+  Understand the Central Limit Theorem
+  Calculate sampling properties of sample means
+  Decide whether a data set likely comes from a Gaussian distribution
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 06 Two Group Tests</title>
+      <link>/c7041-labs/06-two-group-tests/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/06-two-group-tests/</guid>
+      <description>Goals   Use strip charts, multiple histograms, and violin plots to view a numerical variable by group
+  Use the paired t-test to test differences between group means with paired data
+  Test for a difference between the means of two groups using the 2-sample t-test
+  Calculate the 95% confidence for a mean difference (paired data) and the difference between means of two groups (2 independent samples of data)</description>
+    </item>
+    
+    <item>
+      <title>Lab 07 ANOVA</title>
+      <link>/c7041-labs/07-anova/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/07-anova/</guid>
+      <description>Goals   Use R to perform analysis of variance (ANOVA) to compare the means of multiple groups
+  Perform Tukey-Kramer tests to look at unplanned contrasts between all pairs of groups
+  Use Kruskal-Wallis tests to test for difference between groups without assumptions of Gaussianity
+  Compare the variances of two groups using Levene’s test
+   Get the data for all labs here</description>
+    </item>
+    
+    <item>
+      <title>Lab 08 Correlation and regression</title>
+      <link>/c7041-labs/08-corr-reg/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/08-corr-reg/</guid>
+      <description>Goals   Calculate a correlation coefficient and the coefficient of determination
+  Test hypotheses about correlation
+  Use the non-parametric Spearman’s correlation
+  Estimate slopes of regressions
+  Test regression models
+  Plot regression lines
+  Examine residual plots for deviations from the assumptions of linear regression
+   Get the data for all labs here
+  Start a script!</description>
+    </item>
+    
+    <item>
+      <title>Lab 09 Graphing 2</title>
+      <link>/c7041-labs/09-graphing-2/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/09-graphing-2/</guid>
+      <description>Goals   Evaluate data using graphical exploration
+  Graph and evaluate frequency distributions
+  Compare frequency distributions
+  Practice good practice in graph design and data exploration
+  Practice {ggplot2} tools and syntax
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 10 Planning your sample size</title>
+      <link>/c7041-labs/10-planning-sample-size/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/10-planning-sample-size/</guid>
+      <description>Goals   Evaluate principles to increase sampling precision in experimental design
+  Evaluate power of sampling
+  Demonstrate power tools in R, like {pwr}
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 11 Linear models</title>
+      <link>/c7041-labs/11-linear-models/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/11-linear-models/</guid>
+      <description>Goals   Load and examine data
+  Fit a linear model to data
+  Evaluate statistical results
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 12 Mixed effects models</title>
+      <link>/c7041-labs/12-mixed-effects/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/12-mixed-effects/</guid>
+      <description>Goals   Load and examine data for several mixed effects experimental designs
+  Fit a mixed effects models to data
+  Exaluate the outcome of using random effects in linear models
+  Practice graphingpaired and mixed effects data
+  Evaluate statistical results for linear mixed effects models
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 13 Likelihood</title>
+      <link>/c7041-labs/13-likelihood/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/13-likelihood/</guid>
+      <description>Goals   Explore the calculation of maximum likelihood
+  Perform the log-likelihood ratio test
+  Evaluate statistical results for likelihood test
+  Practice graphical display of likelihood problems
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 14 Generalized linear models</title>
+      <link>/c7041-labs/14-generalized-linear-models/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/14-generalized-linear-models/</guid>
+      <description>Goals   Fit generalized linear models with R
+  Evaluate GLM assumptions
+  Evaluate statistical and graphical results for GLM
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
+    <item>
+      <title>Lab 15 Model selection</title>
+      <link>/c7041-labs/15-model-selection/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/c7041-labs/15-model-selection/</guid>
+      <description>Goals   Compare statistical models using real data
+  Evaluate statistical model fit
+  Use diagnostic information to rank and choose amongst statistical models
+   Get the data for all labs here
+  Start a script! For this and every lab or project, begin by starting a new script, create a good header section and table of contents, save the script file with an informative name, and set your working directory.</description>
+    </item>
+    
     <item>
       <title>1.1 R Syntax Basics</title>
       <link>/bootcamp/1.1-m1-r-syntax-basics/</link>
@@ -169,17 +379,6 @@ II. A curve has been found representing the frequency distribution of values of 
       <description>Git and version control  Overview
  Have you ever accidentally deleted work on your computer and realized you needed it and lost work? And you were left with the terrible feeling you had to do it all again? Or had to make tedious revisions to merge work done on the same document with others? Git and Github fix all that.
   The practice of data science involves a lot of data, code, figures, tables, manuscripts, and other documents.</description>
-    </item>
-    
-    <item>
-      <title>4.1 IPBC (In-person Bootcamp)</title>
-      <link>/bootcamp/4.1-ipbc/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/4.1-ipbc/</guid>
-      <description>In-person Bootcamp (activities)  Overview
- Night science is where we explore the unstructured realm of possible hypotheses, of ideas not yet fully fleshed out. In day science, we falsify hypotheses and observe which are left standing (Yanai, I., Lercher, M., 2019. Night science. Genome Biology 20, 179.)
- The practice of data science is, at it&amp;rsquo;s heart, the applications of tools to solve practical problems. It could be argued that this requires both technical skills and creativity.</description>
     </item>
     
   </channel>

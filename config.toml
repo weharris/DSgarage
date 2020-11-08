@@ -34,6 +34,13 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     url = "/bootcamp/"
     name = "Bootcamp"
     weight = 3
+    
+[[menu.main]]
+    url = "/C7041 labs/"
+    name = "C7041 labs"
+    weight = 4
+    
+
 
 # [[menu.main]]
 #     url = "/project/"

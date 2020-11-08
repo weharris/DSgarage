@@ -6,7 +6,11 @@
     <description>Recent content in Bootcamps on Data Science Garage</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="/bootcamp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/bootcamp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>0.0 R Bootcamp Overview</title>
       <link>/bootcamp/0.0-bootcamp-overview/</link>
@@ -195,17 +199,6 @@ II. A curve has been found representing the frequency distribution of values of 
       <description>Git and version control  Overview
  Have you ever accidentally deleted work on your computer and realized you needed it and lost work? And you were left with the terrible feeling you had to do it all again? Or had to make tedious revisions to merge work done on the same document with others? Git and Github fix all that.
   The practice of data science involves a lot of data, code, figures, tables, manuscripts, and other documents.</description>
-    </item>
-    
-    <item>
-      <title>4.1 IPBC (In-person Bootcamp)</title>
-      <link>/bootcamp/4.1-ipbc/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/4.1-ipbc/</guid>
-      <description>In-person Bootcamp (activities)  Overview
- Night science is where we explore the unstructured realm of possible hypotheses, of ideas not yet fully fleshed out. In day science, we falsify hypotheses and observe which are left standing (Yanai, I., Lercher, M., 2019. Night science. Genome Biology 20, 179.)
- The practice of data science is, at it&amp;rsquo;s heart, the applications of tools to solve practical problems. It could be argued that this requires both technical skills and creativity.</description>
     </item>
     
   </channel>

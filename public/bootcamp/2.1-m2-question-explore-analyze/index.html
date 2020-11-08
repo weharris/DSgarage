@@ -66,7 +66,7 @@
 
 
 <script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
- <meta name="generator" content="Hugo 0.75.0" />
+ <meta name="generator" content="Hugo 0.72.0" />
         
 
         
@@ -101,6 +101,8 @@
                                 <li><a href="/about/">About</a></li>
                             
                                 <li><a href="/bootcamp/">Bootcamp</a></li>
+                            
+                                <li><a href="/c7041-labs/">C7041 labs</a></li>
                             
                         </ul>
                     
@@ -262,7 +264,6 @@ chicks<span style="color:#f92672">$</span>feed <span style="color:#f92672">&lt;-
 <p> </p>
 <p>The minimum amount of information we are ususally interested in when sizing up a dataset is <strong>How much data is there?</strong>, <strong>What is the central tendency (e.g. the mean, variance, etc.)?</strong>, and possibly <strong>Are there rare values?</strong>.  We would typically <strong>start graphing the data</strong> right away.  If we have a notion of what our questions or hypotheses are, they should inform the initial peek at the data.  For example, in the <strong>chickwts</strong> data, we know our question will be related not to the overall central tendency of chick weight, but to chick weight for each individual feed type.</p>
 <p>We do not approach this sizing up of the data in a workhorse fashion, merely to check a tick box.  We are looking quickly for details in the data that give us insight into what the data is like. For example, we peek at whether the mean and median are close to each other (indicator our data may be <a href="https://en.wikipedia.org/wiki/Normal_distribution">Gaussian</a>), we compare the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, variance or <a href="https://en.wikipedia.org/wiki/Standard_error">standard error</a> of a numeric variable relative to different levels of a factor, to see if they are similar.</p>
-<p>NB here will avoid a review of these basic math concepts, but if you are interested in a review, <a href="https://learningstatisticswithr.com/book/descriptives.html.">here is a good place to start</a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># Try this:</span>
 
 <span style="color:#75715e"># Summarize the whole dataset</span>

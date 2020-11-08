@@ -66,7 +66,7 @@
 
 
 <script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
- <meta name="generator" content="Hugo 0.75.0" />
+ <meta name="generator" content="Hugo 0.72.0" />
         
 
         
@@ -101,6 +101,8 @@
                                 <li><a href="/about/">About</a></li>
                             
                                 <li><a href="/bootcamp/">Bootcamp</a></li>
+                            
+                                <li><a href="/c7041-labs/">C7041 labs</a></li>
                             
                         </ul>
                     
@@ -574,7 +576,7 @@ E<span style="color:#f92672">-</span>D  <span style="color:#ae81ff">25.750</span
 <p>Use an alternative test for which assumptions are not violated</p>
 </li>
 </ul>
-<p>The simplest alternative test to use for a 1-way ANOVA design would a &ldquo;non-parameteric&rdquo;&quot; test that simply does not make the assumptions of Gaussian residuals or of homscedasticity.  NB there are other many other methods as well (e.g. the Generalized linear model, randomisation, Bayesian modelling), which we will not cover here.  Non-parametric tests have the advantage of being very easy to use, and being very easy to interpret as they tend to be analogous to tests that require assumptions of the data (so-called &ldquo;parametric tests&rdquo; like the t-test, regression and 1-way ANOVA).  A downside to these non-parametric tests is that they tend to have less <strong>statistical power</strong>; that is, they are less likely than their parametric cousins to detect a significant difference even if one does exist!</p>
+<p>The simplest alternative test to use for a 1-way ANOVA design would a &ldquo;non-parameteric&rdquo;&rdquo; test that simply does not make the assumptions of Gaussian residuals or of homscedasticity.  NB there are other many other methods as well (e.g. the Generalized linear model, randomisation, Bayesian modelling), which we will not cover here.  Non-parametric tests have the advantage of being very easy to use, and being very easy to interpret as they tend to be analogous to tests that require assumptions of the data (so-called &ldquo;parametric tests&rdquo; like the t-test, regression and 1-way ANOVA).  A downside to these non-parametric tests is that they tend to have less <strong>statistical power</strong>; that is, they are less likely than their parametric cousins to detect a significant difference even if one does exist!</p>
 <p> </p>
 <p><strong>Kruskal-Wallis non-parametric alternative to the 1-way ANOVA</strong></p>
 <p>Here we will look at a non-parametric test that is perfect to use instead of, the Kruskal-Wallis test.</p>
@@ -624,7 +626,7 @@ Kruskal<span style="color:#f92672">-</span>Wallis chi<span style="color:#f92672"
 <p>I like the cocksure argument that you never need to actually &ldquo;do an ANOVA by hand&rdquo; because we have computers for that sort of thing these days.  Which, we do.  But, I think I would make a distinction between someone who has never, or fears they cannot, calculate an ANOVA, versus someone who might occasionally do so just to understand better how the world works.  I know which one I would rather be.</p>
 </blockquote>
 <p> </p>
-<p><strong>Do an ANOVA &ldquo;by hand&rdquo;&quot; programmatically</strong></p>
+<p><strong>Do an ANOVA &ldquo;by hand&rdquo;&rdquo; programmatically</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## ANOVA details ####</span>
 
 <span style="color:#75715e"># Try this:</span>

@@ -6,7 +6,11 @@
     <description>Recent content in Bootcamp on Data Science Garage</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="/categories/bootcamp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/bootcamp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>0.0 R Bootcamp Overview</title>
       <link>/bootcamp/0.0-bootcamp-overview/</link>
@@ -163,17 +167,6 @@ II. A curve has been found representing the frequency distribution of values of 
  Overview
  The analysis of variance is not a mathematical theorem, but rather a convenient method of arranging the arithmetic. R. A. Fisher (via Wishart 1934. Sppl. J. Roy. Soc. 1(1):26-61.)
  Perhaps more so than any other tool, the Analysis of Variance (ANOVA) literally revolutionized the idea of objectivity in using data to produce evidence to support claims.</description>
-    </item>
-    
-    <item>
-      <title>4.1 IPBC (In-person Bootcamp)</title>
-      <link>/bootcamp/4.1-ipbc/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/bootcamp/4.1-ipbc/</guid>
-      <description>In-person Bootcamp (activities)  Overview
- Night science is where we explore the unstructured realm of possible hypotheses, of ideas not yet fully fleshed out. In day science, we falsify hypotheses and observe which are left standing (Yanai, I., Lercher, M., 2019. Night science. Genome Biology 20, 179.)
- The practice of data science is, at it&amp;rsquo;s heart, the applications of tools to solve practical problems. It could be argued that this requires both technical skills and creativity.</description>
     </item>
     
   </channel>
