@@ -451,7 +451,7 @@ The numbers of people born calculated from a large sample is recorded in the fil
 
 &nbsp;
 
-4. Is cardiac arrest (or “heart attacks”) equally likely to occur throughout the year? Or are some weeks more likely than others to produce heart attacks? One way to look at this issue is to ask whether heart attacks occur according to a probability model in which such events are independent of each other and equally likely at all times. If so, then the number of heart attacks per week will follow a Poisson distribution. 
+4. Is cardiac arrest equally likely to occur throughout the year? Or are some weeks more likely than others to produce heart attacks? One way to look at this issue is to ask whether heart attacks occur according to a probability model in which such events are independent of each other and equally likely at all times. If so, then the number of heart attacks per week will follow a Poisson distribution. 
 
 The data file “cardiacArrest.csv” contains data on the number of heart attacks per week from one hospital over five years. It records the number of heart attacks that occurred to individuals outside of the hospital who were then brought in for treatment (from Skogvoll and Lindqvist 1999).
 
