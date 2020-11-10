@@ -208,7 +208,7 @@ sqrt(var(titanicData$age, na.rm = TRUE))
 
 &nbsp;
 
-**Coefficient of determination**
+**Coefficient of variation**
 
 Surprisingly, there is no standard function in R to calculate the coefficient of variation. You can do this yourself, though, directly from the definition:
 
