@@ -451,9 +451,9 @@ The numbers of people born calculated from a large sample is recorded in the fil
 
 &nbsp;
 
-4. Is cardiac arrest equally likely to occur throughout the year? Or are some weeks more likely than others to produce heart attacks? One way to look at this issue is to ask whether heart attacks occur according to a probability model in which such events are independent of each other and equally likely at all times. If so, then the number of heart attacks per week will follow a Poisson distribution. 
+4. Is cardiac arrest equally likely to occur throughout the year? Or are some weeks more likely than others to produce cardiac arrests? One way to look at this issue is to ask whether cardiac arrests occur according to a probability model in which such events are independent of each other and equally likely at all times. If so, then the number of cardiac arrests per week will follow a Poisson distribution. 
 
-The data file “cardiacArrest.csv” contains data on the number of heart attacks per week from one hospital over five years. It records the number of heart attacks that occurred to individuals outside of the hospital who were then brought in for treatment (from Skogvoll and Lindqvist 1999).
+The data file “cardiacArrest.csv” contains data on the number of cardiac arrests per week from one hospital over five years. It records the number of cardiac arrests that occurred to individuals outside of the hospital who were then brought in for treatment (from Skogvoll and Lindqvist 1999).
 
 a. Calculate a table of the observed frequencies of cardiac arrests per week.
 
@@ -461,9 +461,9 @@ b. What is the mean number of cardiac arrests per week?
 
 c. For the mean you just calculated, use dpois() to calculate the probability of 0 cardiac arrests in a week assuming a Poisson distribution. Multiply that probability by the number of data points to calculate the expected frequency of 0 in these data under the null hypothesis of a Poisson distribution.
 
-d. Here is a table of the expected frequencies under the null hypothesis. (The expected frequency for zero heart attacks should match your calculation above.) Are these frequencies acceptable for use in a χ2 goodness of fit test?
+d. Here is a table of the expected frequencies under the null hypothesis. (The expected frequency for zero cardiac arrests should match your calculation above.) Are these frequencies acceptable for use in a χ2 goodness of fit test?
 
-| Number of heart attacks	| Expected |
+| Number of cardiac arrests	| Expected |
 |---| --- |  
 | 0	| 34.785295 |
 | 1	| 70.103698 |
