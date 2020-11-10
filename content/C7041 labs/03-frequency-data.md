@@ -455,13 +455,13 @@ The numbers of people born calculated from a large sample is recorded in the fil
 
 The data file “cardiacArrest.csv” contains data on the number of heart attacks per week from one hospital over five years. It records the number of heart attacks that occurred to individuals outside of the hospital who were then brought in for treatment (from Skogvoll and Lindqvist 1999).
 
-Calculate a table of the observed frequencies of heart attacks per week.
+a. Calculate a table of the observed frequencies of cardiac arrests per week.
 
-What is the mean number of heart attacks per week?
+b. What is the mean number of cardiac arrests per week?
 
-For the mean you just calculated, use dpois() to calculate the probability of 0 heart attacks in a week assuming a Poisson distribution. Multiply that probability by the number of data points to calculate the expected frequency of 0 in these data under the null hypothesis of a Poisson distribution.
+c. For the mean you just calculated, use dpois() to calculate the probability of 0 cardiac arrests in a week assuming a Poisson distribution. Multiply that probability by the number of data points to calculate the expected frequency of 0 in these data under the null hypothesis of a Poisson distribution.
 
-Here is a table of the expected frequencies under the null hypothesis. (The expected frequency for zero heart attacks should match your calculation above.) Are these frequencies acceptable for use in a χ2 goodness of fit test?
+d. Here is a table of the expected frequencies under the null hypothesis. (The expected frequency for zero heart attacks should match your calculation above.) Are these frequencies acceptable for use in a χ2 goodness of fit test?
 
 | Number of heart attacks	| Expected |
 |---| --- |  
@@ -475,15 +475,15 @@ Here is a table of the expected frequencies under the null hypothesis. (The expe
 
 &nbsp;
 
-Create vectors in R for the observed and expected frequencies.
+e. Create vectors in R for the observed and expected frequencies.
 
-Calculate the χ2 for this hypothesis test, using `chisq.test()$statistic`.
+f. Calculate the χ2 for this hypothesis test, using `chisq.test()$statistic`.
 
-How many degrees of freedom should this χ2 goodness of fit test have?
+g. How many degrees of freedom should this χ2 goodness of fit test have?
 
-Calculate the P-value for this test, using `pchisq()`.
+h. Calculate the P-value for this test, using `pchisq()`.
 
-Summarize the results of this test. Does the frequency distribution of out-of-hospital cardiac events follow a Poisson distribution?
+i. Summarize the results of this test. Does the frequency distribution of out-of-hospital cardiac events follow a Poisson distribution?
 
 &nbsp;
 
