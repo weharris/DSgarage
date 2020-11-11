@@ -386,7 +386,7 @@ e. Based on your answer in (d), what is the predicted change in log-brain size a
 
 f. Make a residual plot using the regression fitted to the transformed variables. Do the data look like they match the assumptions of linear regression?
 
-g. Which species has the highest brain size relative to that predicted by its body size? Which species has the smallest brain relative to that predicted by its body size? [hint: try using filter() from the dplyr package.]
+g. Which species has the highest brain size relative to that predicted by its body size? Which species has the smallest brain relative to that predicted by its body size? [hint: You could slice out large residuals using base R, or try using filter() from the dplyr package...]
 
 &nbsp;
 
