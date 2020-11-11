@@ -352,9 +352,9 @@ Consider the way in which the data were collected. How many families with zero c
 
 5. Return to the data on countries of the world, in `countries.csv`. Plot the distributions for ecological_footprint_2000, cell_phone_subscriptions_per_100_people_2012, and life_expectancy_at_birth_female.
 
-For each variable, plot a histogram of the distribution. Is the variable skewed? If so, in which direction?
+For each variable, plot a histogram of the distribution using `hist()`. Is the variable skewed? If so, in which direction?
 
-For each variable, calculate the mean and median and add them to their respective plots using the function `abline()` using the `h` argument. Are the mean and median similar for each? Match the difference in mean and median to the direction of skew on the histogram. Do you see a pattern?
+For each variable, calculate the mean and median and add them to their respective plots using the function `abline()` using the `v` argument. Are the mean and median similar for each? Match the difference in mean and median to the direction of skew on the histogram. Do you see a pattern?
 
 &nbsp;
 
