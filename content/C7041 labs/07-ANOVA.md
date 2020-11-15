@@ -187,7 +187,7 @@ This formula tells R to “fit” a model in which the ages of passengers are gr
 
 The name of the data frame containing the variables stated in the formula is the second argument of `lm()`. 
 
-`data = your_data_obect_name_actual_name_may_vary.TM`
+`data = your_actual_data_obeJct_name_may_vary  (TM)`
 
 &nbsp;
 

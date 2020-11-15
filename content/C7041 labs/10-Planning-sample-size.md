@@ -174,7 +174,7 @@ Obtain the 95% confidence interval for the proportion using your data from step 
 
 &nbsp;
 
-4. You can speed up the effort if you create a for loop in R that automatically repeats steps 1 and 2 as many times as you decide. See the “Loop, Repeat” tab on the R tips page. A loop that repeats ten times would look something like the following. The “i” in this loop is a counter, starting at 1 and increasing by 1 each time the commands in the loop are executed. Don’t forget to include a command inside the loop to print each result.
+4. You can speed up the effort if you create a for loop in R that automatically repeats steps 1 and 2 as many times as you decide. A loop that repeats ten times would look something like the following. The “i” in this loop is a counter, starting at 1 and increasing by 1 each time the commands in the loop are executed. Don’t forget to include a command inside the loop to print each result.
 
 &nbsp;
 
