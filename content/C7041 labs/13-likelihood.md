@@ -41,7 +41,7 @@ For this and every lab or project, **begin by starting a new script**, **create 
 
 ### Likelihood
 
-In this lab we will use likelihood methods to estimate parameters and test hypotheses. Likelihood methods are especially useful when modeling data having a probability distribution other than the normal distribution (e.g., binomial, exponential, etc). Refer to the “Probability” tab of the R tips web pages for instruction.
+In this lab we will use likelihood methods to estimate parameters and test hypotheses. Likelihood methods are especially useful when modeling data having a probability distribution other than the normal distribution (e.g., binomial, exponential, etc). 
 
 &nbsp;
 

@@ -408,7 +408,7 @@ Let’s try analyzing the data using `stepAIC()` from the `{MASS}` package. Desp
 
 &nbsp;
 
-11. Return to the data set you just analyzed using dredge() and run model selection using stepAIC() instead. See the R tips pages on model selection (under Fit model) for help interpreting the output. Did you arrive at the same best model?
+11. Return to the data set you just analyzed using dredge() and run model selection using stepAIC() instead. Did you arrive at the same best model?
 
 12. Run stepAIC again, but this time use a model that includes all two-way interaction terms. This is already pushing the data to the limit, because there are only 56 data points. View the printed output on the screen to see the sequence of steps that stepAIC takes to find the best model.
 

@@ -79,7 +79,7 @@ This  data set was extracted from a paper by Griffith and Sheldon (2001, Animal 
 
 2. View the first few lines of data to make sure it was read correctly.
 
-3. Create a plot showing the pair of measurements for each individual flycatcher in the two years of study. You can try to make the kind of dot plot I showed in lecture, or see the R tips “Graphs & Tables” page for suggestions on how to plot paired data. Is there evidence of measurement variability between years?
+3. Create a plot showing the pair of measurements for each individual flycatcher in the two years of study. You can try to make the kind of dot plot I showed in lecture. Is there evidence of measurement variability between years?
 
 
 &nbsp;
@@ -100,7 +100,7 @@ This  data set was extracted from a paper by Griffith and Sheldon (2001, Animal 
 
 6. Interpret the measure of repeatability obtained in the previous step. If the repeatability you obtained is less than 1.0, what is the source of the variation among measurements within individuals. Is it measurement error alone?
 
-7. Produce a plot of residuals against fitted values. Notice anything odd? There sees to be a slightly positive trend. This isn’t a mistake, but results from “shrinkage” of the best linear unbiased predictors (BLUPs). Consult the lecture notes and the “Fit model” tab at the R tips pages (see the repeatability example under “Fit a linear mixed-effects model”) for additional information on what is happening.
+7. Produce a plot of residuals against fitted values. Notice anything odd? There sees to be a slightly positive trend. This isn’t a mistake, but results from “shrinkage” of the best linear unbiased predictors (BLUPs). Consult the lecture material for information on what is happening.
 
 &nbsp;
 
@@ -489,7 +489,7 @@ The data to be analyzed here record the concentration of phenolics (a crude meas
 
 2. Inspect the first few lines of data. Plot and treatment are self-explanatory. Treatment is given as a single variable with four levels (let’s stick with this approach rather than model as two variables, enclosure and fertilizer, with a 2x2 factorial design). Duration indicates whether the half-plots received the treatment for the full 20 years or whether the treatment was stopped (“reversed”) after 10 years. The variable “phen.ach” is the concentration of phenolics in yarrow.
 
-3. Draw a graph to illustrate the concentrations of phenolics in yarrow in the different treatment and duration categories. There aren’t many data points in each combination of treatment and duration levels, so a strip chart by groups is probably a better choice than a box plot by groups (see “Graphs & Tables” page of R tips).
+3. Draw a graph to illustrate the concentrations of phenolics in yarrow in the different treatment and duration categories. There aren’t many data points in each combination of treatment and duration levels, so a strip chart by groups is probably a better choice than a box plot by groups.
 
 4. Optional challenge question (moderately difficult): A flaw with the strip chart method is that it doesn’t indicate that data points from the same plot (adjacent half-plots) are paired. Can you figure out how to add line segments to connect paired points?
 
