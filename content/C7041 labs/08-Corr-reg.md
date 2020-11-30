@@ -370,7 +370,7 @@ c. Assume that the difference between the shapes of these curves is real. What w
 
 &nbsp;
 
-3. Larger animals tend to have larger brains. But is the increase in brain size proportional to the increase in body size? A set of data on body and brain size of 62 mammal species was collated by Allison and Cicchetti (1976), and these data are in the data set “mammals.csv”. The file contains columns giving the species name, the average body mass (in kg) and average brain size (in g) for each species. These are the same data used in the second half of the app about residuals that you used in the activities earlier in this lab.
+3. Larger animals tend to have larger brains. But is the increase in brain size proportional to the increase in body size? A set of data on body and brain size of 62 mammal species was collated by Allison and Cicchetti (1976), and these data are in the data set “mammals.csv”. The file contains columns giving the species name, the average body mass (in kg) and average brain size (in g) for each species. The study of how relatively large body parts (like the brain) in relation to body size (like body weight) is sometimes called allometry.  It is traditional to model the body part as the dependent variable on the y axis, and use body size as the predictor variable on the x axis.
 
 &nbsp;
 
