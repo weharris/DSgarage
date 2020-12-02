@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Misc Rs on Data Science Garage</title>
+    <link>/misc-r/</link>
+    <description>Recent content in Misc Rs on Data Science Garage</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/misc-r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Misc 00 Getting help, use ReprEx</title>
+      <link>/misc-r/00-getting-help-reprex/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/misc-r/00-getting-help-reprex/</guid>
+      <description>Overview
+ Everyone who uses R (or any coding language) needs helps sometimes. Thankfully, there is a huge community of peoplewho like to help. When you ask for help, you are asking for other to do a little work for you. Because of this, the LEAST YOU CAN DO is to be considerate when asking your question by making it a ReprEx.
+  The tradition of the ReprEx</description>
+    </item>
+    
+    <item>
+      <title>Misc 01 R Basics</title>
+      <link>/misc-r/01-r-basics/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/misc-r/01-r-basics/</guid>
+      <description>R Tips and tricks on a variety of topics  Overview
+ The great thing about data analysis, statistics, programming, and R, is that there is always something new to learn.
+ Tools for creating evidence from data are constantly evolving and changing. These days, the advancement is faster than ever. This page presents some tips and tricks on a variety of topics to make the journey easier.
+ Contents</description>
+    </item>
+    
+    <item>
+      <title>Misc 02 R Data files</title>
+      <link>/misc-r/02-data-files/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/misc-r/02-data-files/</guid>
+      <description>Reading and working with data files in R  Overview
+ The hardest part of starting to use R, is learning how to read in your data file
+ This page introduces the bare basics of working with data sets with multiple variables of different types. Data frames are the most convenient data objects in R. Others you will run across are matrices and lists, which are also described here.</description>
+    </item>
+    
+    <item>
+      <title>Misc 03 Graphing and tables</title>
+      <link>/misc-r/03-graphs-tables/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/misc-r/03-graphs-tables/</guid>
+      <description>Critique bad graphs as a sport
+ Graphing and tables as outputs  Overview
+ The finest data analysis can easily be wrecked by bad graphs
+ This page introduces the basics of practice, and good practice, in producing graphs and tables in R. In the examples below, x and y are numeric variables in the hypothetical data frame, mydata. A and B are categorical variables (factors or character variables) identifying different groups.</description>
+    </item>
+    
+    <item>
+      <title>Misc 04 Sample size and power</title>
+      <link>/misc-r/04-sample-size-power/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/misc-r/04-sample-size-power/</guid>
+      <description>If power analysis were an athlete, it would be a sumo wrestler
+ Defending your sample size  Overview
+ Many scientific studies lack sufficient statistical power, failing to defend their sample size
+  Contents
+4.1 Data simulation to explore sample size
+4.2 Power and sample size calculation
+4.3 Suggested reading
+ This page provides a brief overview on two methods to defend your sample size. First, methods in data and sample size simulation are examined.</description>
+    </item>
+    
+  </channel>
+</rss>

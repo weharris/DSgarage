@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Bootcamp</title>
+      <link>/categories/bootcamp/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/bootcamp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>c7041</title>
       <link>/categories/c7041/</link>
       <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
@@ -21,11 +30,11 @@
     </item>
     
     <item>
-      <title>Bootcamp</title>
-      <link>/categories/bootcamp/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      <title>R Misc</title>
+      <link>/categories/r-misc/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/categories/bootcamp/</guid>
+      <guid>/categories/r-misc/</guid>
       <description></description>
     </item>
     

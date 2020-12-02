@@ -12,11 +12,29 @@
     
     
     <item>
+      <title>Bootcamp</title>
+      <link>/tags/bootcamp/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/bootcamp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>c7041</title>
       <link>/tags/c7041/</link>
       <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/c7041/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programming</title>
+      <link>/tags/programming/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/programming/</guid>
       <description></description>
     </item>
     
@@ -30,11 +48,11 @@
     </item>
     
     <item>
-      <title>Bootcamp</title>
-      <link>/tags/bootcamp/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
+      <title>R Misc</title>
+      <link>/tags/r-misc/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/bootcamp/</guid>
+      <guid>/tags/r-misc/</guid>
       <description></description>
     </item>
     
@@ -44,15 +62,6 @@
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/open-science/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Programming</title>
-      <link>/tags/programming/</link>
-      <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/programming/</guid>
       <description></description>
     </item>
     

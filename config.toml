@@ -40,6 +40,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     name = "C7041 labs"
     weight = 4
     
+[[menu.main]]
+    url = "/Misc R/"
+    name = "Misc R"
+    weight = 5
 
 
 # [[menu.main]]

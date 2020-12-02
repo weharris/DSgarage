@@ -6,10 +6,21 @@
     <description>Recent content in Bootcamp on Data Science Garage</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/bootcamp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Misc 00 Getting help, use ReprEx</title>
+      <link>/misc-r/00-getting-help-reprex/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/misc-r/00-getting-help-reprex/</guid>
+      <description>Overview
+ Everyone who uses R (or any coding language) needs helps sometimes. Thankfully, there is a huge community of peoplewho like to help. When you ask for help, you are asking for other to do a little work for you. Because of this, the LEAST YOU CAN DO is to be considerate when asking your question by making it a ReprEx.
+  The tradition of the ReprEx</description>
+    </item>
     
     <item>
       <title>0.0 R Bootcamp Overview</title>
