@@ -33,7 +33,7 @@ This page provides a very brief overview of some useful ordination techniques li
 
 [10.3 Correspondence Analysis](#anchor-3)
 
-[10.4 Multiodimensional Scaling](#anchor-4)
+[10.4 Multidimensional Scaling](#anchor-4)
 
 [10.5 Suggested resources](#anchor-5)
 
