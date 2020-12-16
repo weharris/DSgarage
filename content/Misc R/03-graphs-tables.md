@@ -1646,20 +1646,20 @@ This doesn’t even begin to describe the possibilities using the lattice packag
 
 &nbsp;
 
-Below are a few commonly used plotting commands in `{lattice}`. In the syntax, `x` and `y` are numeric variables, whereas `A` amd B is a categorical variable (character or factor). `B` is a factor or character variable that will define the groups or subsets of the data frame to be plotted in separate panels. A separate plot in the graphics window will be made for each of the groups defined by the variable `B`.
+Below are a few commonly used plotting commands in `{lattice}`. In the syntax, `x` and `y` are numeric variables, whereas `A` and `B` are categorical variables (character or factor). `B` is a factor or character variable that will define the groups or subsets of the data frame to be plotted in separate panels. A separate plot in the graphics window will be made for each of the groups defined by the variable `B`.
 
 &nbsp;
 
 
-**Bar graph:**  `barchart()`		  Syntax == `barchart(~table(A) | B, data=mydata)`
+**Bar graph:**  `barchart()`		  Syntax == `barchart(~ table(A) | B, data = mydata)`
 
-**Box plot**    `bwplot()`		    Syntax == `bwplot(x ~ A | B, data=mydata)`
+**Box plot**    `bwplot()`		    Syntax == `bwplot(x ~ A | B, data = mydata)`
 
-**Histogram**   `histogram()`		  Syntax == `histogram(~x | B, data=mydata, right=FALSE)`
+**Histogram**   `histogram()`		  Syntax == `histogram(~ x | B, data = mydata, right=FALSE)`
 
-**Strip chart** `stripplot()`		  Syntax == `stripplot(x ~ A | B, data=mydata, jitter=TRUE)`
+**Strip chart** `stripplot()`		  Syntax == `stripplot(x ~ A | B, data = mydata, jitter=TRUE)`
 
-**Scatter**     `plot xyplot()`		Syntax == `xyplot(y ~ x | B, data=mydata)`
+**Scatter**     `plot xyplot()`		Syntax == `xyplot(y ~ x | B, data = mydata)`
 
 
 &nbsp;

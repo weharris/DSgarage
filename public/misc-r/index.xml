@@ -73,5 +73,16 @@
  This page provides a brief overview on two methods to defend your sample size. First, methods in data and sample size simulation are examined.</description>
     </item>
     
+    <item>
+      <title>Misc 10 PCA, DFA and related ordination techniques</title>
+      <link>/misc-r/10-pca-dfa-and-related/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/misc-r/10-pca-dfa-and-related/</guid>
+      <description>There often may be a low cost in measuring a great number of variables, but this creates a challenge in creating information from the data. This is where ordination comes in.
+  Overview
+This page provides a very brief overview of some useful ordination techniques like Principle Components Analysis (PCA), Discriminant Function Analysis (DFA), and related techniques. A challege with such multivariate analyses is that different applied fields seem to have adopted different notation and jargopn associated with the basic techniques.</description>
+    </item>
+    
   </channel>
 </rss>
