@@ -21,7 +21,7 @@ tags: ["c7041", "R"]
 
 - Exaluate the outcome of using random effects in linear models
 
-- Practice graphingpaired and mixed effects data
+- Practice graphing paired and mixed effects data
 
 - Evaluate statistical results for linear mixed effects models
 

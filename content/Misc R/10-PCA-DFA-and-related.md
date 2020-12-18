@@ -475,7 +475,57 @@ There is a significant different is PC1 between winners in the Decastar and Olym
 
 ## 10.2 Discriminant Function Analysis
 
+Linear Discriminant Function Analysis (DFA) is used to find axes (linear combinations of variables) that best separate predefined groups. The axes maximize variation between groups relative to variation within groups. In contrast, Principal Components Analysis pays no attention to groupings in the data and finds axes that maximize total variation.
 
+DFA is also used to classify individuals into groups. Often this is carried out by dividing the data randomly into halves. The discriminant analysis is carried out on the first half, referred to as the “training” data set. The discriminant function is then used to classify individuals in the second half of the data into groups. Compare the resulting classification with the original groupings gives an idea of the misclassification rate.
+
+The necessary functions are in the `{MASS}` package. 
+
+```r
+
+library(MASS)
+
+```
+
+&nbsp;
+
+The method expects a grouping variable (i.e., a factor) and one or more numerical variables to be used in calculating the discriminant function. For example, `mydata` is a data frame having a grouping variable named `group` and 3 numerical variables `x1`, `x2`, and `x3`. 
+
+```r
+# Boilerplate
+
+# The following lines are equivalent
+z <- lda(group ~ x1 + x2 + x3, data = mydata)  # formula method
+z <- lda(group ~., data = mydata)              # shortcut
+
+```
+
+By default, the method will use the frequencies in each group as the prior probabilities for classification. To change the default, provide a vector of prior probabilities ordered in exactly the same way as the group factor levels. For example, if the grouping factor has three levels, the following command will specify equal prior probabilities.
+
+z <- lda(group ~ x1 + x2 + x3, data = mydata, prior = c(1/3, 1/3, 1/3))
+Results are extracted from the lda object (here called z). If there are k groups in the analysis, then there should be k - 1 discriminant axes.
+
+plot(z)      # scatter plot of new discriminant functions
+print(z)     # trait loadings and other statistics
+z$scaling    # trait loadings
+Use predict to obtain the discriminant function scores, the measurements of every individual on the discriminant function axes. The results are in matrix format rather than in a data frame. (See the “Data” page at the R tips web site for help with matrices.)
+
+predict(z)$x  # yields the individual values (scores) for df1, df2,...
+
+
+Classification
+The predict command can also be used for classification. For example, assume that the same variables have been measured on a separate set of individuals in the data frame newdata. The following command will classify the new set according to the discriminant function,
+
+z1 <- predict(z, newdata)
+If left unspecified, the prior probabilities will be the same as those used in the preceding lda command. See above for information on how to specify a different prior. The results of the classification are stored as separate items in a list (here named z1). The groups are stored as a factor. The posterior probabilities and predicted scores are matrices.
+
+z1$class     # The groups into which the newdata were classified
+z1$posterior # posterior probabilities of group classifications
+z1$x         # yields scores of df1, df2,... for newdata
+If the newdata are not provided then predict will classify the individuals in the original training data set instead. The misclassification rate is expected to be on the low side when the data to be classified are the same as the data used to generate the discriminant function.
+
+z1 <- predict(z)
+table(mydata$group, z1$class) # accuracy of classification
 
 &nbsp;
 
@@ -498,7 +548,7 @@ There is a significant different is PC1 between winners in the Decastar and Olym
 
 &nbsp;
 
-## 10.4 Multiodimensional Scaling
+## 10.4 Multidimensional Scaling
 
 
 
