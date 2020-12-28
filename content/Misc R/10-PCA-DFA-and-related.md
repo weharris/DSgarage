@@ -269,12 +269,9 @@ fviz_pca_biplot(z, repel = TRUE,
 &nbsp;
 
 ```r
-# Graph of individuals
-fviz_pca_ind(z,
-             col.ind = "cos2", # Color by the quality of representation
-             gradient.cols = c("blue", "goldenrod", "red"),
-             repel = TRUE     # Avoid text overlapping
-             )
+# Graph of individuals in Base R
+
+biplot(z, choices = c(1,2), cex = 0.7) # PC1, PC2
 
 
 ```
@@ -359,6 +356,20 @@ z$sdev^2                      # eigenvalues (variances)
 fviz_eig(z)
 ```
 ![](/img/misc-10.7-fig.png)
+
+&nbsp;
+```r
+# DIY screeplot in Base R
+(x <- barplot(z$sdev^2/sum(z$sdev^2)*100,
+             ylab = "% Variance explained"))
+
+axis(side = 1, at = x, 
+      labels = c("pc1", "pc2", "pc3", "pc4", "pc5",
+                 "pc6", "pc7", "pc8", "pc9", "pc10"))
+
+```
+![](/img/misc-10.71-fig.png)
+
 
 &nbsp;
 
