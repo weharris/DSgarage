@@ -294,7 +294,7 @@ biochar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">str
 <p>The principle assumptions of the t-test are:</p>
 <ul>
 <li>
-<p><strong>Gaussian distribution of observations within each sample</strong></p>
+<p><strong>Gaussian distribution of observations WITHIN each sample</strong></p>
 </li>
 <li>
 <p><strong>Heteroscedasticity</strong> (our old friend) - i.e., the variance is equal in each sample</p>
@@ -304,10 +304,190 @@ biochar <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">str
 </li>
 </ul>
 <p> </p>
-<p>The t-test is known to be robust to violation of assumptions. For example, if the assumptions of Gaussian distribution and heteroscedasticiy are violated (a little), it is not likey to greatly bias your results.  The assumption of independence of observations remains very important however.</p>
-<p>The assumption of equal variances can be influenced by unequal samples size, however a common procedure is to use an esimation of common variance called the <strong>pooled variance</strong> that takes a weighted average of the variance for two samples.</p>
-<p><strong>Testing the assumptions</strong></p>
-<p>We would typically test assumption of Gaussian distribution using graphical evaluation of , for examples, a histogram (<code>hist()</code>) and a q-q plot (e.g., with <code>qqPlot()</code> in the <code>{MASS}</code> package).  We would typically examine the variance graphically or through calculation and comparison of descriptive statistics, although a formal test (e.g. using <code>var.test()</code>) is possible.  If the assumptions cannot be met reasonably with the data, a common alternative that does not require them is the <strong>Mann-Whitney U-test</strong> (which we will look at below).</p>
+<p><strong>Evaluating and testing the assumptions</strong></p>
+<p>The t-test is thought to be somewhat robust to violation of assumptions. For example, if the assumptions of Gaussian distribution and heteroscedasticiy are violated (a little), it is not likey to greatly bias your results.  The assumption of independence of observations is always of high importance. <strong>If in doubt about using your personal subjective judgement, based on your personal data analysis experience, it is always best to fully respect evidence that assumptions have been violated for parameteric statistics tests.</strong></p>
+<p> </p>
+<p><strong>Gaussian distribution of observations WITHIN each sample</strong></p>
+<p>We would typically first test the assumption of Gaussian distribution using graphical evaluation with, for examples, a histogram (<code>hist()</code>) and a q-q plot (e.g., with <code>qqplot()</code>), possibly along with a statistical test evaluating whether data are Gaussian (e.g., <code>shapiro.test()</code>.</p>
+<p><code>NB 1</code> the assumption of Gaussian does not apply to to ALL OBSERVATIONS TOGETHER for both samples of a 2 sample t-test, but applies TO EACH SAMPLE SEPARATELY (this is sometimes confusing for beginners).  The reason for this is that the very nature of the 2 sample t-test hypothesizes that the two samples come from DIFFERENT POPULATIONS, but that each population adheres to the Gaussian distribution.</p>
+<p><code>NB 2</code> testing whether each sample is Gaussian is analogous to testing whether the residuals are Gaussian for a 1-way ANOVA when the factor has exactly 2 levels (and, this is an equivalent test to the 2 sample t-test).</p>
+<p>The following code explores the ideas here further.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># First make some data as an example.</span>
+
+<span style="color:#75715e"># This is height in cm data measured from 30 females and 30 males</span>
+<span style="color:#75715e"># NB because we simulate this data, we literally specify the </span>
+<span style="color:#75715e"># samples are indeed from DIFFERENT, GAUSSIAN populations.</span>
+<span style="color:#75715e"># Obviously in a real sampling situation you would not know this,</span>
+<span style="color:#75715e"># hence we will test it formally.</span>
+
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">1</span>)
+height <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">185</span>,<span style="color:#ae81ff">10</span>),
+            <span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">150</span>,<span style="color:#ae81ff">10</span>))
+sex <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,
+         <span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,
+         <span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,
+         <span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,
+         <span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,
+         <span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>)
+         
+<span style="color:#75715e"># Package the variables we made into a data frame</span>
+<span style="color:#75715e"># and remove the variables outside the dataframe to </span>
+<span style="color:#75715e"># keep our global environment tidy (not required, but satisfying!)</span>
+
+data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(height,sex)
+<span style="color:#a6e22e">rm</span>(height, sex)
+
+<span style="color:#75715e"># plot raw data</span>
+<span style="color:#a6e22e">hist</span>(x <span style="color:#f92672">=</span> data<span style="color:#f92672">$</span>height, 
+     main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Height ignoring sex&#39;</span>,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Height (cm)&#39;</span>,
+     freq <span style="color:#f92672">=</span> F)
+     
+<span style="color:#75715e"># Draw expected Gaussian</span>
+
+
+<span style="color:#75715e"># Draw overall mean and the means</span>
+<span style="color:#75715e"># for each level of sex</span>
+
+<span style="color:#a6e22e">abline</span>(v <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">mean</span>(data<span style="color:#f92672">$</span>height),                 <span style="color:#75715e"># mean overall</span>
+             <span style="color:#a6e22e">mean</span>(data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;f&#39;</span>]),  <span style="color:#75715e"># mean f</span>
+             <span style="color:#a6e22e">mean</span>(data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;m&#39;</span>])), <span style="color:#75715e"># mean m</span>
+       lty <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>),                          <span style="color:#75715e"># line types for each</span>
+       lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,                                 <span style="color:#75715e"># line width for all 3</span>
+       col <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;black&#34;</span>, <span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>))         <span style="color:#75715e"># colour for each</span>
+
+<span style="color:#75715e"># Draw expected Gaussian density curve</span>
+mv <span style="color:#f92672">&lt;-</span> data<span style="color:#f92672">$</span>height                               <span style="color:#75715e"># generalizes following code</span>
+
+xcoord <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">min</span>(mv),                          <span style="color:#75715e"># make x coordinates</span>
+              <span style="color:#a6e22e">max</span>(mv),
+              length <span style="color:#f92672">=</span> <span style="color:#a6e22e">length</span>(mv))
+ycoord <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dnorm</span>(x <span style="color:#f92672">=</span> xcoord,                     <span style="color:#75715e"># make y coordinates</span>
+               mean <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(mv),
+               sd <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(mv))
+
+<span style="color:#a6e22e">lines</span>(x <span style="color:#f92672">=</span> xcoord, y <span style="color:#f92672">=</span> ycoord,                  <span style="color:#75715e"># draw curve</span>
+      col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;darkgreen&#39;</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+      
+<span style="color:#75715e"># for clarity here, add on some labels...</span>
+<span style="color:#a6e22e">text</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">155</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">.01</span>, labels <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f\nmean&#34;</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>)
+<span style="color:#a6e22e">text</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">182</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">.011</span>, labels <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;m\nmean&#34;</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>)
+<span style="color:#a6e22e">text</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">172.1</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">.015</span>, labels <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;grand\nmean&#34;</span>)
+<span style="color:#a6e22e">text</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">140</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">.012</span>, labels <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gaussian\ndensity&#34;</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;darkgreen&#34;</span>)
+      
+</code></pre></div><p><img src="/img/2.5-hist1.png" alt="hist"></p>
+<p> </p>
+<p>Note the histograph has 2 peaks, and is terribly non-Gaussian looking. Also note the data does not look similar to Gaussian!  To emphasize the point, we do not even expect these height measures to come from  the same population (in fact our hypothesis is that they do not), therefore we do not expect the WHOLE vector of data to be Gaussian.</p>
+<p>We could further formally test this of course, with a quantile-quantile (&ldquo;qq&rdquo;) plot, and perhaps a statistical test of Gaussian like the Shapiro Test.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">qqnorm</span>(data<span style="color:#f92672">$</span>height,
+        main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Q-Q Gaussian line for our Height data&#34;</span>)
+<span style="color:#a6e22e">qqline</span>(data<span style="color:#f92672">$</span>height)
+</code></pre></div><p><img src="/img/2.5-qq.png" alt="qq"></p>
+<p>Notice the q-q plot shows divergences from the Gaussian expected line at both ends and in the middle!  Compare this to our histogram and expected density curve above.</p>
+<p> </p>
+<p>The Shapiro Test will confirm that these data are not Gaussian.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">shapiro.test</span>(data<span style="color:#f92672">$</span>height)
+</code></pre></div><pre><code>	Shapiro-Wilk normality test
+
+data:  data$height
+W = 0.91918, p-value = 0.0007111
+</code></pre><p>So testing formally, we find that our data are different to the expecteded Gaussian (W = 0.92, n = 60, p = 0.0007).</p>
+<p><strong>Properly testing Gaussian for the 2 sample t-test</strong></p>
+<p>To properly test the assumption of Gaussian for a 2 sample t-test, you would test the assumption separately for each group. Here is an example that uses graphs and the Shapiro test:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># step 1 graph a hist() of the continuous variable</span>
+<span style="color:#75715e"># separately for each factor level</span>
+
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>))                                <span style="color:#75715e"># set so hists &#34;stack&#34;</span>
+
+<span style="color:#75715e"># draw males hist</span>
+<span style="color:#a6e22e">hist</span>(data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;m&#39;</span>],                 <span style="color:#75715e"># select males</span>
+     xlim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">min</span>(data<span style="color:#f92672">$</span>height), <span style="color:#a6e22e">max</span>(data<span style="color:#f92672">$</span>height)), <span style="color:#75715e"># set limit for ALL data</span>
+     col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>, freq <span style="color:#f92672">=</span> F,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height (cm)&#34;</span>, main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Males&#34;</span>) 
+
+mv <span style="color:#f92672">&lt;-</span> data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;m&#39;</span>]
+xcoord <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">min</span>(mv),                          <span style="color:#75715e"># make x coordinates</span>
+              <span style="color:#a6e22e">max</span>(mv),
+              length <span style="color:#f92672">=</span> <span style="color:#a6e22e">length</span>(mv))
+ycoord <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dnorm</span>(x <span style="color:#f92672">=</span> xcoord,                     <span style="color:#75715e"># make y coordinates</span>
+               mean <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(mv),
+               sd <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(mv))
+
+<span style="color:#a6e22e">lines</span>(x <span style="color:#f92672">=</span> xcoord, y <span style="color:#f92672">=</span> ycoord,                  <span style="color:#75715e"># draw curve</span>
+      col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;lightblue&#39;</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#75715e"># draw females hist</span>
+<span style="color:#a6e22e">hist</span>(data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;f&#39;</span>],                 <span style="color:#75715e"># select females</span>
+     xlim <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">min</span>(data<span style="color:#f92672">$</span>height), <span style="color:#a6e22e">max</span>(data<span style="color:#f92672">$</span>height)), <span style="color:#75715e"># set limit for ALL data</span>
+     col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>, freq <span style="color:#f92672">=</span> F,
+     xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height (cm)&#34;</span>, main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Females&#34;</span>)
+
+mv <span style="color:#f92672">&lt;-</span> data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;f&#39;</span>]
+xcoord <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">min</span>(mv),                          <span style="color:#75715e"># make x coordinates</span>
+              <span style="color:#a6e22e">max</span>(mv),
+
+              length <span style="color:#f92672">=</span> <span style="color:#a6e22e">length</span>(mv))
+ycoord <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dnorm</span>(x <span style="color:#f92672">=</span> xcoord,                     <span style="color:#75715e"># make y coordinates</span>
+               mean <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(mv),
+               sd <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(mv))
+<span style="color:#a6e22e">lines</span>(x <span style="color:#f92672">=</span> xcoord, y <span style="color:#f92672">=</span> ycoord,                   <span style="color:#75715e"># draw curve</span>
+      col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;pink&#39;</span>, lwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#75715e"># set default layout back</span>
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>)) 
+
+</code></pre></div><p><img src="/img/2.5-mfhist.png" alt="m-f hists"></p>
+<p> </p>
+<p>You can really see the difference here and each respective population seems to conform relatively closely to Gaussian (allowing for sampling error).  This is EXACTLY what we would expect for morphological data.</p>
+<p>Now we can make qq plots and formally test the distributions with the Shapiro Test.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## QQ Plots</span>
+
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+
+<span style="color:#75715e"># males</span>
+<span style="color:#a6e22e">qqnorm</span>(data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;m&#39;</span>],
+        main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Q-Q Gaussian line for male height&#34;</span>)
+<span style="color:#a6e22e">qqline</span>(data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;m&#39;</span>])
+
+<span style="color:#75715e"># females</span>
+<span style="color:#a6e22e">qqnorm</span>(data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;f&#39;</span>],
+        main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Q-Q Gaussian line for female height&#34;</span>)
+<span style="color:#a6e22e">qqline</span>(data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;f&#39;</span>])
+
+<span style="color:#a6e22e">par</span>(mfrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))
+
+</code></pre></div><p><img src="/img/2.5-qq2.png" alt="qq plots"></p>
+<p><strong>The q-q plots look much better for each sex separately for the height data - i.e., most of the points are near the expected lines.</strong></p>
+<p> </p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">## Shapiro Tests</span>
+
+<span style="color:#a6e22e">shapiro.test</span>(data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;m&#39;</span>])
+
+<span style="color:#a6e22e">shapiro.test</span>(data<span style="color:#f92672">$</span>height[data<span style="color:#f92672">$</span>sex <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;f&#39;</span>])
+
+</code></pre></div><pre><code>&gt; shapiro.test(data$height[data$sex == 'm'])
+
+	Shapiro-Wilk normality test
+
+data:  data$height[data$sex == &quot;m&quot;]
+W = 0.95011, p-value = 0.1703
+
+&gt; 
+&gt; shapiro.test(data$height[data$sex == 'f'])
+
+	Shapiro-Wilk normality test
+
+data:  data$height[data$sex == &quot;f&quot;]
+W = 0.98568, p-value = 0.9482
+</code></pre><p><strong>The Shapiro test for Gaussian showed that neither sample of height data for each respective sex deviates significantly from Gaussian (males: W = 0.95, n = 30, p = 0.17; females: W = 0.99, n = 30, p = 0.95).</strong></p>
+<p> </p>
+<p>If the Gaussian assumption cannot be met reasonably with the data, a common alternative that does not require it is the <strong>Mann-Whitney U-test</strong>, also known by the name Wilcoxon Test (which we will look at below).</p>
+<p> </p>
+<p><strong>Heteroscedasticity assumption</strong></p>
+<p>We would typically examine the variance graphically or through calculation and comparison of descriptive statistics, although a formal test (e.g. using <code>var.test()</code>) is possible. However, in the case of the 2 sample t-test, there exist methods to &ldquo;pool&rdquo; the standard deviation if variances are not equal.  Thus, if pooled SD is used and the 2 sample t-test is conducted assuming unequal variances (NB this is the defaul setting in the base R <code>t.test()</code>), it is not necessary to test this assumption for the specific case of the 2 sample t-test (but still may be interesting to be aware of as a feature of your data).</p>
+<p> </p>
+<p><strong>Independence assumption</strong></p>
+<p>The assumption of independence of data is extremely important and related to making an INFERENCE on a POPULATION of interest via SAMPLING one or more populations of interest. If for example pairs of observations are not independent, an alternative test would be appropriate, like the Paired t-test.</p>
 <p><a href="http://www.biostathandbook.com/twosamplettest.html">Further information about the t-test and assumptions</a> can be found in John MacDonald&rsquo;s excellent online Biostats Handbook.</p>
 <p> </p>
 <h1 id="anchor-3"></h1>
