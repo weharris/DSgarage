@@ -55,7 +55,7 @@ This page provides a brief overview on two methods to defend your sample size.  
             
 ## 11.1 Basics of count data modeling with GLM
             
-[Fish data](data/11.1-fish.csv)
+[Fish data](https://dsgarage.netlify.app/data/11.1-fish.csv)
 
 count - the number of fish caught by park visitors
 livebait - did they use it?
