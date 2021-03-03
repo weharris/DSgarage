@@ -84,5 +84,17 @@
 This page provides a very brief overview of some useful ordination techniques like Principle Components Analysis (PCA), Discriminant Function Analysis (DFA), and related techniques. A challege with such multivariate analyses is that different applied fields seem to have adopted different notation and jargopn associated with the basic techniques.</description>
     </item>
     
+    <item>
+      <title>Misc 11 Modeling Zero Inflated data</title>
+      <link>/misc-r/11-zero-inflated-models/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/misc-r/11-zero-inflated-models/</guid>
+      <description>**Data with lots of zeros is very common, occurring especially frequently with count data and behavioural events data. Is your Poisson distributed data zero inflated&amp;hellip;?
+  Overview
+This page provides a very brief introduction to modeling data with a lot of zeros, making modeling with Poisson GLM or Negative Binomial GLM a poor fit. We will cover a few topics:
+  Basics of count data modeling with GLM</description>
+    </item>
+    
   </channel>
 </rss>
