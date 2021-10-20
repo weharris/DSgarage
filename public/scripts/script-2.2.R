@@ -1,7 +1,7 @@
 ## HEADER ####
 ## Who: <YOUR NAME>
 ## https://dsgarage.netlify.app/
-## What: 2.1 Question, explore, analyze
+## What: 2.2 Distributions
 ## Last edited: <DATE TODAY in yyyy-mm-dd format)
 ####
 
@@ -311,3 +311,30 @@ set.seed(42)
   shear = c(14.0, 8.0, 14.0, 11.0, 14.0, 5.0, 9.5, 11.0, 6.5, 11.0, 
             18.5, 11.0, 18.5, 8.0, 8.0, 6.5, 18.5, 15.5, 14.0, 8.0)
   ))
+
+
+# 1 Do you expect "weight" to be Gaussian distributed? How about "ked"? 
+#   Explain your answer for each.
+
+
+
+# 2 Show the code to graphically diagnose and decide whether "weight" 
+# is Gaussian and explain your conclusion.
+
+
+
+# 3 Show the code to graphically diagnose and decide whether "ked" 
+# is Gaussian and explain your conclusion. If you choose another 
+# likely distribution, test it as well and similarly diagnose.
+
+
+
+# 4 Explore whether "trough" is Gaussian, and explain whether you 
+# expect it to be so. If not, does transforming the data "persuade 
+# it" to conform to Gaussian? Discuss.
+
+
+
+# 5 Write a plausible practice question involving any aspect of 
+# graphical diagnosis of data distribution.
+

@@ -29,8 +29,7 @@ dat <- rnorm_multi(
         0.6, 1),
   varnames = c("veg", "arthropods"),
   empirical = FALSE,
-  as.matrix = FALSE,
-  cors = NULL
+  as.matrix = FALSE
 )
 
 plot(x = dat, 

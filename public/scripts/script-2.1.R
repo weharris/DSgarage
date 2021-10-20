@@ -108,9 +108,9 @@ boxplot(formula = weight ~ feed,
 # directory, loads any required libraries and reads in the data. 
 # Call the data.frame object you create seed.
 
-setwd(r"(D:\Dropbox\git\DSgarage\public\scripts)")
+setwd(r"(D:\Dropbox\git-hads\ha-data-science.github.io\pages\harug-files\2021-10-06 bootcamp 2.1)")
 library(openxlsx)
-seed <- read.xlsx("field-trial.xlsx") 
+seed <- read.xlsx("data/field-trial.xlsx") 
 
 # 2 pct, wet and dry should be numeric; block and trial should 
 # be factors, and treatment should be a factor with the level 
