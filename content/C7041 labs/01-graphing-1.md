@@ -205,7 +205,7 @@ ggplot(guppy,
 
 The can see the labels included in quotes inside the xlab and ylab arguments now appear on your graph. 
 
-It can also be nice to remove the default gray background, to make what some feel is a cleaner graph. Try adding `+ theme_classic()` to the end of one of your lines of code making a graph, to see whether you prefer the result to the default design.  Also, you could add a title by adding the labs function and setting the main argument to a character string `+ labs(main = "your title")`.
+It can also be nice to remove the default gray background, to make what some feel is a cleaner graph. Try adding `+ theme_classic()` to the end of one of your lines of code making a graph, to see whether you prefer the result to the default design.  Also, you could add a title by adding the labs function and setting the main argument to a character string `+ labs(title = "your title")`.
 
 &nbsp;
 
