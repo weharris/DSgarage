@@ -82,7 +82,7 @@ To confirm these visual impressions, it would be useful to construct a table of 
 
 ```r
 
-if(!require("ggplot2")) install.packages("ggplot2")
+if(!require("dplyr")) install.packages("dplyr")
 
 
 ## 
